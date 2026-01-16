@@ -1,4 +1,4 @@
-# SAP Fiori URL Generator
+# ABAP Agent Skills
 
 > **Note**: This repository contains the `sap-fiori-url-generator` skill for Claude Code.
 
@@ -20,7 +20,7 @@ This tool simplifies the process of creating direct links to SAP Fiori applicati
 
 To run this skill, you need **Node.js** or **Python** installed in your environment to execute the generation scripts.
 
-The `AppList.json` file is located in the `skills/sap-fiori-url-generator/` directory.
+The `AppList.json` file is located in the `skills/sap-fiori-apps-reference/` directory.
 
 **JSON Structure:**
 ```json

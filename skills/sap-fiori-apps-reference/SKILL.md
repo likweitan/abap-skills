@@ -20,6 +20,16 @@ Use this reference to:
 - Provide app details (ID, description, component) to users
 - Suggest similar apps when exact match is not found
 
+### Updating AppList.json
+
+The AppList.json data can be obtained from SAP's Fiori Apps Library:
+
+1. Go to https://pr.alm.me.sap.com/launchpad#FALApp-display
+2. Export the app list to Excel
+3. Convert the Excel file to JSON format
+
+This ensures the app list stays current with the latest SAP Fiori applications.
+
 ## Overview
 
 When a user provides:

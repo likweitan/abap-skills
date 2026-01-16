@@ -139,8 +139,8 @@ if (require.main === module) {
     process.exit(1);
   }
 
-  // Try to find AppList.json in current directory or parent directories
-  let appListPath = path.join(__dirname, 'AppList.json');
+  // Try to find AppList.json in parent directory or other locations
+  let appListPath = path.join(__dirname, '..', 'AppList.json');
   if (!fs.existsSync(appListPath)) {
     appListPath = path.join(__dirname, '..', '..', 'AppList.json');
   }
@@ -150,7 +150,7 @@ if (require.main === module) {
   if (!fs.existsSync(appListPath)) {
     console.error('Error: AppList.json not found');
     console.error('Tried locations:');
-    console.error('  - ' + path.join(__dirname, 'AppList.json'));
+    console.error('  - ' + path.join(__dirname, '..', 'AppList.json'));
     console.error('  - ' + path.join(__dirname, '..', '..', 'AppList.json'));
     console.error('  - ' + path.join(process.cwd(), 'AppList.json'));
     process.exit(1);

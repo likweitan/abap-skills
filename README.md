@@ -18,7 +18,9 @@ This tool simplifies the process of creating direct links to SAP Fiori applicati
 
 ## 🛠 Prerequisites
 
-To use this skill effectively, you need an **`AppList.json`** file in your workspace containing your Fiori app catalog.
+To run this skill, you need **Node.js** or **Python** installed in your environment to execute the generation scripts.
+
+The `AppList.json` file is located in the `skills/sap-fiori-url-generator/` directory.
 
 **JSON Structure:**
 ```json

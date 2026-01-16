@@ -5,8 +5,8 @@
         "email": "likweitan@gmail.com"
     },
     "metadata": {
-        "description": "ABAP skills",
-        "version": "1.0.0"
+        "description": "ABAP development skills including Fiori URL generation and Clean ABAP code analysis",
+        "version": "1.1.0"
     },
     "plugins": [
         {
@@ -16,6 +16,15 @@
             "strict": false,
             "skills": [
                 "./skills/sap-fiori-url-generator"
+            ]
+        },
+        {
+            "name": "clean-abap",
+            "description": "Check ABAP code for compliance with Clean ABAP principles",
+            "source": "./",
+            "strict": false,
+            "skills": [
+                "./skills/clean-abap"
             ]
         }
     ]

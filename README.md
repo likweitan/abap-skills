@@ -1,76 +1,77 @@
 # ABAP Agent Skills
 
-> **Note**: This repository contains the `sap-fiori-url-generator` skill for Claude Code.
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A specialized Claude Code skill designed to generate SAP Fiori Launchpad (FLP) URLs by looking up app information and constructing the correct parameters.
+A collection of Claude Code skills for SAP ABAP development, including Fiori URL generation and Clean ABAP code analysis.
 
-## 🚀 Overview
+## Skills
 
-This tool simplifies the process of creating direct links to SAP Fiori applications. It takes an app name and environment details, looks up the technical configuration (Semantic Object & Action), and outputs a ready-to-use URL.
+### SAP Fiori Apps Reference Library
 
-**Key Features:**
-- 🔍 **Smart Lookup**: Finds apps by name (fuzzy search support) in `AppList.json`
-- 🔗 **Automatic Construction**: Builds standard FLP URLs with `sap-client` and `sap-language`
-- 🌍 **Language Support**: easily toggle between EN, DE, FR, etc.
-- 💡 **Intelligent Suggestions**: Suggests similar apps if an exact match isn't found
+Generate SAP Fiori Launchpad (FLP) URLs by looking up app information and constructing the correct parameters.
 
-## 🛠 Prerequisites
+**Features:**
+- Smart Lookup: Finds apps by name (fuzzy search) in `AppList.json`
+- Automatic Construction: Builds standard FLP URLs with `sap-client` and `sap-language`
+- Language Support: Toggle between EN, DE, FR, etc.
+- Intelligent Suggestions: Suggests similar apps if an exact match isn't found
 
-To run this skill, you need **Node.js** or **Python** installed in your environment to execute the generation scripts.
-
-The `AppList.json` file is located in the `skills/sap-fiori-apps-reference/` directory.
-
-**JSON Structure:**
-```json
-[
-  {
-    "App Name": "Create Maintenance Request",
-    "App ID": "F1511A",
-    "Semantic Object - Action": "MaintenanceWorkRequest-create",
-    "App Description": "Create maintenance requests for assets..."
-  }
-]
-```
-
-## � Usage
-
-Once installed as a Claude Code skill, you can ask for URLs naturally.
-
-### Required Information
-You must provide:
-1.  **Base URL** (e.g., `https://myserver.com:44300`)
-2.  **SAP Client** (e.g., `100`)
-3.  **App Name** (e.g., "Create Maintenance Request")
-
-### Example Prompts
-
-**Basic Generation:**
+**Example Prompts:**
 > "Generate URL for Create Maintenance Request app with base URL https://myserver.com:44300 and client 100"
 
-**Different Language:**
-> "Link for 'Manage Workflows' in German (DE) for client 200 on https://myserver.com"
-
-**Search:**
 > "Find apps related to 'Workflow'"
 
-## 🔧 URL Structure
-
-The generator produces URLs in the standard SAP Fiori format:
-
+**URL Format:**
 ```
 {BASE_URL}/sap/bc/ui2/flp?sap-client={CLIENT}&sap-language={LANGUAGE}#{SEMANTIC_OBJECT}-{ACTION}
 ```
 
-## 📂 Repository Structure
+### Clean ABAP
 
-- `skills/sap-fiori-url-generator/`
-    - `SKILL.md`: The core prompt engineering and logic definition for Claude.
-    - `fiori-url-generator.js`: Reference JavaScript implementation.
-    - `fiori-url-generator.py`: Reference Python implementation.
-    - `AppList.json`: (Required at runtime) The data source for app lookups.
+Check ABAP code for compliance with Clean ABAP principles, based on Robert C. Martin's Clean Code adapted for ABAP.
 
-## 📄 License
+**Features:**
+- Comprehensive code analysis across 15 categories (Names, Language, Constants, Variables, Tables, Strings, Booleans, Conditions, Ifs, Classes, Methods, Error Handling, Comments, Formatting, Testing)
+- Priority-based issue reporting (Critical, Major, Minor)
+- Actionable recommendations with code examples
+- Reference to complete Clean ABAP style guide
+
+**Example Prompts:**
+> "Check this ABAP code for clean code compliance"
+
+> "Review my ABAP method for best practices"
+
+> "Is this clean ABAP?"
+
+**Check Categories:**
+- **Names**: Descriptive naming, no Hungarian notation, snake_case
+- **Language**: Modern syntax, functional constructs, no obsolete elements
+- **Methods**: Small methods, few parameters, RETURNING over EXPORTING
+- **Error Handling**: Exceptions over return codes, proper exception classes
+- **And more...**
+
+## Repository Structure
+
+```
+skills/
+├── sap-fiori-url-generator/
+│   ├── SKILL.md
+│   ├── fiori-url-generator.js
+│   ├── fiori-url-generator.py
+│   └── AppList.json
+└── clean-abap/
+    ├── SKILL.md
+    └── references/
+        ├── CleanABAP.md
+        ├── checklist.md
+        └── quick-reference.md
+```
+
+## Prerequisites
+
+- **Node.js** or **Python** for the Fiori URL generator scripts
+- The `AppList.json` file for Fiori app lookups
+
+## License
 
 MIT

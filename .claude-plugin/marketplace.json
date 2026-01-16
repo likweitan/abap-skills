@@ -10,12 +10,12 @@
     },
     "plugins": [
         {
-            "name": "fiori-skills",
-            "description": "Collection of Fiori skills",
+            "name": "sap-fiori-url-generator",
+            "description": "Generate SAP Fiori Launchpad URLs from app names",
             "source": "./",
             "strict": false,
             "skills": [
-                "./skills/sap-fiori-url-generator"
+                "./skills/sap-fiori-apps-reference"
             ]
         },
         {

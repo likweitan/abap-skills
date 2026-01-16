@@ -8,6 +8,18 @@ license: MIT
 
 This skill enables you to generate SAP Fiori Launchpad (FLP) URLs based on app names from the AppList.json file.
 
+## References
+
+When you need to look up SAP Fiori app information:
+
+**App List Database**: Read `@skills/sap-fiori-apps-reference/references/AppList.json` - contains all SAP Fiori apps with their Semantic Object-Action mappings, App IDs, descriptions, and technical details.
+
+Use this reference to:
+- Search for apps by name (partial match, case-insensitive)
+- Extract the "Semantic Object - Action" field for URL generation
+- Provide app details (ID, description, component) to users
+- Suggest similar apps when exact match is not found
+
 ## Overview
 
 When a user provides:

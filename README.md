@@ -54,11 +54,14 @@ Check ABAP code for compliance with Clean ABAP principles, based on Robert C. Ma
 
 ```
 skills/
-├── sap-fiori-url-generator/
+├── sap-fiori-apps-reference/
 │   ├── SKILL.md
-│   ├── fiori-url-generator.js
-│   ├── fiori-url-generator.py
-│   └── AppList.json
+│   ├── scripts/
+│   │   ├── fiori-url-generator.js
+│   │   ├── fiori-url-generator.py
+│   │   └── test.py
+│   └── references/
+│       └── AppList.json
 └── clean-abap/
     ├── SKILL.md
     └── references/

@@ -1,0 +1,22 @@
+{
+    "name": "abap-skills",
+    "owner": {
+        "name": "Lik Wei Tan",
+        "email": "likweitan@gmail.com"
+    },
+    "metadata": {
+        "description": "ABAP skills",
+        "version": "1.0.0"
+    },
+    "plugins": [
+        {
+            "name": "fiori-skills",
+            "description": "Collection of Fiori skills",
+            "source": "./",
+            "strict": false,
+            "skills": [
+                "./skills/sap-fiori-url-generator"
+            ]
+        }
+    ]
+}

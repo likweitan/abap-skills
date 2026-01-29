@@ -4,6 +4,20 @@
 
 A collection of Claude Code skills for SAP ABAP development, including Fiori URL generation and Clean ABAP code analysis.
 
+## Installation
+
+Note: Installation differs by platform. Claude Code has a built-in plugin system. Codex and OpenCode require manual setup.
+
+### OpenCode
+
+Tell OpenCode:
+
+```
+Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md
+```
+
+Detailed docs: docs/README.opencode.md
+
 ## Skills
 
 ### SAP Fiori Apps Reference Library

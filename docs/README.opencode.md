@@ -7,7 +7,7 @@ Complete guide for using ABAP Skills with [OpenCode.ai](https://opencode.ai).
 Tell OpenCode:
 
 ```
-Clone https://github.com/YOUR_USERNAME/abap-skills to ~/.config/opencode/abap-skills, then create directory ~/.config/opencode/skills, then symlink ~/.config/opencode/abap-skills/skills to ~/.config/opencode/skills/abap-skills, then restart opencode.
+Clone https://github.com/likweitan/abap-skills to ~/.config/opencode/abap-skills, then create directory ~/.config/opencode/skills, then symlink ~/.config/opencode/abap-skills/skills to ~/.config/opencode/skills/abap-skills, then restart opencode.
 ```
 
 ## Manual Installation
@@ -24,7 +24,7 @@ Clone https://github.com/YOUR_USERNAME/abap-skills to ~/.config/opencode/abap-sk
 if [ -d ~/.config/opencode/abap-skills ]; then
   cd ~/.config/opencode/abap-skills && git pull
 else
-  git clone https://github.com/YOUR_USERNAME/abap-skills.git ~/.config/opencode/abap-skills
+  git clone https://github.com/likweitan/abap-skills.git ~/.config/opencode/abap-skills
 fi
 
 # 2. Create skills directory
@@ -63,7 +63,7 @@ Run as Administrator, or with Developer Mode enabled:
 
 ```cmd
 :: 1. Install ABAP Skills
-git clone https://github.com/YOUR_USERNAME/abap-skills.git "%USERPROFILE%\.config\opencode\abap-skills"
+git clone https://github.com/likweitan/abap-skills.git "%USERPROFILE%\.config\opencode\abap-skills"
 
 :: 2. Create skills directory
 mkdir "%USERPROFILE%\.config\opencode\skills" 2>nul
@@ -83,7 +83,7 @@ Run as Administrator, or with Developer Mode enabled:
 
 ```powershell
 # 1. Install ABAP Skills
-git clone https://github.com/YOUR_USERNAME/abap-skills.git "$env:USERPROFILE\.config\opencode\abap-skills"
+git clone https://github.com/likweitan/abap-skills.git "$env:USERPROFILE\.config\opencode\abap-skills"
 
 # 2. Create skills directory
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode\skills"
@@ -103,7 +103,7 @@ Note: Git Bash's native `ln` command copies files instead of creating symlinks. 
 
 ```bash
 # 1. Install ABAP Skills
-git clone https://github.com/YOUR_USERNAME/abap-skills.git ~/.config/opencode/abap-skills
+git clone https://github.com/likweitan/abap-skills.git ~/.config/opencode/abap-skills
 
 # 2. Create skills directory
 mkdir -p ~/.config/opencode/skills
@@ -279,8 +279,8 @@ If you see `Cannot find module` errors on Windows:
 
 ## Getting Help
 
-- Report issues: https://github.com/YOUR_USERNAME/abap-skills/issues
-- Main documentation: https://github.com/YOUR_USERNAME/abap-skills
+- Report issues: https://github.com/likweitan/abap-skills/issues
+- Main documentation: https://github.com/likweitan/abap-skills
 - OpenCode docs: https://opencode.ai/docs/
 
 ## Testing

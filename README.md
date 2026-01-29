@@ -26,6 +26,7 @@ Generate SAP Fiori Launchpad (FLP) URLs by looking up app information and constr
 
 **Features:**
 - Smart Lookup: Finds apps by name (fuzzy search) in `AppList.json`
+  - *Source: [SAP Fiori Apps Library](https://pr.alm.me.sap.com/launchpad#FALApp-display&/apps)*
 - Automatic Construction: Builds standard FLP URLs with `sap-client` and `sap-language`
 - Language Support: Toggle between EN, DE, FR, etc.
 - Intelligent Suggestions: Suggests similar apps if an exact match isn't found

@@ -13,7 +13,7 @@ Note: Installation differs by platform. Claude Code has a built-in plugin system
 Tell OpenCode:
 
 ```
-Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md
+Fetch and follow instructions from https://raw.githubusercontent.com/likweitan/abap-skills/refs/heads/main/.opencode/INSTALL.md
 ```
 
 Detailed docs: docs/README.opencode.md

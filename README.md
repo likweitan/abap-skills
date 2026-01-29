@@ -26,6 +26,33 @@ Generate SAP Fiori Launchpad (FLP) URLs by looking up app information and constr
 {BASE_URL}/sap/bc/ui2/flp?sap-client={CLIENT}&sap-language={LANGUAGE}#{SEMANTIC_OBJECT}-{ACTION}
 ```
 
+### Released ABAP Classes
+
+Quick reference for finding released ABAP classes available in ABAP Cloud Development (SAP BTP ABAP Environment).
+
+**Features:**
+- Comprehensive catalog of 50+ released ABAP classes organized by category
+- Ready-to-use code examples for common use cases
+- Covers: Console, UUID, Time/Date, Email, JSON/XML, HTTP, RAP, String Processing, Random Numbers, Regex, Unit Testing, Parallel Processing, Application Logs, PDF Rendering, and more
+
+**Example Prompts:**
+> "What is the released class for sending email?"
+
+> "Give me the class for getting time and date in UTC format"
+
+> "How do I generate a UUID in ABAP Cloud?"
+
+> "Show me classes for JSON processing"
+
+**Common Categories:**
+- **Console Output**: `IF_OO_ADT_CLASSRUN`, `CL_DEMO_CLASSRUN`
+- **Email**: `CL_BCS_MAIL_MESSAGE`
+- **UUID**: `CL_SYSTEM_UUID`, `XCO_CP_UUID`
+- **Time & Date**: `CL_ABAP_CONTEXT_INFO`, `XCO_CP_TIME`, `CL_ABAP_UTCLONG`
+- **JSON/XML**: `XCO_CP_JSON`, `/UI2/CL_JSON`, `CL_SXML_*`
+- **HTTP**: `CL_WEB_HTTP_CLIENT_MANAGER`, `CL_HTTP_DESTINATION_PROVIDER`
+- **RAP**: `CL_ABAP_BEHV_AUX`, `CL_ABAP_BEHAVIOR_HANDLER`
+
 ### Clean ABAP
 
 Check ABAP code for compliance with Clean ABAP principles, based on Robert C. Martin's Clean Code adapted for ABAP.
@@ -62,6 +89,10 @@ skills/
 │   │   └── test.py
 │   └── references/
 │       └── AppList.json
+├── released-abap-classes/
+│   ├── SKILL.md
+│   └── references/
+│       └── Released_ABAP_Classes.md
 └── clean-abap/
     ├── SKILL.md
     └── references/

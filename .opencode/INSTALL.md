@@ -1,0 +1,119 @@
+# Installing ABAP Skills for OpenCode
+
+## Prerequisites
+
+- [OpenCode.ai](https://opencode.ai) installed
+- Git installed
+
+## Installation Steps
+
+### 1. Clone ABAP Skills
+
+```bash
+git clone https://github.com/likweitan/abap-skills.git ~/.config/opencode/abap-skills
+```
+
+### 2. Register the Plugin
+
+Create a symlink so OpenCode discovers the plugin:
+
+```bash
+mkdir -p ~/.config/opencode/plugins
+rm -f ~/.config/opencode/plugins/abap-skills.js
+ln -s ~/.config/opencode/abap-skills/.opencode/plugins/abap-skills.js ~/.config/opencode/plugins/abap-skills.js
+```
+
+### 3. Symlink Skills
+
+Create a symlink so OpenCode's native skill tool discovers abap-skills skills:
+
+```bash
+mkdir -p ~/.config/opencode/skills
+rm -rf ~/.config/opencode/skills/abap-skills
+ln -s ~/.config/opencode/abap-skills/skills ~/.config/opencode/skills/abap-skills
+```
+
+### 4. Restart OpenCode
+
+Restart OpenCode. The plugin will automatically inject abap-skills context.
+
+Verify by asking: "do you have abap-skills?"
+
+## Usage
+
+### Finding Skills
+
+Use OpenCode's native `skill` tool to list available skills:
+
+```
+use skill tool to list skills
+```
+
+### Loading a Skill
+
+Use OpenCode's native `skill` tool to load a specific skill:
+
+```
+use skill tool to load abap-skills/released-abap-classes
+```
+
+### Personal Skills
+
+Create your own skills in `~/.config/opencode/skills/`:
+
+```bash
+mkdir -p ~/.config/opencode/skills/my-skill
+```
+
+Create `~/.config/opencode/skills/my-skill/SKILL.md`:
+
+```markdown
+---
+name: my-skill
+description: Use when [condition] - [what it does]
+---
+
+# My Skill
+
+[Your skill content here]
+```
+
+### Project Skills
+
+Create project-specific skills in `.opencode/skills/` within your project.
+
+**Skill Priority:** Project skills > Personal skills > ABAP Skills
+
+## Updating
+
+```bash
+cd ~/.config/opencode/abap-skills
+git pull
+```
+
+## Troubleshooting
+
+### Plugin not loading
+
+1. Check plugin symlink: `ls -l ~/.config/opencode/plugins/abap-skills.js`
+2. Check source exists: `ls ~/.config/opencode/abap-skills/.opencode/plugins/abap-skills.js`
+3. Check OpenCode logs for errors
+
+### Skills not found
+
+1. Check skills symlink: `ls -l ~/.config/opencode/skills/abap-skills`
+2. Verify it points to: `~/.config/opencode/abap-skills/skills`
+3. Use `skill` tool to list what's discovered
+
+### Tool mapping
+
+When skills reference Claude Code tools:
+- `TodoWrite` → `update_plan`
+- `Task` with subagents → `@mention` syntax
+- `Skill` tool → OpenCode's native `skill` tool
+- File operations → your native tools
+
+## Getting Help
+
+- Report issues: https://github.com/likweitan/abap-skills/issues
+- Full documentation: https://github.com/likweitan/abap-skills/blob/main/docs/README.opencode.md

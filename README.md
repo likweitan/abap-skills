@@ -6,7 +6,25 @@ A collection of Claude Code skills for SAP ABAP development, including Fiori URL
 
 ## Installation
 
-Note: Installation differs by platform. Claude Code has a built-in plugin system. Codex and OpenCode require manual setup.
+Note: Installation differs by platform.
+
+### Claude Code
+
+Clone the repository and copy the skills to your Claude Code skills directory:
+
+```bash
+git clone https://github.com/likweitan/abap-skills.git
+cp -r abap-skills/skills/* ~/.claude/skills/
+```
+
+Or install a single skill:
+
+```bash
+# Example: Install only the clean-abap skill
+cp -r abap-skills/skills/clean-abap ~/.claude/skills/
+```
+
+After installation, restart Claude Code to load the new skills.
 
 ### OpenCode
 

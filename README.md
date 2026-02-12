@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A collection of Claude Code skills for SAP ABAP development, including Fiori URL generation and Clean ABAP code analysis.
+A collection of Claude Code skills for SAP ABAP development, including Fiori URL generation and ABAP code analysis with [abaplint](https://github.com/abaplint/abaplint).
 
 ## Installation
 
@@ -20,8 +20,8 @@ cp -r abap-skills/skills/* ~/.claude/skills/
 Or install a single skill:
 
 ```bash
-# Example: Install only the clean-abap skill
-cp -r abap-skills/skills/clean-abap ~/.claude/skills/
+# Example: Install only the abap skill
+cp -r abap-skills/skills/abap ~/.claude/skills/
 ```
 
 After installation, restart Claude Code to load the new skills.
@@ -86,24 +86,28 @@ Quick reference for finding released ABAP classes available in ABAP Cloud Develo
 - **HTTP**: `CL_WEB_HTTP_CLIENT_MANAGER`, `CL_HTTP_DESTINATION_PROVIDER`
 - **RAP**: `CL_ABAP_BEHV_AUX`, `CL_ABAP_BEHAVIOR_HANDLER`
 
-### Clean ABAP
+### ABAP
 
-Check ABAP code for compliance with Clean ABAP principles, based on Robert C. Martin's Clean Code adapted for ABAP.
+Check and improve ABAP code quality using [abaplint](https://github.com/abaplint/abaplint) and Clean ABAP principles.
 
 **Features:**
-- Comprehensive code analysis across 15 categories (Names, Language, Constants, Variables, Tables, Strings, Booleans, Conditions, Ifs, Classes, Methods, Error Handling, Comments, Formatting, Testing)
+- Automated static analysis via [abaplint](https://github.com/abaplint/abaplint) CLI for syntax, type, and rule checking
+- Starter configurations for On-Premise, Steampunk/BTP, and HANA compatibility
+- Comprehensive Clean ABAP review across 15 categories (Names, Language, Constants, Variables, Tables, Strings, Booleans, Conditions, Ifs, Classes, Methods, Error Handling, Comments, Formatting, Testing)
 - Priority-based issue reporting (Critical, Major, Minor)
 - Actionable recommendations with code examples
-- Reference to complete Clean ABAP style guide
 
 **Example Prompts:**
+> "Run abaplint on my ABAP project"
+
+> "Configure abaplint for my on-premise system"
+
 > "Check this ABAP code for clean code compliance"
 
 > "Review my ABAP method for best practices"
 
-> "Is this clean ABAP?"
-
 **Check Categories:**
+- **abaplint**: Syntax errors, type checking, parser errors, DDIC checks, and [configurable rules](https://rules.abaplint.org/)
 - **Names**: Descriptive naming, no Hungarian notation, snake_case
 - **Language**: Modern syntax, functional constructs, no obsolete elements
 - **Methods**: Small methods, few parameters, RETURNING over EXPORTING
@@ -126,9 +130,10 @@ skills/
 │   ├── SKILL.md
 │   └── references/
 │       └── Released_ABAP_Classes.md
-└── clean-abap/
+└── abap/
     ├── SKILL.md
     └── references/
+        ├── abaplint.md
         ├── CleanABAP.md
         ├── checklist.md
         └── quick-reference.md
@@ -136,7 +141,7 @@ skills/
 
 ## Prerequisites
 
-- **Node.js** or **Python** for the Fiori URL generator scripts
+- **Node.js** (v16+) for the Fiori URL generator scripts and [abaplint](https://github.com/abaplint/abaplint) (`npm install @abaplint/cli -g`)
 - The `AppList.json` file for Fiori app lookups
 
 ## License

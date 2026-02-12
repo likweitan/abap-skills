@@ -6,6 +6,7 @@ description: Check and improve ABAP code quality using abaplint and Clean ABAP p
 # ABAP
 
 Check and improve ABAP code quality using two complementary approaches:
+
 - **abaplint**: Automated static analysis via CLI, checking syntax, types, and configurable rules
 - **Clean ABAP**: Manual review against Clean ABAP style guide principles
 
@@ -50,47 +51,61 @@ For detailed abaplint configuration including starter configs for On-Premise, St
 ## Clean ABAP Check Categories
 
 ### Names
-- Use descriptive names, snake_case, no Hungarian notation (iv_, lv_, lt_)
+
+- Use descriptive names, snake*case, no Hungarian notation (iv*, lv*, lt*)
 - Nouns for classes, verbs for methods, no noise words
 
 ### Language
+
 - Prefer OO over procedural, functional over imperative
 - Use modern syntax: NEW, inline declarations, table expressions
 
 ### Constants
+
 - No magic numbers, use ENUM or grouped constants
 
 ### Variables
+
 - Prefer inline declarations, no chained DATA
 
 ### Tables
+
 - No DEFAULT KEY, use INSERT INTO TABLE, LINE_EXISTS, WHERE clauses
 
 ### Strings
+
 - Backticks for literals, pipes for string templates
 
 ### Booleans
+
 - Use ABAP_BOOL, ABAP_TRUE/ABAP_FALSE, XSDBOOL
 
 ### Conditions
+
 - Positive conditions, IS NOT over NOT IS, predicative method calls
 
 ### Ifs
+
 - No empty IF branches, CASE over ELSE IF, nesting depth <= 3
 
 ### Methods
+
 - Instance over static, RETURNING over EXPORTING, <= 3 parameters, <= 20 lines
 
 ### Error Handling
+
 - Exceptions over return codes, class-based exceptions, no catching CX_ROOT
 
 ### Comments
-- Explain why not what, " over *, no commented-out code
+
+- Explain why not what, " over \*, no commented-out code
 
 ### Formatting
+
 - One statement per line, <= 120 chars, consistent indentation
 
 ### Testing
+
 - Given-when-then structure, focused assertions, dependency injection
 
 ## Output Format

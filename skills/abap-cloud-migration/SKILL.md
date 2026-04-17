@@ -25,60 +25,60 @@ Guide for systematically migrating classic ABAP custom code to ABAP Cloud (Tier 
 
 ### Key ATC Check Messages
 
-| Message ID | Description                                    | Action                                   |
-| ---------- | ---------------------------------------------- | ---------------------------------------- |
-| `NROB`     | Use of unreleased number range API             | Use `CL_NUMBERRANGE_RUNTIME`              |
-| `BAPI`     | Direct BAPI call                                | Use released RAP API or wrapper           |
-| `DYNP`     | Dynpro/screen usage                             | Replace with Fiori/UI5                   |
-| `FUGR`     | Unreleased function module call                 | Find released replacement or wrap         |
-| `CLAS`     | Unreleased class usage                          | Find released replacement or wrap         |
-| `TABL`     | Direct DB table access (not released)           | Use released CDS view entity              |
-| `LANG`     | Incompatible language construct                  | Refactor to use modern ABAP               |
+| Message ID | Description                           | Action                            |
+| ---------- | ------------------------------------- | --------------------------------- |
+| `NROB`     | Use of unreleased number range API    | Use `CL_NUMBERRANGE_RUNTIME`      |
+| `BAPI`     | Direct BAPI call                      | Use released RAP API or wrapper   |
+| `DYNP`     | Dynpro/screen usage                   | Replace with Fiori/UI5            |
+| `FUGR`     | Unreleased function module call       | Find released replacement or wrap |
+| `CLAS`     | Unreleased class usage                | Find released replacement or wrap |
+| `TABL`     | Direct DB table access (not released) | Use released CDS view entity      |
+| `LANG`     | Incompatible language construct       | Refactor to use modern ABAP       |
 
 ## Common API Replacements
 
 ### Database Access
 
-| Classic Pattern                              | ABAP Cloud Replacement                              |
-| -------------------------------------------- | ---------------------------------------------------- |
-| `SELECT FROM mara`                           | `SELECT FROM i_product`                               |
-| `SELECT FROM bkpf / bseg`                   | `SELECT FROM i_journalentry`                          |
-| `SELECT FROM vbak / vbap`                   | `SELECT FROM i_salesorder`                            |
-| `SELECT FROM ekko / ekpo`                   | `SELECT FROM i_purchaseorder`                         |
-| `SELECT FROM kna1`                           | `SELECT FROM i_customer`                              |
-| `SELECT FROM lfa1`                           | `SELECT FROM i_supplier`                              |
-| `SELECT FROM t001`                           | `SELECT FROM i_companycode`                           |
-| Direct table access                          | Use `I_*` released CDS views                          |
+| Classic Pattern           | ABAP Cloud Replacement        |
+| ------------------------- | ----------------------------- |
+| `SELECT FROM mara`        | `SELECT FROM i_product`       |
+| `SELECT FROM bkpf / bseg` | `SELECT FROM i_journalentry`  |
+| `SELECT FROM vbak / vbap` | `SELECT FROM i_salesorder`    |
+| `SELECT FROM ekko / ekpo` | `SELECT FROM i_purchaseorder` |
+| `SELECT FROM kna1`        | `SELECT FROM i_customer`      |
+| `SELECT FROM lfa1`        | `SELECT FROM i_supplier`      |
+| `SELECT FROM t001`        | `SELECT FROM i_companycode`   |
+| Direct table access       | Use `I_*` released CDS views  |
 
 ### Function Modules → Released Classes
 
-| Classic FM                                    | Released Replacement                                  |
-| --------------------------------------------- | ----------------------------------------------------- |
-| `GUID_CREATE`                                 | `cl_system_uuid=>create_uuid_x16_static( )`           |
-| `CONVERSION_EXIT_ALPHA_INPUT`                 | `cl_abap_format=>alpha_input( )`                       |
-| `CONVERSION_EXIT_ALPHA_OUTPUT`                | `cl_abap_format=>alpha_output( )`                      |
-| `POPUP_TO_CONFIRM`                            | Not available — use Fiori UI                           |
-| `NUMBER_GET_NEXT`                             | `cl_numberrange_runtime=>number_get( )`                |
-| `BAPI_TRANSACTION_COMMIT`                     | Handled by RAP framework (no explicit commit)          |
-| `SO_NEW_DOCUMENT_ATT_SEND_API1`              | `cl_bcs_mail_message` (send emails)                    |
-| `READ_TEXT` / `SAVE_TEXT`                     | Not released — wrap or use custom persistence          |
-| `JOB_OPEN` / `JOB_CLOSE` / `JOB_SUBMIT`     | `cl_apj_rt_api` (Application Jobs)                     |
-| `ENQUEUE_*` / `DEQUEUE_*`                    | RAP draft / managed locking or `CL_ABAP_LOCK_OBJECT`  |
+| Classic FM                              | Released Replacement                                 |
+| --------------------------------------- | ---------------------------------------------------- |
+| `GUID_CREATE`                           | `cl_system_uuid=>create_uuid_x16_static( )`          |
+| `CONVERSION_EXIT_ALPHA_INPUT`           | `cl_abap_format=>alpha_input( )`                     |
+| `CONVERSION_EXIT_ALPHA_OUTPUT`          | `cl_abap_format=>alpha_output( )`                    |
+| `POPUP_TO_CONFIRM`                      | Not available — use Fiori UI                         |
+| `NUMBER_GET_NEXT`                       | `cl_numberrange_runtime=>number_get( )`              |
+| `BAPI_TRANSACTION_COMMIT`               | Handled by RAP framework (no explicit commit)        |
+| `SO_NEW_DOCUMENT_ATT_SEND_API1`         | `cl_bcs_mail_message` (send emails)                  |
+| `READ_TEXT` / `SAVE_TEXT`               | Not released — wrap or use custom persistence        |
+| `JOB_OPEN` / `JOB_CLOSE` / `JOB_SUBMIT` | `cl_apj_rt_api` (Application Jobs)                   |
+| `ENQUEUE_*` / `DEQUEUE_*`               | RAP draft / managed locking or `CL_ABAP_LOCK_OBJECT` |
 
 ### Language Constructs
 
-| Incompatible Construct                       | Cloud-Compatible Alternative                          |
-| -------------------------------------------- | ----------------------------------------------------- |
-| `CALL TRANSACTION`                            | Not available — use API or RAP                        |
-| `SUBMIT ... AND RETURN`                       | Not available — use Application Jobs                  |
-| `WRITE` / `SKIP` / `ULINE` (list output)     | Not available — use Fiori UI for output               |
-| `CALL SCREEN` / `CALL SELECTION-SCREEN`       | Not available — use Fiori/UI5                         |
-| `MESSAGE ... RAISING`                         | `RAISE EXCEPTION TYPE ...`                             |
-| `CALL FUNCTION ... IN UPDATE TASK`            | RAP saver class / managed save                        |
-| `EXEC SQL` (Native SQL)                       | ABAP SQL or AMDP                                      |
-| `GENERATE SUBROUTINE POOL`                    | Not available — use strategy/factory pattern           |
-| `DESCRIBE FIELD ... TYPE`                     | RTTI: `cl_abap_typedescr=>describe_by_data( )`        |
-| `GET/SET PARAMETER ID`                        | Not available — use method parameters                 |
+| Incompatible Construct                   | Cloud-Compatible Alternative                   |
+| ---------------------------------------- | ---------------------------------------------- |
+| `CALL TRANSACTION`                       | Not available — use API or RAP                 |
+| `SUBMIT ... AND RETURN`                  | Not available — use Application Jobs           |
+| `WRITE` / `SKIP` / `ULINE` (list output) | Not available — use Fiori UI for output        |
+| `CALL SCREEN` / `CALL SELECTION-SCREEN`  | Not available — use Fiori/UI5                  |
+| `MESSAGE ... RAISING`                    | `RAISE EXCEPTION TYPE ...`                     |
+| `CALL FUNCTION ... IN UPDATE TASK`       | RAP saver class / managed save                 |
+| `EXEC SQL` (Native SQL)                  | ABAP SQL or AMDP                               |
+| `GENERATE SUBROUTINE POOL`               | Not available — use strategy/factory pattern   |
+| `DESCRIBE FIELD ... TYPE`                | RTTI: `cl_abap_typedescr=>describe_by_data( )` |
+| `GET/SET PARAMETER ID`                   | Not available — use method parameters          |
 
 ## Wrapper Pattern
 
@@ -158,6 +158,7 @@ ENDCLASS.
 ### Step 3: Release the Wrapper
 
 In ADT, open the wrapper class properties:
+
 1. Go to **API State** tab
 2. Add **Use System-Internally (C1)** contract
 3. Set visibility to **Use in ABAP Cloud**
@@ -224,6 +225,7 @@ RFC FM → Released API class or RAP service
 ### Using the Released Objects App
 
 Fiori app **Released Objects** (`F5865`):
+
 - Search by classic object name
 - Filter by release state (C1, C2)
 - View successor information
@@ -264,14 +266,17 @@ When helping with migration topics, structure responses as:
 ## Migration Guidance
 
 ### Current Code Analysis
+
 - Unreleased APIs found: [list]
 - Incompatible constructs: [list]
 - Estimated effort: [low / medium / high]
 
 ### Replacement Strategy
+
 [For each finding: original → replacement with code]
 
 ### Wrapper Requirements
+
 [Objects needing Tier 2 wrappers]
 ```
 

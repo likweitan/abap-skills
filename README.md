@@ -4,6 +4,31 @@
 
 A collection of Claude Code skills for SAP ABAP development — covering RAP, CDS, OData, ABAP Cloud, testing, authorization, eventing, migration, and more.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Skills](#skills)
+  - [SAP Fiori Apps Reference Library](#sap-fiori-apps-reference-library)
+  - [Released ABAP Classes](#released-abap-classes)
+  - [ATC Cloudification Repository](#atc-cloudification-repository)
+  - [ABAP](#abap)
+  - [Clean ABAP](#clean-abap)
+  - [RAP (RESTful ABAP Programming Model)](#rap-restful-abap-programming-model)
+  - [CDS View Entities](#cds-view-entities)
+  - [ABAP Unit Testing](#abap-unit-testing)
+  - [ABAP Cloud / Clean Core](#abap-cloud--clean-core)
+  - [abapGit Workflows](#abapgit-workflows)
+  - [OData Service Development](#odata-service-development)
+  - [ABAP SQL & AMDP](#abap-sql--amdp)
+  - [BAdI & Enhancement Framework](#badi--enhancement-framework)
+  - [SAP BTP ABAP Environment](#sap-btp-abap-environment)
+  - [Authorization & IAM](#authorization--iam)
+  - [RAP Business Events & Enterprise Eventing](#rap-business-events--enterprise-eventing)
+  - [ABAP Cloud Migration Patterns](#abap-cloud-migration-patterns)
+- [Repository Structure](#repository-structure)
+- [Prerequisites](#prerequisites)
+- [License](#license)
+
 ## Installation
 
 Note: Installation differs by platform.

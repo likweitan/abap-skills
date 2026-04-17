@@ -159,14 +159,14 @@ SELECT FROM zi_travel
 
 ### Built-in SQL Functions
 
-| Category     | Functions                                                           |
-| ------------ | ------------------------------------------------------------------- |
-| **String**   | `CONCAT`, `SUBSTRING`, `LENGTH`, `LEFT`, `RIGHT`, `LTRIM`, `RTRIM`, `UPPER`, `LOWER`, `REPLACE`, `LPAD`, `RPAD` |
-| **Numeric**  | `ABS`, `CEIL`, `FLOOR`, `ROUND`, `MOD`, `DIV`, `DIVISION`          |
-| **Date/Time** | `DATS_ADD_DAYS`, `DATS_DAYS_BETWEEN`, `TSTMP_ADD_SECONDS`, `TSTMP_CURRENT_UTCTIMESTAMP`, `DATN_ADD_MONTHS` |
-| **Conversion** | `CAST`, `COALESCE`, `CURRENCY_CONVERSION`, `UNIT_CONVERSION`     |
-| **Null**     | `COALESCE`, `CASE WHEN ... IS NULL`                                 |
-| **Aggregate** | `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`, `STRING_AGG`                 |
+| Category       | Functions                                                                                                       |
+| -------------- | --------------------------------------------------------------------------------------------------------------- |
+| **String**     | `CONCAT`, `SUBSTRING`, `LENGTH`, `LEFT`, `RIGHT`, `LTRIM`, `RTRIM`, `UPPER`, `LOWER`, `REPLACE`, `LPAD`, `RPAD` |
+| **Numeric**    | `ABS`, `CEIL`, `FLOOR`, `ROUND`, `MOD`, `DIV`, `DIVISION`                                                       |
+| **Date/Time**  | `DATS_ADD_DAYS`, `DATS_DAYS_BETWEEN`, `TSTMP_ADD_SECONDS`, `TSTMP_CURRENT_UTCTIMESTAMP`, `DATN_ADD_MONTHS`      |
+| **Conversion** | `CAST`, `COALESCE`, `CURRENCY_CONVERSION`, `UNIT_CONVERSION`                                                    |
+| **Null**       | `COALESCE`, `CASE WHEN ... IS NULL`                                                                             |
+| **Aggregate**  | `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`, `STRING_AGG`                                                               |
 
 ### Subqueries
 
@@ -275,11 +275,11 @@ ENDMETHOD.
 
 ### AMDP Client Safety (ABAP Cloud)
 
-| Addition                                | Use Case                                              |
-| --------------------------------------- | ----------------------------------------------------- |
-| `CDS SESSION CLIENT DEPENDENT`          | Uses client-dependent CDS views (most common)          |
-| `CLIENT INDEPENDENT`                    | Uses only client-independent objects                   |
-| `AMDP OPTIONS READ-ONLY`               | Mandatory in ABAP for Cloud Development                |
+| Addition                       | Use Case                                      |
+| ------------------------------ | --------------------------------------------- |
+| `CDS SESSION CLIENT DEPENDENT` | Uses client-dependent CDS views (most common) |
+| `CLIENT INDEPENDENT`           | Uses only client-independent objects          |
+| `AMDP OPTIONS READ-ONLY`       | Mandatory in ABAP for Cloud Development       |
 
 ## Output Format
 
@@ -289,12 +289,15 @@ When helping with ABAP SQL or AMDP topics, structure responses as:
 ## ABAP SQL / AMDP Guidance
 
 ### Query
+
 [The ABAP SQL statement or AMDP implementation]
 
 ### Explanation
+
 [Key features used and why]
 
 ### Performance Notes
+
 [Optimization considerations if relevant]
 ```
 

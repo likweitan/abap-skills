@@ -29,15 +29,15 @@ Guide for using BAdIs (Business Add-Ins) and the ABAP enhancement framework to e
 
 ### New vs. Classic BAdIs
 
-| Aspect                    | New BAdI Framework                       | Classic BAdI Framework              |
-| ------------------------- | ---------------------------------------- | ----------------------------------- |
-| **Transactions**          | ADT or `SE18`/`SE19`                     | `SE18`/`SE19`                       |
-| **Enhancement Spot**      | Required container                        | Not applicable                      |
-| **Multiple Use**          | Always multiple-use                       | Configurable                        |
-| **Filter**                | Filter types supported                    | Filter values                       |
-| **Fallback Class**        | Supported                                 | Not available                       |
-| **ABAP Cloud**            | Supported (released BAdIs only)           | Not available                       |
-| **Recommendation**        | Use for all new development               | Maintain existing only              |
+| Aspect               | New BAdI Framework              | Classic BAdI Framework |
+| -------------------- | ------------------------------- | ---------------------- |
+| **Transactions**     | ADT or `SE18`/`SE19`            | `SE18`/`SE19`          |
+| **Enhancement Spot** | Required container              | Not applicable         |
+| **Multiple Use**     | Always multiple-use             | Configurable           |
+| **Filter**           | Filter types supported          | Filter values          |
+| **Fallback Class**   | Supported                       | Not available          |
+| **ABAP Cloud**       | Supported (released BAdIs only) | Not available          |
+| **Recommendation**   | Use for all new development     | Maintain existing only |
 
 ## Creating a Custom BAdI
 
@@ -67,12 +67,12 @@ ENDINTERFACE.
 
 In the enhancement spot, add a BAdI definition:
 
-| Property            | Value                            |
-| ------------------- | -------------------------------- |
-| **BAdI Name**       | `ZBADI_TRAVEL_VALIDATE`          |
-| **Interface**       | `ZIF_BADI_TRAVEL_VALIDATE`       |
-| **Multiple Use**    | Yes (allows multiple implementations) |
-| **Fallback Class**  | `ZCL_BADI_TRAVEL_FALLBACK` (optional) |
+| Property           | Value                                 |
+| ------------------ | ------------------------------------- |
+| **BAdI Name**      | `ZBADI_TRAVEL_VALIDATE`               |
+| **Interface**      | `ZIF_BADI_TRAVEL_VALIDATE`            |
+| **Multiple Use**   | Yes (allows multiple implementations) |
+| **Fallback Class** | `ZCL_BADI_TRAVEL_FALLBACK` (optional) |
 
 ### Step 4: Create Fallback Class (Optional)
 
@@ -124,6 +124,7 @@ CALL BADI lo_badi->validate
 ### Step 1: Find the BAdI
 
 Methods to find a BAdI:
+
 - **ADT search**: Search for BAdI name or enhancement spot
 - **Transaction `SE18`**: Browse BAdI definitions
 - **Breakpoint on `GET BADI`**: Set breakpoint at `CL_BADI_INTERNAL_FACTORY=>GET_BADI` to find BAdIs called during a process
@@ -244,13 +245,13 @@ ENDENHANCEMENT.
 
 No-code/low-code extension capabilities available via SAP Fiori:
 
-| Capability                    | Description                                          |
-| ----------------------------- | ---------------------------------------------------- |
-| **Custom Fields**             | Add fields to standard business objects               |
-| **Custom Logic**              | Add validation/determination logic via BRF+           |
-| **Custom CDS Views**          | Create simple analytical views                        |
-| **Custom Business Objects**   | Create simple transactional objects                    |
-| **Custom Analytical Queries** | Build queries on existing CDS views                   |
+| Capability                    | Description                                 |
+| ----------------------------- | ------------------------------------------- |
+| **Custom Fields**             | Add fields to standard business objects     |
+| **Custom Logic**              | Add validation/determination logic via BRF+ |
+| **Custom CDS Views**          | Create simple analytical views              |
+| **Custom Business Objects**   | Create simple transactional objects         |
+| **Custom Analytical Queries** | Build queries on existing CDS views         |
 
 ## Best Practices
 
@@ -270,13 +271,16 @@ When helping with BAdI/enhancement topics, structure responses as:
 ## BAdI / Enhancement Guidance
 
 ### Framework
+
 - Type: [New BAdI / Classic BAdI / Enhancement Spot / Key User]
 - Context: [ABAP Cloud / Standard ABAP]
 
 ### Implementation
+
 [Step-by-step with code examples]
 
 ### Testing
+
 [How to verify the enhancement works]
 ```
 

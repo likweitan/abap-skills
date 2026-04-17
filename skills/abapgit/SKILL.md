@@ -26,13 +26,13 @@ Guide for managing ABAP development objects in Git repositories using abapGit.
 
 ## abapGit Overview
 
-| Aspect              | Description                                                        |
-| ------------------- | ------------------------------------------------------------------ |
-| **What**            | Open-source Git client for ABAP, runs inside the SAP system        |
-| **Serialization**   | Converts ABAP objects to file-based format for Git storage          |
-| **Deserialization** | Imports file-based format back into ABAP objects in the system      |
+| Aspect                | Description                                                       |
+| --------------------- | ----------------------------------------------------------------- |
+| **What**              | Open-source Git client for ABAP, runs inside the SAP system       |
+| **Serialization**     | Converts ABAP objects to file-based format for Git storage        |
+| **Deserialization**   | Imports file-based format back into ABAP objects in the system    |
 | **Supported Objects** | Classes, interfaces, CDS, function groups, programs, tables, etc. |
-| **Installation**    | Via abapGit standalone report or Eclipse plugin                     |
+| **Installation**      | Via abapGit standalone report or Eclipse plugin                   |
 
 ## Setup
 
@@ -113,13 +113,13 @@ The `.abapgit.xml` file in the repository root controls serialization settings:
 
 ### Key Settings
 
-| Setting             | Values                | Description                                           |
-| ------------------- | --------------------- | ----------------------------------------------------- |
-| `MASTER_LANGUAGE`   | `E`, `D`, etc.        | Master language for texts                              |
-| `STARTING_FOLDER`   | `/src/`               | Root folder for serialized objects                     |
-| `FOLDER_LOGIC`      | `PREFIX` / `FULL`     | How package hierarchy maps to folders                  |
-| `IGNORE`            | File patterns          | Files to exclude from deserialization                  |
-| `REQUIREMENTS`      | Software components    | Dependencies that must be present before import        |
+| Setting           | Values              | Description                                     |
+| ----------------- | ------------------- | ----------------------------------------------- |
+| `MASTER_LANGUAGE` | `E`, `D`, etc.      | Master language for texts                       |
+| `STARTING_FOLDER` | `/src/`             | Root folder for serialized objects              |
+| `FOLDER_LOGIC`    | `PREFIX` / `FULL`   | How package hierarchy maps to folders           |
+| `IGNORE`          | File patterns       | Files to exclude from deserialization           |
+| `REQUIREMENTS`    | Software components | Dependencies that must be present before import |
 
 ### Folder Logic
 
@@ -152,14 +152,14 @@ PRD system ←  main branch (tags for releases)
 
 ## Transport vs. Git Workflows
 
-| Aspect              | Transport-Based               | Git-Based (abapGit)                      |
-| ------------------- | ----------------------------- | ---------------------------------------- |
-| **Versioning**      | Transport requests            | Git commits with full history            |
-| **Collaboration**   | Transport of copies           | Branches, pull requests, code review     |
-| **Rollback**        | Difficult                     | `git revert` or checkout previous commit |
-| **CI/CD**           | Limited                       | Full integration with pipelines          |
-| **Multi-system**    | Transport routes              | Clone/pull to each system                |
-| **Conflict resolution** | Manual                   | Git merge tools                          |
+| Aspect                  | Transport-Based     | Git-Based (abapGit)                      |
+| ----------------------- | ------------------- | ---------------------------------------- |
+| **Versioning**          | Transport requests  | Git commits with full history            |
+| **Collaboration**       | Transport of copies | Branches, pull requests, code review     |
+| **Rollback**            | Difficult           | `git revert` or checkout previous commit |
+| **CI/CD**               | Limited             | Full integration with pipelines          |
+| **Multi-system**        | Transport routes    | Clone/pull to each system                |
+| **Conflict resolution** | Manual              | Git merge tools                          |
 
 ### Hybrid Approach
 
@@ -205,14 +205,14 @@ jobs:
 
 ## Troubleshooting
 
-| Issue                          | Solution                                                    |
-| ------------------------------ | ----------------------------------------------------------- |
-| SSL handshake error            | Import SSL certificates via `STRUST`                         |
-| Authorization error            | Check `S_DEVELOP` authorization object                       |
-| Object locked by transport     | Release or remove transport lock                             |
-| Serialization error            | Check object type support in abapGit                         |
-| Namespace conflicts            | Ensure unique naming conventions                             |
-| Large repository slow          | Use shallow clone or split into sub-packages                 |
+| Issue                      | Solution                                     |
+| -------------------------- | -------------------------------------------- |
+| SSL handshake error        | Import SSL certificates via `STRUST`         |
+| Authorization error        | Check `S_DEVELOP` authorization object       |
+| Object locked by transport | Release or remove transport lock             |
+| Serialization error        | Check object type support in abapGit         |
+| Namespace conflicts        | Ensure unique naming conventions             |
+| Large repository slow      | Use shallow clone or split into sub-packages |
 
 ## Output Format
 
@@ -222,13 +222,16 @@ When helping with abapGit topics, structure responses as:
 ## abapGit Guidance
 
 ### Context
+
 - Environment: [On-premise / BTP / gCTS]
 - Operation: [Clone / Push / Pull / Setup]
 
 ### Steps
+
 [Step-by-step instructions]
 
 ### Configuration
+
 [Relevant .abapgit.xml or abaplint settings]
 ```
 

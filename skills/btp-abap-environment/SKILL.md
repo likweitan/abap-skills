@@ -29,13 +29,13 @@ Guide for setting up and developing in the SAP BTP ABAP Environment (Steampunk).
 
 ### Prerequisites
 
-| Requirement            | Description                                                    |
-| ---------------------- | -------------------------------------------------------------- |
-| **SAP BTP Account**    | Global account with entitlements for ABAP Environment           |
-| **Subaccount**         | Cloud Foundry-enabled subaccount                                |
-| **ADT**                | Eclipse with ABAP Development Tools installed                   |
-| **User**               | Platform user with Space Developer role                         |
-| **Entitlements**       | `abap/standard` or `abap/saas_oem` service plan                |
+| Requirement         | Description                                           |
+| ------------------- | ----------------------------------------------------- |
+| **SAP BTP Account** | Global account with entitlements for ABAP Environment |
+| **Subaccount**      | Cloud Foundry-enabled subaccount                      |
+| **ADT**             | Eclipse with ABAP Development Tools installed         |
+| **User**            | Platform user with Space Developer role               |
+| **Entitlements**    | `abap/standard` or `abap/saas_oem` service plan       |
 
 ### Service Instance Creation
 
@@ -81,10 +81,10 @@ SAP BTP Subaccount
 
 ## Software Components
 
-| Component    | Description                                              |
-| ------------ | -------------------------------------------------------- |
-| `ZLOCAL`     | Local development — not transportable (like `$TMP`)       |
-| Custom       | Transportable components — managed via gCTS or Manage Software Components app |
+| Component | Description                                                                   |
+| --------- | ----------------------------------------------------------------------------- |
+| `ZLOCAL`  | Local development — not transportable (like `$TMP`)                           |
+| Custom    | Transportable components — managed via gCTS or Manage Software Components app |
 
 ### Creating a Software Component
 
@@ -111,12 +111,12 @@ Z_MY_COMPONENT (Software Component)
 
 ### Concepts
 
-| Artifact                     | Purpose                                                      |
-| ---------------------------- | ------------------------------------------------------------ |
-| **Communication Scenario**   | Template defining inbound/outbound services and auth methods  |
-| **Communication System**     | Represents the external system (host, port, credentials)      |
-| **Communication Arrangement**| Binds scenario + system + user, activating the integration    |
-| **Communication User**       | Technical user for inbound communication                      |
+| Artifact                      | Purpose                                                      |
+| ----------------------------- | ------------------------------------------------------------ |
+| **Communication Scenario**    | Template defining inbound/outbound services and auth methods |
+| **Communication System**      | Represents the external system (host, port, credentials)     |
+| **Communication Arrangement** | Binds scenario + system + user, activating the integration   |
+| **Communication User**        | Technical user for inbound communication                     |
 
 ### Creating a Communication Scenario
 
@@ -127,13 +127,13 @@ Z_MY_COMPONENT (Software Component)
 
 Communication scenario definition (in ADT):
 
-| Property                | Value                           |
-| ----------------------- | ------------------------------- |
-| **Scenario ID**         | `Z_MY_COMM_SCENARIO`            |
-| **Scenario Type**       | Managed by Customer             |
-| **Inbound Services**    | List of inbound OData services  |
-| **Outbound Services**   | List of outbound HTTP services  |
-| **Allowed Auth Methods**| Basic, OAuth 2.0, x.509         |
+| Property                 | Value                          |
+| ------------------------ | ------------------------------ |
+| **Scenario ID**          | `Z_MY_COMM_SCENARIO`           |
+| **Scenario Type**        | Managed by Customer            |
+| **Inbound Services**     | List of inbound OData services |
+| **Outbound Services**    | List of outbound HTTP services |
+| **Allowed Auth Methods** | Basic, OAuth 2.0, x.509        |
 
 ### Outbound Communication (Calling External Services)
 
@@ -204,14 +204,14 @@ Quick steps to create a minimal RAP-based Fiori app:
 
 ## Useful Fiori Apps
 
-| App                                    | Purpose                                        |
-| -------------------------------------- | ---------------------------------------------- |
-| **Manage Software Components**         | Create, clone, pull software components         |
-| **Communication Arrangements**         | Configure inbound/outbound integrations         |
-| **Communication Systems**              | Register external systems                       |
-| **Maintain Business Roles**            | Create and assign roles                         |
-| **Application Jobs**                   | Schedule and monitor background jobs            |
-| **Custom Business Configurations**     | Maintain configuration tables                   |
+| App                                | Purpose                                 |
+| ---------------------------------- | --------------------------------------- |
+| **Manage Software Components**     | Create, clone, pull software components |
+| **Communication Arrangements**     | Configure inbound/outbound integrations |
+| **Communication Systems**          | Register external systems               |
+| **Maintain Business Roles**        | Create and assign roles                 |
+| **Application Jobs**               | Schedule and monitor background jobs    |
+| **Custom Business Configurations** | Maintain configuration tables           |
 
 ## Output Format
 
@@ -221,12 +221,15 @@ When helping with BTP ABAP Environment topics, structure responses as:
 ## BTP ABAP Environment Guidance
 
 ### Phase
+
 - [Setup / Development / Integration / Deployment]
 
 ### Steps
+
 [Step-by-step instructions]
 
 ### Configuration
+
 [Relevant settings or code]
 ```
 

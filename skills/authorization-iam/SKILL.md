@@ -76,13 +76,13 @@ ENDIF.
 
 ### Activity Values (ACTVT)
 
-| Value | Activity        |
-| ----- | --------------- |
-| `01`  | Create          |
-| `02`  | Change          |
-| `03`  | Display         |
-| `06`  | Delete          |
-| `16`  | Execute         |
+| Value | Activity |
+| ----- | -------- |
+| `01`  | Create   |
+| `02`  | Change   |
+| `03`  | Display  |
+| `06`  | Delete   |
+| `16`  | Execute  |
 
 ## Authorization Objects
 
@@ -99,6 +99,7 @@ Authorization Object: Z_MY_AUTH
 ```
 
 #### Structure
+
 - **Authorization Class**: Groups related objects (e.g., `Z_TRAVEL`)
 - **Authorization Object**: Contains 1–10 authorization fields
 - **Authorization Field**: Links to a data element; defines the check dimension
@@ -200,11 +201,11 @@ Created in Fiori app "Maintain Business Roles":
 
 Define field-level restrictions in business roles:
 
-| Restriction Type | Description                                    |
-| ---------------- | ---------------------------------------------- |
-| **Unrestricted** | Full access to all values                       |
-| **Restricted**   | Access limited to specified values              |
-| **No Access**    | No access to the associated functionality       |
+| Restriction Type | Description                               |
+| ---------------- | ----------------------------------------- |
+| **Unrestricted** | Full access to all values                 |
+| **Restricted**   | Access limited to specified values        |
+| **No Access**    | No access to the associated functionality |
 
 Example: A travel manager role might restrict `ZCARR` to only `LH` and `AA`.
 
@@ -311,13 +312,16 @@ When helping with authorization/IAM topics, structure responses as:
 ## Authorization Guidance
 
 ### Platform
+
 - [ABAP Cloud / On-Premise]
 - Approach: [CDS DCL / AUTHORITY-CHECK / CL_ABAP_AUTHORIZATION / IAM]
 
 ### Implementation
+
 [Step-by-step with code examples]
 
 ### Role Configuration
+
 [How to set up roles and assign access]
 ```
 

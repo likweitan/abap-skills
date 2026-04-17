@@ -25,10 +25,10 @@ Guide for developing with the ABAP Cloud programming model, understanding the 3-
 
 ## ABAP Language Versions
 
-| Language Version              | Scope                                                                 | Available In                          |
-| ----------------------------- | --------------------------------------------------------------------- | ------------------------------------- |
-| **ABAP for Cloud Development** | Only released APIs and objects; restricted syntax; no SAP GUI          | BTP ABAP Environment, S/4HANA (embedded Steampunk) |
-| **Standard ABAP**              | Full ABAP syntax; all repository objects accessible                   | On-premise, private cloud             |
+| Language Version               | Scope                                                         | Available In                                       |
+| ------------------------------ | ------------------------------------------------------------- | -------------------------------------------------- |
+| **ABAP for Cloud Development** | Only released APIs and objects; restricted syntax; no SAP GUI | BTP ABAP Environment, S/4HANA (embedded Steampunk) |
+| **Standard ABAP**              | Full ABAP syntax; all repository objects accessible           | On-premise, private cloud                          |
 
 ### Key Restrictions in ABAP for Cloud Development
 
@@ -136,28 +136,28 @@ CALL FUNCTION 'Z_WRAPPER_FM'
 
 ## Released API Discovery
 
-| Method                              | Description                                                  |
-| ----------------------------------- | ------------------------------------------------------------ |
-| **ADT: Released Object Search**     | In ADT, search with `api:` prefix (e.g., `api:cl_*`)         |
-| **Cloudification API Viewer**       | Browse at https://sap.github.io/abap-atc-cr-cv-s4hc/         |
-| **ATC Cloud Readiness Check**       | Run ATC checks to identify unreleased API usage              |
-| **Released ABAP Classes skill**     | Use `released-abap-classes` skill for common released classes |
-| **XCO Library**                     | `XCO_CP_*` classes provide cloud-ready alternatives          |
+| Method                          | Description                                                   |
+| ------------------------------- | ------------------------------------------------------------- |
+| **ADT: Released Object Search** | In ADT, search with `api:` prefix (e.g., `api:cl_*`)          |
+| **Cloudification API Viewer**   | Browse at https://sap.github.io/abap-atc-cr-cv-s4hc/          |
+| **ATC Cloud Readiness Check**   | Run ATC checks to identify unreleased API usage               |
+| **Released ABAP Classes skill** | Use `released-abap-classes` skill for common released classes |
+| **XCO Library**                 | `XCO_CP_*` classes provide cloud-ready alternatives           |
 
 ## Common Unreleased → Released Replacements
 
-| Unreleased (Classic)                | Released Alternative (ABAP Cloud)                     |
-| ----------------------------------- | ----------------------------------------------------- |
-| `AUTHORITY-CHECK`                   | `CL_ABAP_AUTHORIZATION=>check_authorization()`        |
-| `sy-uname`                         | `cl_abap_context_info=>get_user_technical_name()`      |
-| `sy-datum` / `sy-uzeit`            | `cl_abap_context_info=>get_system_date/time()`         |
-| `cl_gui_frontend_services`         | Not available — use Fiori UI instead                   |
-| `CALL TRANSACTION`                  | RAP action or Fiori navigation                         |
-| `SUBMIT ... AND RETURN`            | Background job via `CL_APJ_RT_API`                     |
-| Direct SAP table `SELECT`          | Use released CDS view (I_* views)                      |
-| `CONVERSION_EXIT_*`                | `CL_ABAP_CONV_CODEPAGE`, domain fixed values           |
-| `BAPI_*` function modules          | Released APIs or RAP BO consumption                    |
-| Classic `MESSAGE` statement         | RAP messages via `REPORTED`                            |
+| Unreleased (Classic)        | Released Alternative (ABAP Cloud)                 |
+| --------------------------- | ------------------------------------------------- |
+| `AUTHORITY-CHECK`           | `CL_ABAP_AUTHORIZATION=>check_authorization()`    |
+| `sy-uname`                  | `cl_abap_context_info=>get_user_technical_name()` |
+| `sy-datum` / `sy-uzeit`     | `cl_abap_context_info=>get_system_date/time()`    |
+| `cl_gui_frontend_services`  | Not available — use Fiori UI instead              |
+| `CALL TRANSACTION`          | RAP action or Fiori navigation                    |
+| `SUBMIT ... AND RETURN`     | Background job via `CL_APJ_RT_API`                |
+| Direct SAP table `SELECT`   | Use released CDS view (I\_\* views)               |
+| `CONVERSION_EXIT_*`         | `CL_ABAP_CONV_CODEPAGE`, domain fixed values      |
+| `BAPI_*` function modules   | Released APIs or RAP BO consumption               |
+| Classic `MESSAGE` statement | RAP messages via `REPORTED`                       |
 
 ## Output Format
 
@@ -167,17 +167,21 @@ When helping with ABAP Cloud / clean core topics, structure responses as:
 ## ABAP Cloud Guidance
 
 ### Context
+
 - Extensibility tier: [Tier 1/2/3]
 - Language version: [ABAP for Cloud Development / Standard ABAP]
 - Target platform: [BTP / S/4HANA embedded / on-premise]
 
 ### Recommendation
+
 [Guidance on the approach]
 
 ### Code Example
+
 [ABAP code following clean core principles]
 
 ### Released API References
+
 - [List of relevant released APIs used]
 ```
 

@@ -48,8 +48,9 @@ define service ZUI_TRAVEL_O4 {
 ```
 
 #### Key Rules
-- Expose projection CDS views (C_ prefix by convention), not root views
-- Include value help CDS views (I_* views) the UI needs
+
+- Expose projection CDS views (C\_ prefix by convention), not root views
+- Include value help CDS views (I\_\* views) the UI needs
 - Alias names become OData entity set names
 - One service definition can be bound to multiple protocols
 
@@ -76,16 +77,16 @@ Binds a service definition to a specific OData protocol and provides a URL:
 
 ## OData V4 vs V2
 
-| Feature                | OData V4                     | OData V2                        |
-| ---------------------- | ---------------------------- | ------------------------------- |
-| **Protocol**           | JSON by default               | XML (Atom) default, JSON option |
-| **Batch**              | `$batch` with JSON            | `$batch` with multipart         |
-| **Deep operations**    | Deep create/update supported  | Limited                         |
-| **Actions/Functions**  | Bound and unbound             | Function imports                |
-| **Filtering**          | `$filter` with `lambda`       | `$filter` basic                 |
-| **Draft**              | Full support                  | Supported via extensions        |
-| **Aggregation**        | `$apply` transformation       | Not natively supported          |
-| **Recommendation**     | Preferred for new development | Maintain existing only          |
+| Feature               | OData V4                      | OData V2                        |
+| --------------------- | ----------------------------- | ------------------------------- |
+| **Protocol**          | JSON by default               | XML (Atom) default, JSON option |
+| **Batch**             | `$batch` with JSON            | `$batch` with multipart         |
+| **Deep operations**   | Deep create/update supported  | Limited                         |
+| **Actions/Functions** | Bound and unbound             | Function imports                |
+| **Filtering**         | `$filter` with `lambda`       | `$filter` basic                 |
+| **Draft**             | Full support                  | Supported via extensions        |
+| **Aggregation**       | `$apply` transformation       | Not natively supported          |
+| **Recommendation**    | Preferred for new development | Maintain existing only          |
 
 ## SEGW-Based OData V2 Services (Classic)
 
@@ -186,16 +187,16 @@ CurrencyCode;
 
 ## Troubleshooting
 
-| Error / Issue                                | Solution                                              |
-| -------------------------------------------- | ----------------------------------------------------- |
-| `/IWBEP/CX_MGW_BUSI_EXCEPTION`              | Check DPC implementation, validate input data          |
-| `/IWBEP/CX_MGW_TECH_EXCEPTION`              | Check data model consistency, regenerate artifacts     |
-| 403 Forbidden                                | Check ICF node activation, authorization               |
-| 404 Not Found                                | Verify service is registered and activated              |
-| `$metadata` returns empty                    | Publish service binding, check activation               |
-| Draft not working                            | Verify draft table exists, BDEF has `with draft`        |
-| Deep create fails                            | Check composition in CDS and BDEF                      |
-| `CX_WEB_HTTP_CLIENT_ERROR`                   | Check communication arrangement, SSL certificates      |
+| Error / Issue                  | Solution                                           |
+| ------------------------------ | -------------------------------------------------- |
+| `/IWBEP/CX_MGW_BUSI_EXCEPTION` | Check DPC implementation, validate input data      |
+| `/IWBEP/CX_MGW_TECH_EXCEPTION` | Check data model consistency, regenerate artifacts |
+| 403 Forbidden                  | Check ICF node activation, authorization           |
+| 404 Not Found                  | Verify service is registered and activated         |
+| `$metadata` returns empty      | Publish service binding, check activation          |
+| Draft not working              | Verify draft table exists, BDEF has `with draft`   |
+| Deep create fails              | Check composition in CDS and BDEF                  |
+| `CX_WEB_HTTP_CLIENT_ERROR`     | Check communication arrangement, SSL certificates  |
 
 ## Output Format
 
@@ -205,13 +206,16 @@ When helping with OData topics, structure responses as:
 ## OData Service Guidance
 
 ### Approach
+
 - Type: [RAP-based / SEGW-based / Consumption]
 - Protocol: [OData V4 / OData V2]
 
 ### Implementation
+
 [Step-by-step with code examples]
 
 ### Testing
+
 [How to test the service]
 ```
 

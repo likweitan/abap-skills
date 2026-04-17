@@ -26,13 +26,13 @@ Guide for implementing event-driven patterns using RAP business events and SAP E
 
 ## Business Events Overview
 
-| Concept               | Description                                                        |
-| --------------------- | ------------------------------------------------------------------ |
-| **Business Event**    | Declared in BDEF; raised when something significant happens        |
-| **Event Definition**  | Formal declaration with parameters in the behavior definition      |
-| **Event Raising**     | Triggered in handler/saver methods via `RAISE ENTITY EVENT`        |
-| **Event Binding**     | Maps RAP event to an enterprise event topic for external delivery   |
-| **Event Consumption** | External systems subscribe and react to published events           |
+| Concept               | Description                                                       |
+| --------------------- | ----------------------------------------------------------------- |
+| **Business Event**    | Declared in BDEF; raised when something significant happens       |
+| **Event Definition**  | Formal declaration with parameters in the behavior definition     |
+| **Event Raising**     | Triggered in handler/saver methods via `RAISE ENTITY EVENT`       |
+| **Event Binding**     | Maps RAP event to an enterprise event topic for external delivery |
+| **Event Consumption** | External systems subscribe and react to published events          |
 
 ## Defining Business Events
 
@@ -165,12 +165,12 @@ Name: Z_EVT_BIND_TRAVEL
 
 Event binding maps RAP events to enterprise event topics:
 
-| Property          | Value                                                |
-| ----------------- | ---------------------------------------------------- |
-| **Namespace**     | `sap.s4.beh` or custom namespace                     |
-| **Business Object** | `ZR_Travel`                                        |
-| **Event**         | `travel_created`                                      |
-| **Topic**         | `sap/s4/beh/travel/created/v1`                        |
+| Property            | Value                            |
+| ------------------- | -------------------------------- |
+| **Namespace**       | `sap.s4.beh` or custom namespace |
+| **Business Object** | `ZR_Travel`                      |
+| **Event**           | `travel_created`                 |
+| **Topic**           | `sap/s4/beh/travel/created/v1`   |
 
 ### Event Topic Structure
 
@@ -217,6 +217,7 @@ ENDCLASS.
 ### External Event Consumption (via Event Mesh)
 
 External systems subscribe to topics via:
+
 - SAP Event Mesh webhooks
 - SAP Integration Suite
 - Custom applications using AMQP or REST APIs
@@ -251,6 +252,7 @@ ENDCLASS.
 ```
 Producer raises event → Event Mesh delivers → Consumer processes independently
 ```
+
 - No response expected
 - Loose coupling between systems
 - Best for notifications, audit logging, data replication triggers
@@ -287,13 +289,16 @@ When helping with eventing topics, structure responses as:
 ## RAP Business Event Guidance
 
 ### Scenario
+
 - Type: [Local event / Enterprise event]
 - Role: [Producer / Consumer]
 
 ### Implementation
+
 [Event definition, raising, and consumption code]
 
 ### Configuration
+
 [Event binding and communication arrangement setup]
 ```
 

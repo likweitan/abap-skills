@@ -25,6 +25,7 @@ A collection of Claude Code skills for SAP ABAP development — covering RAP, CD
   - [Authorization & IAM](#authorization--iam)
   - [RAP Business Events & Enterprise Eventing](#rap-business-events--enterprise-eventing)
   - [ABAP Cloud Migration Patterns](#abap-cloud-migration-patterns)
+  - [BTP Diagram Generator](#btp-diagram-generator)
 - [Repository Structure](#repository-structure)
 - [Prerequisites](#prerequisites)
 - [License](#license)
@@ -429,6 +430,26 @@ Systematically migrate classic ABAP custom code to ABAP Cloud (Tier 1) complianc
 > "What's the released API replacement for GUID_CREATE and NUMBER_GET_NEXT?"
 
 > "Create a wrapper class to make READ_TEXT available in ABAP Cloud"
+
+### BTP Diagram Generator
+
+Generate SAP BTP solution architecture diagrams as native draw.io (`.drawio`) files following the official [SAP BTP Solution Diagram guidelines](https://sap.github.io/btp-solution-diagrams/) (Fiori Horizon design system) and open them via a configured [draw.io MCP server](https://www.drawio.com/doc/faq/ai-drawio-generation).
+
+**Features:**
+
+- Python `btp_builder` package with fluent API — a typical L1 diagram is ~20 lines of code
+- Bundled SAP BTP icon library (~100 icons) with fuzzy-name lookup and the official SAP Fiori Horizon palette
+- Audience-level presets (L0 business / L1 technical / L2 detailed) with correct icon sizes, fonts, and connector semantics
+- Auto port-pinning, A4 landscape sizing, SVG icon upscaling, and built-in diagram validation
+- 11 official editable example diagrams (Task Center, Build Work Zone, Cloud Identity Services, Private Link, etc.) as style donors
+
+**Example Prompts:**
+
+> "Draw a BTP architecture for a Task Center scenario with Cloud Identity Services"
+
+> "Generate an L2 BTP solution diagram showing CAP + HANA Cloud + Build Work Zone + S/4HANA integration"
+
+> "Create a draw.io diagram of our SAP BTP integration landscape using Integration Suite"
 
 ## Repository Structure
 

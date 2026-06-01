@@ -62,6 +62,12 @@ Fetch and follow instructions from https://raw.githubusercontent.com/likweitan/a
 
 **Detailed docs:** [docs/README.opencode.md](docs/README.opencode.md)
 
+### GitHub Copilot in VS Code
+
+Install GitHub Copilot in VS Code, clone this repository locally, and create a reusable prompt file that points Copilot Chat to the ABAP skill references.
+
+**Detailed docs:** [docs/README.github-copilot-vscode.md](docs/README.github-copilot-vscode.md)
+
 ## Skills
 
 ### SAP Fiori Apps Reference Library

@@ -521,6 +521,16 @@ skills/
 - **Node.js** (v16+) for the Fiori URL generator scripts and [abaplint](https://github.com/abaplint/abaplint) (`npm install @abaplint/cli -g`)
 - The `AppList.json` file for Fiori app lookups
 
+## Contributing
+
+Before submitting a skill change, validate discovery metadata and local manifest links:
+
+```bash
+uv run python scripts/validate_skills.py
+```
+
+The same check runs in GitHub Actions for changes under `skills/`.
+
 ## License
 
 MIT

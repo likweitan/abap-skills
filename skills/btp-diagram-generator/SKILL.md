@@ -51,7 +51,7 @@ d.connect(idp, ci, kind="dashed", direction="up")
 d.save("btp-task-center-architecture.drawio")  # validates → raises on errors
 ```
 
-Run via `uv run python <script>.py` (per [AGENTS.md](../../../AGENTS.md)). `save()` validates first and raises `ValueError` with the full error list if anything is off; warnings are printed.
+Run via `uv run python <script>.py` from the repository root. `save()` validates first and raises `ValueError` with the full error list if anything is off; warnings are printed.
 
 ### Quick-Path API surface
 

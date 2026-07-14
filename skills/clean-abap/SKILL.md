@@ -22,6 +22,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 1. Names
 
 **Key Principles:**
+
 - Use descriptive names that convey content and meaning
 - Prefer solution domain and problem domain terms
 - Use pronounceable names
@@ -30,26 +31,29 @@ When checking ABAP code for Clean ABAP compliance:
 - Use nouns for classes, verbs for methods
 - Avoid noise words like "data", "info", "object"
 - Pick one word per concept
-- Avoid encodings (Hungarian notation, prefixes like iv_, rv_, lt_)
+- Avoid encodings (Hungarian notation, prefixes like iv*, rv*, lt\_)
 - Avoid obscuring built-in functions
 
 **Check for:**
+
 - Non-descriptive variable/method/class names (e.g., `data1`, `temp`, `x`)
 - Inconsistent abbreviations across the code
 - Mixed naming conventions (not snake_case)
 - Noise words in names
-- Hungarian notation or unnecessary prefixes (iv_, ev_, rv_, lt_, ls_)
+- Hungarian notation or unnecessary prefixes (iv*, ev*, rv*, lt*, ls\_)
 - Method names that obscure ABAP built-in functions
 
 ### 2. Language
 
 **Key Principles:**
+
 - Prefer object orientation to procedural programming
 - Prefer functional to procedural language constructs
 - Avoid obsolete language elements
 - Use design patterns wisely
 
 **Check for:**
+
 - Use of obsolete statements (unescaped host variables in SELECT, etc.)
 - Procedural code that should be object-oriented
 - Use of old-style MOVE instead of assignment
@@ -60,12 +64,14 @@ When checking ABAP code for Clean ABAP compliance:
 ### 3. Constants
 
 **Key Principles:**
+
 - Use constants instead of magic numbers
 - Constants need descriptive names
 - Prefer ENUM to constants interfaces
 - Group related constants
 
 **Check for:**
+
 - Magic numbers or string literals in code
 - Constants with non-descriptive names (c_01, c_x, etc.)
 - Ungrouped constants that should be in BEGIN OF/END OF blocks
@@ -73,6 +79,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 4. Variables
 
 **Key Principles:**
+
 - Prefer inline to up-front declarations
 - Don't use variables outside their declaration block
 - Don't chain up-front declarations
@@ -80,6 +87,7 @@ When checking ABAP code for Clean ABAP compliance:
 - Choose the right loop targets (field symbols vs references vs values)
 
 **Check for:**
+
 - Up-front DATA declarations when inline would be clearer
 - Variables used outside their declaration block scope
 - Chained DATA declarations
@@ -88,6 +96,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 5. Tables
 
 **Key Principles:**
+
 - Use the right table type (STANDARD, SORTED, HASHED)
 - Avoid DEFAULT KEY
 - Prefer INSERT INTO TABLE to APPEND TO
@@ -97,6 +106,7 @@ When checking ABAP code for Clean ABAP compliance:
 - Avoid unnecessary table reads
 
 **Check for:**
+
 - Tables with DEFAULT KEY
 - APPEND TO when INSERT INTO TABLE is more appropriate
 - READ TABLE ... TRANSPORTING NO FIELDS when LINE_EXISTS would be clearer
@@ -107,22 +117,26 @@ When checking ABAP code for Clean ABAP compliance:
 ### 6. Strings
 
 **Key Principles:**
+
 - Use ` (backticks) to define string literals
 - Use | (pipes) to assemble text
 
 **Check for:**
+
 - Single quotes for string literals
 - String concatenation with && instead of string templates
 
 ### 7. Booleans
 
 **Key Principles:**
+
 - Use ABAP_BOOL for boolean types
 - Use ABAP_TRUE and ABAP_FALSE for comparisons
 - Use XSDBOOL to set boolean variables
 - Consider if booleans are the right choice (vs enumerations)
 
 **Check for:**
+
 - Use of CHAR1 or other types instead of ABAP_BOOL
 - Comparisons with 'X' and ' ' instead of ABAP_TRUE/ABAP_FALSE
 - IF-THEN-ELSE to set boolean instead of XSDBOOL
@@ -131,12 +145,14 @@ When checking ABAP code for Clean ABAP compliance:
 ### 8. Conditions
 
 **Key Principles:**
+
 - Try to make conditions positive
 - Prefer IS NOT to NOT IS
 - Consider predicative method calls for boolean methods
 - Consider decomposing/extracting complex conditions
 
 **Check for:**
+
 - Negative conditions that could be positive
 - NOT IS instead of IS NOT
 - Complex nested conditions that should be decomposed
@@ -145,11 +161,13 @@ When checking ABAP code for Clean ABAP compliance:
 ### 9. Ifs
 
 **Key Principles:**
+
 - No empty IF branches
 - Prefer CASE to ELSE IF for multiple alternatives
 - Keep nesting depth low
 
 **Check for:**
+
 - Empty IF with logic only in ELSE
 - Multiple ELSE IF that should be CASE
 - Deeply nested IF statements (>3 levels)
@@ -157,6 +175,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 10. Classes
 
 **Key Principles:**
+
 - Prefer objects to static classes
 - Prefer composition to inheritance
 - Don't mix stateful and stateless in same class
@@ -166,6 +185,7 @@ When checking ABAP code for Clean ABAP compliance:
 - Consider immutable instead of getter
 
 **Check for:**
+
 - Static classes that should be instance-based
 - Deep inheritance hierarchies
 - Mixed stateful/stateless methods
@@ -176,6 +196,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 11. Methods
 
 **Key Principles:**
+
 - Prefer instance to static methods
 - Public instance methods should implement interfaces
 - Aim for few IMPORTING parameters (<3)
@@ -189,6 +210,7 @@ When checking ABAP code for Clean ABAP compliance:
 - Omit self-reference ME when calling instance members
 
 **Check for:**
+
 - Static methods that should be instance methods
 - Public methods not part of an interface
 - Methods with >3 IMPORTING parameters
@@ -203,6 +225,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 12. Error Handling
 
 **Key Principles:**
+
 - Prefer exceptions to return codes
 - Use class-based exceptions
 - Throw CX_STATIC_CHECK for manageable exceptions
@@ -211,6 +234,7 @@ When checking ABAP code for Clean ABAP compliance:
 - Wrap foreign exceptions
 
 **Check for:**
+
 - Return codes instead of exceptions
 - Use of message classes for error handling
 - Old-style RAISE EXCEPTION TYPE
@@ -220,19 +244,21 @@ When checking ABAP code for Clean ABAP compliance:
 ### 13. Comments
 
 **Key Principles:**
+
 - Express yourself in code, not comments
 - Comments are no excuse for bad names
 - Write comments to explain why, not what
-- Comment with ", not *
+- Comment with ", not \*
 - Delete code instead of commenting it
 - Use FIXME, TODO, XXX with your ID
 - ABAP Doc only for public APIs
 
 **Check for:**
+
 - Obvious comments explaining what code does
 - Comments compensating for bad names
 - Commented-out code
-- * comments instead of "
+- - comments instead of "
 - Comments without TODO/FIXME tags
 - Manual versioning in comments
 - Duplicate message texts in comments
@@ -240,6 +266,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 14. Formatting
 
 **Key Principles:**
+
 - Use ABAP Formatter before activating
 - No more than one statement per line
 - Reasonable line length (120 chars)
@@ -249,6 +276,7 @@ When checking ABAP code for Clean ABAP compliance:
 - Indent and snap to tab
 
 **Check for:**
+
 - Multiple statements per line
 - Lines exceeding 120 characters
 - Multiple consecutive blank lines
@@ -258,6 +286,7 @@ When checking ABAP code for Clean ABAP compliance:
 ### 15. Testing
 
 **Key Principles:**
+
 - Write testable code
 - Test publics, not private internals
 - Use given-when-then structure
@@ -265,6 +294,7 @@ When checking ABAP code for Clean ABAP compliance:
 - Use the right assert type
 
 **Check for:**
+
 - Untestable code (tight coupling, no dependency injection)
 - Tests without clear given-when-then structure
 - Multiple unrelated assertions
@@ -274,7 +304,7 @@ When checking ABAP code for Clean ABAP compliance:
 
 Structure your analysis as follows:
 
-```
+````
 # Clean ABAP Check Results
 
 ## Summary
@@ -293,25 +323,31 @@ Structure your analysis as follows:
 **Anti-pattern:**
 ```abap
 [problematic code]
-```
+````
 
 **Clean code:**
+
 ```abap
 [improved code]
 ```
 
 ## Major Issues
+
 [Same format as Critical]
 
 ## Minor Issues
+
 [Same format as Critical]
 
 ## Positive Observations
+
 - [Things done well according to Clean ABAP]
 
 ## Overall Assessment
+
 [Brief summary of code quality and main areas for improvement]
-```
+
+````
 
 ## Priority Levels
 
@@ -341,9 +377,9 @@ Structure your analysis as follows:
 
 When you need detailed explanations or examples for specific Clean ABAP rules, consult these reference files:
 
-1. **Complete Guidelines**: Read `@skills/clean-abap/references/CleanABAP.md` - the full Clean ABAP style guide with in-depth explanations, rationale, and code examples for all principles
-2. **Quick Patterns**: Read `@skills/clean-abap/references/quick-reference.md` - condensed good/bad code examples for common patterns
-3. **Review Checklist**: Read `@skills/clean-abap/references/checklist.md` - a checklist format for systematic code reviews
+1. **Complete Guidelines**: Read `references/CleanABAP.md` - the full Clean ABAP style guide with in-depth explanations, rationale, and code examples for all principles
+2. **Quick Patterns**: Read `references/quick-reference.md` - condensed good/bad code examples for common patterns
+3. **Review Checklist**: Read `references/checklist.md` - a checklist format for systematic code reviews
 
 **When to consult references:**
 - To provide accurate citations when explaining violations
@@ -361,20 +397,21 @@ When you need detailed explanations or examples for specific Clean ABAP rules, c
 METHOD calculate.
   DATA: lv_result TYPE i,
         lv_temp TYPE i.
-  
+
   lv_temp = iv_value1 + iv_value2.
   IF lv_temp > 100.
     lv_result = lv_temp * 2.
   ELSE.
     lv_result = lv_temp.
   ENDIF.
-  
+
   ev_result = lv_result.
 ENDMETHOD.
-```
+````
 
 **Output:**
-```
+
+````
 # Clean ABAP Check Results
 
 ## Summary
@@ -394,9 +431,10 @@ ENDMETHOD.
 ```abap
 DATA: lv_result TYPE i,
       lv_temp TYPE i.
-```
+````
 
 **Clean code:**
+
 ```abap
 DATA(result) = value1 + value2.
 IF result > 100.
@@ -405,11 +443,13 @@ ENDIF.
 ```
 
 ### Methods - EXPORTING Instead of RETURNING
+
 **Location:** Method signature
 **Problem:** Method uses EXPORTING parameter instead of RETURNING, preventing functional call style.
 **Recommendation:** Use RETURNING parameter for single output value.
 
 **Anti-pattern:**
+
 ```abap
 METHOD calculate
   IMPORTING iv_value1 TYPE i
@@ -418,6 +458,7 @@ METHOD calculate
 ```
 
 **Clean code:**
+
 ```abap
 METHOD calculate
   IMPORTING value1 TYPE i
@@ -428,27 +469,34 @@ METHOD calculate
 ## Minor Issues
 
 ### Variables - Up-front Declarations
+
 **Location:** Lines 2-3
 **Problem:** Variables declared up-front instead of inline, increasing distance between declaration and usage.
 **Recommendation:** Use inline declarations with DATA( ).
 
 ### Language - Procedural Style
+
 **Location:** Lines 5-9
 **Problem:** Could use COND for conditional assignment instead of IF-ELSE.
 **Recommendation:** Use functional constructs.
 
 **Clean code:**
+
 ```abap
 METHOD calculate
   IMPORTING value1 TYPE i
             value2 TYPE i
   RETURNING VALUE(result) TYPE i.
-  
+
   DATA(sum) = value1 + value2.
   result = COND #( WHEN sum > 100 THEN sum * 2 ELSE sum ).
 ENDMETHOD.
 ```
 
 ## Overall Assessment
+
 The code is functional but uses outdated ABAP patterns. Main improvements needed: remove Hungarian notation, use RETURNING instead of EXPORTING, prefer inline declarations, and use functional language constructs. After these changes, the code will be significantly cleaner and more maintainable.
+
+```
+
 ```

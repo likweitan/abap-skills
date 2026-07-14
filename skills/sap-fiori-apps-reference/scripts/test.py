@@ -15,6 +15,7 @@ spec = importlib.util.spec_from_file_location(
 fiori_url_generator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(fiori_url_generator)
 FioriUrlGenerator = fiori_url_generator.FioriUrlGenerator
+APP_LIST_PATH = Path(__file__).parent.parent / "references" / "AppList.json"
 
 
 def test_basic_url_generation():
@@ -23,8 +24,7 @@ def test_basic_url_generation():
     print("Test 1: Basic URL Generation")
     print("=" * 60)
 
-    app_list_path = Path(__file__).parent.parent / "AppList.json"
-    generator = FioriUrlGenerator(str(app_list_path))
+    generator = FioriUrlGenerator(str(APP_LIST_PATH))
 
     result = generator.generate_url(
         "https://myserver.com:44300", "100", "Create Maintenance Request"
@@ -49,8 +49,7 @@ def test_custom_language():
     print("Test 2: Custom Language")
     print("=" * 60)
 
-    app_list_path = Path(__file__).parent.parent / "AppList.json"
-    generator = FioriUrlGenerator(str(app_list_path))
+    generator = FioriUrlGenerator(str(APP_LIST_PATH))
 
     result = generator.generate_url(
         "https://myserver.com:44300", "100", "Create Maintenance Request", language="DE"
@@ -70,8 +69,7 @@ def test_app_search():
     print("Test 3: App Search")
     print("=" * 60)
 
-    app_list_path = Path(__file__).parent.parent / "AppList.json"
-    generator = FioriUrlGenerator(str(app_list_path))
+    generator = FioriUrlGenerator(str(APP_LIST_PATH))
 
     results = generator.find_all_apps("workflow", limit=5)
 
@@ -95,8 +93,7 @@ def test_app_not_found():
     print("Test 4: App Not Found Error Handling")
     print("=" * 60)
 
-    app_list_path = Path(__file__).parent.parent / "AppList.json"
-    generator = FioriUrlGenerator(str(app_list_path))
+    generator = FioriUrlGenerator(str(APP_LIST_PATH))
 
     try:
         generator.generate_url(
@@ -115,8 +112,7 @@ def test_get_app_details():
     print("Test 5: Get App Details")
     print("=" * 60)
 
-    app_list_path = Path(__file__).parent.parent / "AppList.json"
-    generator = FioriUrlGenerator(str(app_list_path))
+    generator = FioriUrlGenerator(str(APP_LIST_PATH))
 
     details = generator.get_app_details("Create Maintenance Request")
 

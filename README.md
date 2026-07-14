@@ -518,6 +518,7 @@ skills/
 
 ## Prerequisites
 
+- **[uv](https://docs.astral.sh/uv/getting-started/installation/)** for contributor validation and the BTP diagram generator scripts
 - **Node.js** (v16+) for the Fiori URL generator scripts and [abaplint](https://github.com/abaplint/abaplint) (`npm install @abaplint/cli -g`)
 - The `AppList.json` file for Fiori app lookups
 

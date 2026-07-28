@@ -547,13 +547,13 @@ skills/
 
 ## Contributing
 
-Before submitting a skill change, validate discovery metadata and local manifest links:
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidance on proposing changes, adding or updating skills, validation, and pull request expectations.
+
+Before submitting a skill change, run:
 
 ```bash
 uv run python scripts/validate_skills.py
 ```
-
-The same check runs in GitHub Actions for changes under `skills/`.
 
 ## License
 

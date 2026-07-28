@@ -4,11 +4,15 @@ Complete guide for using ABAP Skills with [OpenCode.ai](https://opencode.ai).
 
 ## Quick Install
 
-Tell OpenCode:
+With [Node.js](https://nodejs.org/) installed, run:
 
+```bash
+npx skills add likweitan/abap-skills
 ```
-Clone https://github.com/likweitan/abap-skills to ~/.config/opencode/abap-skills, then create directory ~/.config/opencode/skills, then symlink ~/.config/opencode/abap-skills/skills to ~/.config/opencode/skills/abap-skills, then restart opencode.
-```
+
+The Skills CLI lists the available ABAP skills and configures your selection for OpenCode. Add `--global` to use the selected skills across projects, or `--skill abap` to install only the general ABAP skill.
+
+For installation without Node.js, follow the manual setup below.
 
 ## Manual Installation
 
@@ -50,6 +54,7 @@ Should show a symlink pointing to the abap-skills/skills directory.
 ### Windows
 
 **Prerequisites:**
+
 - Git installed
 - Either **Developer Mode** enabled OR **Administrator privileges**
   - Windows 10: Settings → Update & Security → For developers
@@ -124,11 +129,13 @@ If running OpenCode inside WSL, use the [macOS / Linux](#macos--linux) instructi
 #### Verify Installation
 
 **Command Prompt:**
+
 ```cmd
 dir /AL "%USERPROFILE%\.config\opencode\skills"
 ```
 
 **PowerShell:**
+
 ```powershell
 Get-ChildItem "$env:USERPROFILE\.config\opencode\skills" | Where-Object { $_.LinkType }
 ```
@@ -138,13 +145,16 @@ Look for `<JUNCTION>` in the output.
 #### Troubleshooting Windows
 
 **"You do not have sufficient privilege" error:**
+
 - Enable Developer Mode in Windows Settings, OR
 - Right-click your terminal → "Run as Administrator"
 
 **"Cannot create a file when that file already exists":**
+
 - Run the removal commands (step 3) first, then retry
 
 **Symlinks not working after git clone:**
+
 - Run `git config --global core.symlinks true` and re-clone
 
 ## Usage
@@ -170,7 +180,9 @@ use skill tool to load abap-skills/sap-fiori-apps-reference
 ### Available Skills
 
 #### Released ABAP Classes
+
 Quick reference for released ABAP classes in ABAP Cloud Development:
+
 ```
 What is the released class for sending email?
 Give me the class for UUID generation
@@ -178,14 +190,18 @@ Show me classes for JSON processing
 ```
 
 #### Clean ABAP
+
 Check ABAP code for compliance with Clean ABAP principles:
+
 ```
 Check this ABAP code for clean code compliance
 Review my ABAP method for best practices
 ```
 
 #### SAP Fiori Apps Reference
+
 Generate SAP Fiori Launchpad URLs:
+
 ```
 Generate URL for Create Maintenance Request app
 Find apps related to 'Workflow'
@@ -274,6 +290,7 @@ Restart OpenCode to load the updates.
 ### Windows: Module not found error
 
 If you see `Cannot find module` errors on Windows:
+
 - **Cause:** Git Bash `ln -sf` copies files instead of creating symlinks
 - **Fix:** Use `mklink /J` directory junctions instead (see Windows installation steps)
 

@@ -1,8 +1,9 @@
 # ABAP Skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![skills.sh](https://skills.sh/b/likweitan/abap-skills)](https://skills.sh/likweitan/abap-skills)
 
-A collection of Claude Code skills for SAP ABAP development — covering RAP, CDS, OData, ABAP Cloud, testing, authorization, eventing, migration, and more.
+A collection of AI agent skills for SAP ABAP development — covering RAP, CDS, OData, ABAP Cloud, testing, authorization, eventing, migration, and more.
 
 ## Table of Contents
 
@@ -32,9 +33,31 @@ A collection of Claude Code skills for SAP ABAP development — covering RAP, CD
 
 ## Installation
 
-Note: Installation differs by platform.
+### Skills CLI (Recommended)
 
-### Claude Code
+Install with the [Skills CLI](https://skills.sh/docs/cli). The CLI discovers the available skills and lets you choose which skills and supported AI agents to configure:
+
+```bash
+npx skills add likweitan/abap-skills
+```
+
+Install a single skill directly:
+
+```bash
+npx skills add likweitan/abap-skills --skill abap
+```
+
+Add `--global` to make the selected skills available across projects:
+
+```bash
+npx skills add likweitan/abap-skills --global
+```
+
+The CLI supports GitHub Copilot, Claude Code, Cursor, Codex, OpenCode, and other compatible agents. Run `npx skills add likweitan/abap-skills --list` to preview all available skills without installing them.
+
+### Manual Installation
+
+#### Claude Code
 
 Clone the repository and copy the skills to your Claude Code skills directory:
 
@@ -52,7 +75,7 @@ cp -r abap-skills/skills/abap ~/.claude/skills/
 
 After installation, restart Claude Code to load the new skills.
 
-### OpenCode
+#### OpenCode
 
 Tell OpenCode:
 
@@ -62,7 +85,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/likweitan/a
 
 **Detailed docs:** [docs/README.opencode.md](docs/README.opencode.md)
 
-### GitHub Copilot in VS Code
+#### GitHub Copilot in VS Code
 
 Install GitHub Copilot in VS Code, clone this repository locally, and create a reusable prompt file that points Copilot Chat to the ABAP skill references.
 

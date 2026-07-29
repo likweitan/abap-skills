@@ -174,7 +174,7 @@ Use OpenCode's native `skill` tool to load a specific skill:
 ```
 use skill tool to load abap-skills/released-abap-classes
 use skill tool to load abap-skills/clean-abap
-use skill tool to load abap-skills/sap-fiori-apps-reference
+use skill tool to load abap-skills/sap-fiori-url-generator
 ```
 
 ### Available Skills
@@ -268,7 +268,7 @@ ABAP Skills uses OpenCode's native `skill` tool for skill discovery and loading.
 
 - **released-abap-classes**: Reference for 50+ released ABAP classes in ABAP Cloud Development
 - **clean-abap**: Code analysis for Clean ABAP principles compliance
-- **sap-fiori-apps-reference**: SAP Fiori Launchpad URL generation and app lookup
+- **sap-fiori-url-generator**: SAP Fiori Launchpad URL generation and app lookup
 
 ## Updating
 

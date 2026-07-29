@@ -13,31 +13,28 @@
 git clone https://github.com/likweitan/abap-skills.git ~/.config/opencode/abap-skills
 ```
 
-### 2. Register the Plugin
+### 2. Link Skills
 
-Create a symlink so OpenCode discovers the plugin:
-
-```bash
-mkdir -p ~/.config/opencode/plugins
-rm -f ~/.config/opencode/plugins/abap-skills.js
-ln -s ~/.config/opencode/abap-skills/.opencode/plugins/abap-skills.js ~/.config/opencode/plugins/abap-skills.js
-```
-
-### 3. Symlink Skills
-
-Create a symlink so OpenCode's native skill tool discovers abap-skills skills:
+Link each skill into OpenCode's global skills directory. Existing skills with the same name are left unchanged:
 
 ```bash
 mkdir -p ~/.config/opencode/skills
-rm -rf ~/.config/opencode/skills/abap-skills
-ln -s ~/.config/opencode/abap-skills/skills ~/.config/opencode/skills/abap-skills
+for source in ~/.config/opencode/abap-skills/skills/*; do
+	name=$(basename "$source")
+	target="$HOME/.config/opencode/skills/$name"
+	if [ -e "$target" ] || [ -L "$target" ]; then
+		echo "Skipping existing skill: $name"
+		continue
+	fi
+	ln -s "$source" "$target"
+done
 ```
 
-### 4. Restart OpenCode
+### 3. Restart OpenCode
 
-Restart OpenCode. The plugin will automatically inject abap-skills context.
+Restart OpenCode so it discovers all 18 skills.
 
-Verify by asking: "do you have abap-skills?"
+Verify by asking: "Use the skill tool to list the available ABAP skills."
 
 ## Usage
 
@@ -54,7 +51,7 @@ use skill tool to list skills
 Use OpenCode's native `skill` tool to load a specific skill:
 
 ```
-use skill tool to load abap-skills/released-abap-classes
+use skill tool to load sap-fiori-url-generator
 ```
 
 ### Personal Skills
@@ -82,7 +79,7 @@ description: Use when [condition] - [what it does]
 
 Create project-specific skills in `.opencode/skills/` within your project.
 
-**Skill Priority:** Project skills > Personal skills > ABAP Skills
+Project skills can override global skills with the same name.
 
 ## Updating
 
@@ -91,27 +88,16 @@ cd ~/.config/opencode/abap-skills
 git pull
 ```
 
+The symlinks continue to point to the updated skill directories.
+
 ## Troubleshooting
-
-### Plugin not loading
-
-1. Check plugin symlink: `ls -l ~/.config/opencode/plugins/abap-skills.js`
-2. Check source exists: `ls ~/.config/opencode/abap-skills/.opencode/plugins/abap-skills.js`
-3. Check OpenCode logs for errors
 
 ### Skills not found
 
-1. Check skills symlink: `ls -l ~/.config/opencode/skills/abap-skills`
-2. Verify it points to: `~/.config/opencode/abap-skills/skills`
-3. Use `skill` tool to list what's discovered
-
-### Tool mapping
-
-When skills reference Claude Code tools:
-- `TodoWrite` → `update_plan`
-- `Task` with subagents → `@mention` syntax
-- `Skill` tool → OpenCode's native `skill` tool
-- File operations → your native tools
+1. Check a skill symlink: `ls -l ~/.config/opencode/skills/sap-fiori-url-generator`
+2. Verify it points to: `~/.config/opencode/abap-skills/skills/sap-fiori-url-generator`
+3. Confirm `SKILL.md` exists inside the linked directory
+4. Restart OpenCode and use the `skill` tool to list discovered skills
 
 ## Getting Help
 

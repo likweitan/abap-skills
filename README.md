@@ -529,7 +529,7 @@ skills/
 │   ├── SKILL.md
 │   └── references/
 │       └── Released_ABAP_Classes.md
-└── sap-fiori-apps-reference/
+└── sap-fiori-url-generator/
     ├── SKILL.md
     ├── scripts/
     │   ├── fiori-url-generator.js

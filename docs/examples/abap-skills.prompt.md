@@ -13,6 +13,6 @@ Before answering, inspect the most relevant skill file under ~/.copilot/abap-ski
 - odata/SKILL.md for OData services
 - abap-cloud/SKILL.md for ABAP Cloud and Clean Core work
 - abap-unit-testing/SKILL.md for ABAP Unit tests
-- sap-fiori-apps-reference/SKILL.md for SAP Fiori app lookup and FLP URL generation
+- sap-fiori-url-generator/SKILL.md for SAP Fiori app lookup and FLP URL generation
 
 Prefer the repository's examples and references over generic ABAP guidance.

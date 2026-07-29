@@ -97,7 +97,7 @@ Before answering, inspect the most relevant skill file under ~/.copilot/abap-ski
 - odata/SKILL.md for OData services
 - abap-cloud/SKILL.md for ABAP Cloud and Clean Core work
 - abap-unit-testing/SKILL.md for ABAP Unit tests
-- sap-fiori-apps-reference/SKILL.md for SAP Fiori app lookup and FLP URL generation
+- sap-fiori-url-generator/SKILL.md for SAP Fiori app lookup and FLP URL generation
 
 Prefer the repository's examples and references over generic ABAP guidance.
 EOF
@@ -123,7 +123,7 @@ Before answering, inspect the most relevant skill file under ~/.copilot/abap-ski
 - odata/SKILL.md for OData services
 - abap-cloud/SKILL.md for ABAP Cloud and Clean Core work
 - abap-unit-testing/SKILL.md for ABAP Unit tests
-- sap-fiori-apps-reference/SKILL.md for SAP Fiori app lookup and FLP URL generation
+- sap-fiori-url-generator/SKILL.md for SAP Fiori app lookup and FLP URL generation
 
 Prefer the repository's examples and references over generic ABAP guidance.
 EOF
@@ -151,7 +151,7 @@ Before answering, inspect the most relevant skill file under %USERPROFILE%\.copi
 - odata/SKILL.md for OData services
 - abap-cloud/SKILL.md for ABAP Cloud and Clean Core work
 - abap-unit-testing/SKILL.md for ABAP Unit tests
-- sap-fiori-apps-reference/SKILL.md for SAP Fiori app lookup and FLP URL generation
+- sap-fiori-url-generator/SKILL.md for SAP Fiori app lookup and FLP URL generation
 
 Prefer the repository's examples and references over generic ABAP guidance.
 '@ | Set-Content -Path (Join-Path $PromptFolder "abap-skills.prompt.md") -Encoding UTF8
@@ -209,7 +209,7 @@ Useful files include:
 - `skills/cds-view-entities/SKILL.md`
 - `skills/abap-cloud/SKILL.md`
 - `skills/abap-unit-testing/SKILL.md`
-- `skills/sap-fiori-apps-reference/SKILL.md`
+- `skills/sap-fiori-url-generator/SKILL.md`
 
 ### Example Prompts
 

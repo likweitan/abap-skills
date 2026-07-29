@@ -1,31 +1,139 @@
 {
-    "name": "abap-skills",
-    "owner": {
-        "name": "Lik Wei Tan",
-        "email": "likweitan@gmail.com"
+  "name": "abap-skills",
+  "owner": {
+    "name": "Lik Wei Tan",
+    "email": "likweitan@gmail.com"
+  },
+  "metadata": {
+    "description": "Skills for SAP ABAP, ABAP Cloud, RAP, CDS, OData, testing, security, migration, and BTP development",
+    "version": "1.2.0"
+  },
+  "plugins": [
+    {
+      "name": "sap-fiori-url-generator",
+      "description": "Generate SAP Fiori Launchpad URLs from app names",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/sap-fiori-url-generator"]
     },
-    "metadata": {
-        "description": "ABAP development skills including Fiori URL generation and Clean ABAP code analysis",
-        "version": "1.1.0"
+    {
+      "name": "clean-abap",
+      "description": "Check ABAP code for compliance with Clean ABAP principles",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/clean-abap"]
     },
-    "plugins": [
-        {
-            "name": "sap-fiori-url-generator",
-            "description": "Generate SAP Fiori Launchpad URLs from app names",
-            "source": "./",
-            "strict": false,
-            "skills": [
-                "./skills/sap-fiori-apps-reference"
-            ]
-        },
-        {
-            "name": "clean-abap",
-            "description": "Check ABAP code for compliance with Clean ABAP principles",
-            "source": "./",
-            "strict": false,
-            "skills": [
-                "./skills/clean-abap"
-            ]
-        }
-    ]
+    {
+      "name": "abap",
+      "description": "Check and improve ABAP code with abaplint and Clean ABAP principles",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/abap"]
+    },
+    {
+      "name": "abap-cloud",
+      "description": "Develop clean-core extensions with the ABAP Cloud development model",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/abap-cloud"]
+    },
+    {
+      "name": "abap-cloud-migration",
+      "description": "Migrate classic ABAP custom code to ABAP Cloud",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/abap-cloud-migration"]
+    },
+    {
+      "name": "abap-sql-amdp",
+      "description": "Build modern ABAP SQL queries and AMDP procedures",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/abap-sql-amdp"]
+    },
+    {
+      "name": "abap-unit-testing",
+      "description": "Write ABAP Unit tests with test doubles and mocking frameworks",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/abap-unit-testing"]
+    },
+    {
+      "name": "abapgit",
+      "description": "Work with abapGit repositories, serialization, branches, and transports",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/abapgit"]
+    },
+    {
+      "name": "atc-cloudification",
+      "description": "Configure ATC Cloud Readiness and Clean Core checks",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/atc-cloudification"]
+    },
+    {
+      "name": "authorization-iam",
+      "description": "Implement ABAP authorization and identity access management",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/authorization-iam"]
+    },
+    {
+      "name": "badi-enhancement",
+      "description": "Develop BAdIs and extensions with the ABAP enhancement framework",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/badi-enhancement"]
+    },
+    {
+      "name": "btp-abap-environment",
+      "description": "Set up and develop in SAP BTP ABAP Environment",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/btp-abap-environment"]
+    },
+    {
+      "name": "btp-diagram-generator",
+      "description": "Generate SAP BTP solution architecture diagrams in draw.io format",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/btp-diagram-generator"]
+    },
+    {
+      "name": "cds-view-entities",
+      "description": "Develop CDS view entities with associations, annotations, and access control",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/cds-view-entities"]
+    },
+    {
+      "name": "odata",
+      "description": "Develop OData V2 and V4 services in ABAP",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/odata"]
+    },
+    {
+      "name": "rap",
+      "description": "Develop applications with the RESTful ABAP Programming Model",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/rap"]
+    },
+    {
+      "name": "rap-business-events",
+      "description": "Implement RAP business events and enterprise eventing",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/rap-business-events"]
+    },
+    {
+      "name": "released-abap-classes",
+      "description": "Find released ABAP classes for ABAP Cloud development",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/released-abap-classes"]
+    }
+  ]
 }

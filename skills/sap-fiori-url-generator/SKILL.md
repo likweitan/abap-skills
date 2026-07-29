@@ -1,5 +1,5 @@
 ---
-name: sap-fiori-apps-reference
+name: sap-fiori-url-generator
 description: Generate SAP Fiori Launchpad URLs from app names using AppList.json. Looks up app information by name and constructs proper FLP URLs with required parameters like sap-client and sap-language.
 license: MIT
 ---

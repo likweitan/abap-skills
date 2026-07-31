@@ -1,7 +1,7 @@
 {
   "name": "abap-skills",
   "description": "Skills for SAP ABAP, ABAP Cloud, RAP, CDS, OData, testing, security, migration, and BTP development",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "owner": {
     "name": "Lik Wei Tan",
     "email": "likweitan@gmail.com"
@@ -14,7 +14,7 @@
       "author": {
         "name": "Lik Wei Tan"
       },
-      "license": "Apache-2.0",
+      "license": "MIT",
       "keywords": [
         "sap",
         "abap",

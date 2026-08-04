@@ -16,7 +16,7 @@ For the vast majority of diagrams, **do not hand-write XML**. Use the `btp_build
 import sys
 from pathlib import Path
 # Add the skill's scripts/ dir to sys.path so `btp_builder` imports work
-# regardless of where the skill is installed (repo, ~/.claude/skills/, etc.)
+# regardless of where the skill is installed
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from btp_builder import BtpDiagram

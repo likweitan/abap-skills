@@ -23,6 +23,8 @@ from pathlib import Path
 def open_diagram(path: Path) -> str:
     if not path.is_file():
         raise FileNotFoundError(path)
+    if path.suffix.lower() != ".drawio":
+        raise ValueError(f"Expected a .drawio file, got: {path.suffix}")
 
     # Try OS opener
     opener = None

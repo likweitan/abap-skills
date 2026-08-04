@@ -16,7 +16,7 @@ For the vast majority of diagrams, **do not hand-write XML**. Use the `btp_build
 import sys
 from pathlib import Path
 # Add the skill's scripts/ dir to sys.path so `btp_builder` imports work
-# regardless of where the skill is installed (repo, ~/.claude/skills/, etc.)
+# regardless of where the skill is installed
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from btp_builder import BtpDiagram
@@ -118,9 +118,18 @@ Before generating, confirm what is missing. Default to L1 if unspecified.
 | Environment / runtime    | Cloud Foundry        | Cloud Foundry, Kyma, ABAP Environment                                                                                                                                  |
 | Region / multi-region?   | single               | Affects grouping containers                                                                                                                                            |
 | Primary flows            | (must ask)           | What connects to what, direction, purpose                                                                                                                              |
+| Output format            | `.drawio` + PNG      | `.drawio` always; optionally export PNG (`-s 2`), SVG, or PDF via draw.io CLI                                                                                          |
 | Output filename          | `btp-diagram.drawio` | Saved to workspace root unless user specifies                                                                                                                          |
 
 If the user gives a one-line prompt with enough services and a clear flow, proceed without asking — surface assumptions in the final response.
+
+## Component allowlist discipline
+
+Before layout, create an explicit **component allowlist** from the request:
+
+1. List requested actors, clients, services, targets, and any architecturally required supporting services (e.g. CIS for authentication flows).
+2. **Do not add familiar products as decoration.** SAP Build Work Zone, SuccessFactors, or extra posting targets appear only when explicitly requested or required by a described flow.
+3. **Preserve the requested sequence** as an ordered edge list. E.g. `Outlook → Document AI → Integration Suite → S/4HANA Cloud` means exactly those adjacent edges — do not insert intermediary steps or additional targets.
 
 ## Workflow
 
@@ -186,8 +195,8 @@ Per the SAP atomic design system (Atoms → Molecules → Organisms). The exact 
   - Authentication (SAML/OIDC): same shape, `strokeColor=#188918`
   - Authorization / Provisioning (SCIM): same shape, `strokeColor=#5D36FF`
   - Mutual trust: add `startArrow=blockThin;startFill=1` and `strokeColor=#CC00DC`
-  - Async / indirect: add `dashed=1`
-  - Optional: add `dashed=1;dashPattern=1 4;` (dotted)
+  - Async / indirect: use `edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#475E75;strokeWidth=1.5;endArrow=blockThin;endFill=1;endSize=4;startArrow=none;startFill=0;startSize=4;jumpStyle=none;jumpSize=0;targetPerimeterSpacing=15;dashed=1;` (the official SAP indirect connector style — `entityRelationEdgeStyle` + `targetPerimeterSpacing=15`)
+  - Optional: add `dashed=1;dashPattern=1 4;` (dotted) to the async style above
   - Network / firewall boundary line: thick grey vertical separator `strokeColor=#475E75;strokeWidth=3;jumpStyle=gap;` with a small uppercase `NETWORK` label (`#475E75`) beside it. **Reserve `strokeWidth=3` for firewalls/network barriers only** — do not use it for normal data flows.
   - **Always pin exit/entry ports** to avoid diagonal auto-routing: add `exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;` (adjust X/Y for the direction). For vertical connectors use `exitY=1` / `entryY=0`. **Remove manual `<mxPoint>` waypoints** unless a deliberate detour is needed — leave `<Array as="points"/>` empty. See [reference/example-patterns.md §8](reference/example-patterns.md) for the full port-pinning reference.
 - **Edge labels** are _separate vertex pills_, not inline edge text — small rounded rectangles `arcSize=50`, ~16 px tall, color-matched to the connector (generic `#475E75`/`#F5F6F7`, auth `#188918`/`#F5FAE5`, authz/SCIM `#5D36FF`/`#F1ECFF`, trust `#CC00DC`/`#FFF0FA`).
@@ -206,8 +215,11 @@ Follow the [draw.io AI generation rules](https://www.drawio.com/doc/faq/ai-drawi
 - Coordinates: top-left `(0,0)`, x→right, y→down. Children inside a group use coordinates _relative_ to the group.
 - Match perimeter to shape (e.g. `perimeter=ellipsePerimeter` for ellipses).
 - XML-escape labels (`&amp;`, `&lt;`, `&gt;`, `&quot;`). HTML markup inside `value=` is allowed and is the standard way to bold/size text — see the official examples.
+- **HTML label escaping:** Build the full HTML string first (tags + text, with plain `<`/`>`/`"`), then apply **one** complete escape pass (`&`→`&amp;`, `<`→`&lt;`, `>`→`&gt;`, `"`→`&quot;`) before inserting into the `value="…"` attribute. When using `xml.etree.ElementTree`, pass the unescaped value and let the serializer escape it. Parse the written file with a real XML parser and reject any visible label containing `<font`, `&lt;font`, or `<div`.
+- Use `container=0;` on area shapes (BTP boundary, subaccount cards) — not draw.io container behavior — so connectors route correctly through them.
 - Keep grid spacing on multiples of 10 px (`gridSize="10"`); leave ≥20 px gaps between siblings; sub-containers padded by ~18–24 px.
 - It is normal and expected for diagrams to be authored in **negative** coordinate space (e.g. `x="-2200"`); draw.io centers on content.
+- Every edge `mxCell` MUST contain `<mxGeometry relative="1" as="geometry" />` — self-closing edge cells are invalid and will not render.
 
 Page size: **always A4 landscape** — `pageWidth="1169" pageHeight="827"`, even for dense L2. Larger virtual canvas comes from spreading groups across negative coordinates, not from changing the page size. L2 additionally sets `background="none"` on `<mxGraphModel>`.
 
@@ -241,11 +253,16 @@ python3 skills/btp-diagram-generator/scripts/upscale_svg_icons.py <file.drawio> 
 
 Then verify these remaining items by eye:
 
-- [ ] All labels XML-escaped.
+- [ ] All labels XML-escaped (no raw `<font>` visible).
 - [ ] No overlapping shapes (≥20px gap).
 - [ ] BTP container visually encloses all BTP services; external systems sit outside it.
 - [ ] L0 diagrams have no legend and neutral connectors; L2 includes a legend card top-right and a description block under the title.
 - [ ] Edge labels are pill _vertex_ cells, not inline `value=` text on the `edge="1"` cell.
+- [ ] Connectors do not cross through unrelated containers.
+- [ ] No unrequested components present (check against the allowlist).
+- [ ] Service sequence matches the user's requested order.
+- [ ] CIS is outside the Subaccount but inside BTP.
+- [ ] Legend (if present) does not overlap any connector.
 
 The validator covers everything else: root cells, unique IDs, vertex/edge exclusivity, no `mxgraph.sap.*`, edge source/target validity, port pinning, manual waypoints, SVG intrinsic size vs cell geometry, palette colors, and A4 landscape page size.
 
@@ -283,3 +300,200 @@ In `scripts/`, runnable with `uv run python` (no third-party dependencies):
 - [scripts/open_diagram.py](scripts/open_diagram.py) — opens a `.drawio` file via the OS opener (macOS `open`, Linux `xdg-open`, Windows `start`); falls back to printing an `app.diagrams.net` URL.
 - [scripts/validate_diagram.py](scripts/validate_diagram.py) — enforces the §7 checklist. Catches `mxgraph.sap.*` typos, duplicate IDs, edges with broken source/target, missing port pins, manual waypoints, off-palette colors, and SVG intrinsic-size blur. Use `--strict-palette` and `--strict-waypoints` to fail on warnings. Also exposes `validate_xml(xml)` / `validate_path(path)` for reuse from Python.
 - [scripts/upscale_svg_icons.py](scripts/upscale_svg_icons.py) — fixes blurry icons by patching the root `<svg>` `width`/`height` to match the cell geometry (keeps `viewBox` unchanged). Default target 48 px; pass `--size 32` for L2, `--size 50` for L0. Use `--in-place` to overwrite. (The Quick-Path builder applies this automatically; only run manually on hand-authored XML.)
+
+## Layout tips
+
+### Avoiding overlapping connectors
+
+When generating diagrams with many connections:
+
+1. **Pin exit/entry points** — always set explicit `exitX`, `exitY`, `entryX`, `entryY` on connectors to control exactly where they leave/arrive at shapes.
+2. **Distribute across perimeter** — for N connections from one shape, distribute exit points: e.g. 3 on bottom → `exitX=0.25`, `0.5`, `0.75` (never all at `exitX=0.5`).
+3. **Use waypoints** — for complex routing, add `<mxPoint>` waypoints inside `<Array as="points">` to force edges through specific corridors.
+4. **Stagger vertical spacing** — place elements with many connections at different Y-levels so connectors have room.
+5. **Separate flow types visually** — use different sides of shapes for different flow types (data flows exit right, auth flows exit bottom).
+6. **Prefer one connector to a shared destination area** — if S/4HANA and SuccessFactors sit inside one "SAP Cloud Solutions" area, use a single connector to the area boundary rather than fanning out.
+7. **Place external targets in a side column** — align the external area horizontally with the integration hub, as in SAP reference diagrams.
+
+### Connectors must NOT cross through containers
+
+Lines must never visually pass through a container they are not connecting to.
+
+1. Trace the full path (all segments) and verify it doesn't intersect any unrelated container's bounding box.
+2. Position containers to avoid line corridors.
+3. Verify each orthogonal segment independently: vertical at X=V must not cross a container spanning that X; horizontal at Y=H must not cross a container spanning that Y.
+
+### Straight & uniform lines (minimize bends)
+
+Zero bends is preferred; one 90° bend is the normal maximum. Two or more bends only when an obstacle makes them unavoidable.
+
+1. **Align elements by center coordinates** — if two elements should have a straight connector, ensure they share the same X center (vertical lines) or Y center (horizontal lines).
+2. **Design layout around connector geometry** — decide straight-line constraints first, then position elements.
+3. **Enforce a bend budget:** 0 bends = shared center axis; 1 bend = pin one `mxPoint`; 2+ = reject and reposition unless obstacle-forced.
+4. **Do not trust automatic orthogonal routing** for offset elements — it creates unwanted doglegs. Pin explicit waypoints.
+
+### Connector label clearance
+
+A connector must never pass through an icon label, product name, or area title:
+
+1. Prefer an icon cell with `value=""` plus a **separate text cell** below it.
+2. If a vertical connector must continue below an icon, start it from the bottom edge of the label cell, not the icon.
+3. Keep horizontal connectors on the icon centerline and labels below (`exitY=0.5`, `entryY=0.5`).
+4. Leave at least 20px of straight line before an arrowhead. Never place a bend immediately beside an icon.
+
+### SAP Cloud Identity Services placement
+
+CIS must be **outside the Subaccount but inside BTP** (identity services are provisioned at BTP level, not within a subaccount):
+
+1. Position CIS **below the Subaccount** but within the BTP boundary.
+2. Place CIS to the **left** side of BTP so vertical connectors from Integration Suite (right side) don't cross it.
+3. CIS container: **white fill** (`#ffffff`) with **grey border** (`#475E75`) — alternating fill pattern (BTP blue → CIS white).
+4. CIS → Subaccount: green dashed **bidirectional** OIDC trust connector. SAML 2.0 is NOT used for modern BTP trust — SAML only applies to upstream corporate IdP federation.
+5. Show SCIM 2.0 (indigo `#5D36FF`) separately only when identity provisioning is requested.
+
+### Application Clients presentation
+
+Application Clients should be a standalone icon+label, NOT wrapped in a container:
+
+1. Use the App Clients icon from the `"Application and User"` component group.
+2. Set icon `value=""` and add a separate text cell below with `value="Application Clients&#xa;Mobile / Desktop"`.
+3. Connect horizontal data flows from the icon's side (`exitY=0.5`), not through its label.
+4. Do NOT add a container area around it.
+
+### Area nesting fill pattern
+
+Always alternate fill when nesting: `blue → white → blue → white`.
+
+```
+L0: BTP Platform   (border #0070F2, fill #EBF8FF)
+  L1: Subaccount   (border #475E75, fill #ffffff)
+    L2: Service group (border #0070F2, fill #EBF8FF)
+  L1: CIS          (border #475E75, fill #ffffff)
+```
+
+A direct child of a blue-filled container MUST have white fill (not blue-on-blue).
+
+### Legend placement
+
+The legend MUST NOT overlap any connector or element:
+
+1. Place in an empty corner — bottom-right preferred (flows go L→R, T→B).
+2. Trace all connector routes; the legend must not intersect any.
+3. Never place between source and target where connectors route.
+
+### Diagram title placement
+
+The title must not be blocked by any container border:
+
+1. Place **above** the BTP container top edge (e.g. title y=10, BTP y=50).
+2. OR **inside** BTP with ≥10px padding from the border.
+3. Reserve a 45-60px title band at the top of every area.
+
+## Export workflow (draw.io CLI)
+
+### Prerequisites
+
+```bash
+# macOS (Homebrew installs as `drawio`, no dot)
+drawio --version
+
+# macOS (full path fallback)
+/Applications/draw.io.app/Contents/MacOS/draw.io --version
+
+# Linux
+draw.io --version
+
+# Windows
+"C:\Program Files\draw.io\draw.io.exe" --version
+```
+
+Install from [jgraph/drawio-desktop/releases](https://github.com/jgraph/drawio-desktop/releases) if missing.
+
+### Step 1 — Export preview PNG (no `-e`)
+
+```bash
+drawio -x -f png -s 2 -o diagram.png diagram.drawio
+```
+
+### Step 2 — Self-check
+
+Use vision (if available) to verify the exported PNG:
+
+| Check                  | What to look for                                         |
+| ---------------------- | -------------------------------------------------------- |
+| Correct SAP colors     | Blue `#0070F2` for SAP, Grey `#475E75` for non-SAP       |
+| Area nesting           | Alternating blue/white fill                              |
+| Overlapping shapes     | ≥20px gap between all siblings                           |
+| Clipped labels         | Text cut off → increase shape dimensions                 |
+| Missing connections    | Disconnected arrows → verify source/target ids           |
+| Line style             | Solid=sync, Dashed=async                                 |
+| Unrequested components | Products not in the allowlist → remove                   |
+| Wrong service order    | Edge order differs from requested sequence → fix         |
+| Title collision        | Icon/label touches area title → move below reserved band |
+| Raw HTML text          | `<font>` markup visible → fix escaping                   |
+
+Also run: `python3 scripts/validate_diagram.py diagram.drawio --strict-palette`
+
+Max 2 self-check rounds.
+
+### Step 3 — Review loop
+
+Show the preview to the user. Apply targeted XML edits per feedback. Loop until approved. **Safety valve:** after 5 rounds, suggest opening `.drawio` in draw.io desktop for manual fine-tuning.
+
+### Step 4 — Final export (with `-e` for embedded diagram)
+
+```bash
+# PNG with embedded diagram XML (editable in draw.io)
+drawio -x -f png -e -s 2 -o diagram.drawio.png diagram.drawio
+
+# SVG with embedded diagram
+drawio -x -f svg -e -o diagram.drawio.svg diagram.drawio
+
+# PDF
+drawio -x -f pdf -o diagram.pdf diagram.drawio
+```
+
+Key flags: `-x` export mode · `-f` format · `-e` embed diagram XML · `-s` scale (2 recommended for PNG) · `-o` output path · `-b 10` border.
+
+### Known issue: truncated IEND in `-e` PNGs
+
+draw.io CLI emits `-e` PNGs with an 8-byte truncation at IEND, causing some viewers/APIs to reject the file. Export SVG/PDF is unaffected. If the final PNG won't open, re-export without `-e` for the user-facing image.
+
+### Fallback chain
+
+| Scenario                              | Behavior                                                               |
+| ------------------------------------- | ---------------------------------------------------------------------- |
+| draw.io CLI missing, Python available | Generate `.drawio` + print a `https://app.diagrams.net/?…` browser URL |
+| draw.io CLI missing, Python missing   | Generate `.drawio` XML only; instruct user to open manually            |
+| CLI unavailable in sandbox (macOS)    | Use browser fallback; ask user to export in non-sandboxed terminal     |
+| Vision unavailable for self-check     | Skip visual verification; proceed to showing user the file             |
+| Linux headless export fails           | Try `xvfb-run -a drawio …`; add `--disable-gpu` if EGL errors          |
+
+### WSL2 specifics
+
+```bash
+# CLI path on WSL2
+"/mnt/c/Program Files/draw.io/draw.io.exe" --version
+
+# Open exported file (convert path first)
+cmd.exe /c start "" "$(wslpath -w diagram.drawio.png)"
+```
+
+## Common mistakes
+
+| Mistake                                                | Fix                                                                                                                      |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Missing `id="0"` / `id="1"` root cells                 | Always include both at top of `<root>`                                                                                   |
+| Self-closing edge `mxCell` (`<mxCell ... edge="1" />`) | Use expanded form with `<mxGeometry relative="1" as="geometry" />` child                                                 |
+| `--` inside XML comments                               | Illegal per XML spec — rephrase                                                                                          |
+| `shape=mxgraph.sap.*` style                            | Does not exist; use `shape=image;image=data:image/svg+xml,...` from icon-index.json                                      |
+| Literal `\n` in label                                  | Use `&#xa;` for line breaks in `value` attributes                                                                        |
+| HTML label double-escaping                             | Build HTML string first, then one full escape pass (`&amp;`, `&lt;`, `&gt;`, `&quot;`) before inserting into `value="…"` |
+| Raw `<font>` markup visible in diagram                 | Verify with XML parser after generating; use `xml.etree.ElementTree.fromstring()`                                        |
+| Blurry icons                                           | Patch SVG `width`/`height` to cell size before encoding; run `upscale_svg_icons.py`                                      |
+| Edges crossing through unrelated containers            | Reposition containers or add waypoints                                                                                   |
+| All connectors exit same point                         | Distribute exit/entry across perimeter (`exitX=0.25`, `0.5`, `0.75`)                                                     |
+| Auto-routing creates doglegs                           | Pin explicit waypoints; align centers for straight lines                                                                 |
+| `strokeWidth=3` on data flow                           | Reserve thick grey for firewalls/network barriers only                                                                   |
+| `command not found: draw.io` (macOS)                   | Homebrew installs as `drawio` (no dot)                                                                                   |
+| Vision "dimensions exceed 2576×2576px"                 | Re-export with `--width 2000` instead of `-s 2`                                                                          |

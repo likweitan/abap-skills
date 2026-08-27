@@ -1,6 +1,16 @@
+<div align="center">
+
+<img width="112" height="112" alt="image" src="https://github.com/user-attachments/assets/b51bf775-abfe-44ab-afb8-def90211b3c3" />
+
 # ABAP Skills
 
+**Agent Skills for ABAP**
+
+Clean ABAP · CDS Views · BTP Diagram Generator
+
 [![skills.sh](https://skills.sh/b/likweitan/abap-skills)](https://skills.sh/likweitan/abap-skills)
+
+</div>
 
 A collection of AI agent skills for SAP ABAP development — covering RAP, CDS, OData, ABAP Cloud, testing, authorization, eventing, migration, and more.
 

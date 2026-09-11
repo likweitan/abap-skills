@@ -7,6 +7,8 @@ description: "Generate SAP BTP (Business Technology Platform) solution architect
 
 Produces a `.drawio` file in the workspace that conforms to the [SAP BTP Solution Diagram guidelines](https://sap.github.io/btp-solution-diagrams/) and opens it through whichever [draw.io MCP server](https://www.drawio.com/doc/faq/ai-drawio-generation) is configured.
 
+Its validation and delivery discipline is informed by [Archify](https://github.com/tt-a1i/archify): deterministic artifacts, machine-readable repair receipts, explicit quality gates, last-good preservation, and separate automated versus perceptual review claims.
+
 ## ⚡ Quick Path (use this first)
 
 For the vast majority of diagrams, **do not hand-write XML**. Use the `btp_builder` Python package — it owns icon lookup, SAP palette, port pinning, label HTML, A4 sizing, SVG upscaling, and validation. A typical L1 diagram is ~20 lines.
@@ -48,10 +50,11 @@ d.connect(tc, ci, kind="dblhd", direction="down")
 d.connect(tc, s4); d.connect(tc, third); d.connect(tc, cloud)
 d.connect(idp, ci, kind="dashed", direction="up")
 
-d.save("btp-task-center-architecture.drawio")  # validates → raises on errors
+d.save("btp-task-center-architecture.drawio")  # validates, then atomically commits
 ```
 
 Run via `uv run python <script>.py` from the repository root. `save()` validates first and raises `ValueError` with the full error list if anything is off; warnings are printed.
+Builder output is deterministic: the same authored diagram produces identical XML bytes and a stable diagram ID. `save()` writes a same-directory candidate and atomically replaces the target only after validation, so a failed commit preserves any prior artifact.
 
 ### Quick-Path API surface
 
@@ -67,7 +70,7 @@ Run via `uv run python <script>.py` from the repository root. `save()` validates
 | `.external(label, kind="sap"/"non-sap", ...)`               | `NodeRef` | Right-side external system tile.                                                                                                                            |
 | `.idp(label, ...)`                                          | `NodeRef` | 3rd-party Identity Provider tile.                                                                                                                           |
 | `.connect(src, tgt, kind, direction)`                       | edge id   | `kind` ∈ `std`/`dblhd`/`dashed`/`optional`/`auth`/`scim`/`trust`/`neutral`. `direction` auto-pins ports — override with `"right"`/`"left"`/`"up"`/`"down"`. |
-| `.save(path, validate=True)`                                | `Path`    | Writes XML. Validates inline (raises on errors).                                                                                                            |
+| `.save(path, validate=True)`                                | `Path`    | Validates, then atomically commits deterministic XML (raises on errors).                                                                                    |
 
 Positional kwargs (`right_of`, `left_of`, `below`, `above`, `in_`) auto-place nodes — only set explicit `x,y` for the first anchor in each row/column.
 
@@ -239,11 +242,19 @@ Never invent an MCP tool name — only call tools that actually appear in the av
 
 ### 7. Validate before delivering
 
-Run the bundled validator script first — it codifies most of the checklist:
+Validate after every candidate edit. Use `standard` while iterating; it accepts warnings but reports them. Use `showcase` for final delivery; every warning becomes a blocking error.
 
 ```sh
-python3 skills/btp-diagram-generator/scripts/validate_diagram.py <file.drawio>
+python3 skills/btp-diagram-generator/scripts/validate_diagram.py \
+  <file.drawio> --quality standard --json
+
+python3 skills/btp-diagram-generator/scripts/validate_diagram.py \
+  <file.drawio> --quality showcase --json
 ```
+
+The JSON receipt includes stable diagnostic codes, the exact local subject, supported fixes, per-check status, and the artifact byte count and SHA-256. On failure, change only the diagnosed subject and rerun validation. If two consecutive repairs do not reduce the error count, stop and report the unresolved diagnostics rather than rewriting the whole diagram.
+
+A passing final `showcase` receipt freezes the artifact: do not edit it afterward. Only open or export the exact file that passed. If validation or save fails and an older output exists, that file is the last-good artifact, not the rejected candidate.
 
 If it warns about blurry icons (SVG intrinsic size smaller than cell), fix in place:
 
@@ -251,7 +262,7 @@ If it warns about blurry icons (SVG intrinsic size smaller than cell), fix in pl
 python3 skills/btp-diagram-generator/scripts/upscale_svg_icons.py <file.drawio> --size 48 --in-place
 ```
 
-Then verify these remaining items by eye:
+Automated validation proves XML structure, connector/style contracts, and byte identity. It does not prove perceptual polish. Separately verify these remaining items by eye:
 
 - [ ] All labels XML-escaped (no raw `<font>` visible).
 - [ ] No overlapping shapes (≥20px gap).
@@ -274,9 +285,11 @@ When done, respond with:
 
 1. The saved file path as a workspace-relative markdown link.
 2. Whether the diagram was opened in the MCP editor (and how), or the fallback URL/instructions.
-3. A short bullet list of **assumptions made** and any **icons that fell back** to generic tiles, so the user can correct them.
-4. If the diagram opened in a draw.io workspace using **dark theme**, mention that SAP labels (`#1D2D3E`) are intentionally dark per the Fiori Horizon spec and will appear faint on dark canvas — switch draw.io to light theme or export to PNG/SVG to verify.
-5. One sentence on how to iterate (e.g. "ask me to add X service or change the audience level to L2").
+3. The final quality profile, check count, error/warning totals, artifact SHA-256, and byte count from the JSON receipt.
+4. The visual-review status, stated separately from automated validation.
+5. A short bullet list of **assumptions made** and any **icons that fell back** to generic tiles, so the user can correct them.
+6. If the diagram opened in a draw.io workspace using **dark theme**, mention that SAP labels (`#1D2D3E`) are intentionally dark per the Fiori Horizon spec and will appear faint on dark canvas — switch draw.io to light theme or export to PNG/SVG to verify.
+7. One sentence on how to iterate (e.g. "ask me to add X service or change the audience level to L2").
 
 ## Bundled assets
 
@@ -298,7 +311,7 @@ In `scripts/`, runnable with `uv run python` (no third-party dependencies):
 - [scripts/btp_builder/](scripts/btp_builder/) — **the Quick-Path package**. `BtpDiagram` DSL, icon lookup with alias resolution, palette constants, port-pin helpers, SVG upscaling, named styles. Import as `from btp_builder import BtpDiagram`.
 - [scripts/examples/task_center_arch.py](scripts/examples/task_center_arch.py) — runnable canonical example reproducing the Task Center reference architecture end-to-end.
 - [scripts/open_diagram.py](scripts/open_diagram.py) — opens a `.drawio` file via the OS opener (macOS `open`, Linux `xdg-open`, Windows `start`); falls back to printing an `app.diagrams.net` URL.
-- [scripts/validate_diagram.py](scripts/validate_diagram.py) — enforces the §7 checklist. Catches `mxgraph.sap.*` typos, duplicate IDs, edges with broken source/target, missing port pins, manual waypoints, off-palette colors, and SVG intrinsic-size blur. Use `--strict-palette` and `--strict-waypoints` to fail on warnings. Also exposes `validate_xml(xml)` / `validate_path(path)` for reuse from Python.
+- [scripts/validate_diagram.py](scripts/validate_diagram.py) — enforces the §7 checklist. Catches `mxgraph.sap.*` typos, duplicate IDs, edges with broken source/target, missing port pins, manual waypoints, off-palette colors, and SVG intrinsic-size blur. Use `--quality showcase --json` for a zero-warning final gate and machine-readable receipt. The legacy `--strict-palette` and `--strict-waypoints` flags remain available. Also exposes `validate_xml(xml)` / `validate_path(path)` for reuse from Python.
 - [scripts/upscale_svg_icons.py](scripts/upscale_svg_icons.py) — fixes blurry icons by patching the root `<svg>` `width`/`height` to match the cell geometry (keeps `viewBox` unchanged). Default target 48 px; pass `--size 32` for L2, `--size 50` for L0. Use `--in-place` to overwrite. (The Quick-Path builder applies this automatically; only run manually on hand-authored XML.)
 
 ## Layout tips

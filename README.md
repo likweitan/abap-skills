@@ -106,19 +106,6 @@ Install GitHub Copilot in VS Code, clone this repository locally, and create a r
 
 </details>
 
-<details>
-<summary><strong>For tinkerers</strong></summary>
-
-Use the Skills CLI on any agent:
-
-```bash
-npx skills@latest add likweitan/abap-skills
-```
-
-It writes the skills into your repo as ordinary files you own and can edit. Nothing updates behind your back; pull the latest changes when you want them with `npx skills update`.
-
-</details>
-
 ## Skills
 
 ### SAP Fiori Apps Reference Library

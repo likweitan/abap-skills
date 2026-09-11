@@ -19,7 +19,9 @@ relative to a previously created NodeRef, with a configurable gap (default 20).
 from __future__ import annotations
 
 import re
-import uuid
+import hashlib
+import os
+import tempfile
 from dataclasses import dataclass, field
 from html import escape as _html_escape
 from pathlib import Path
@@ -423,8 +425,11 @@ class BtpDiagram:
     def to_xml(self) -> str:
         cells_xml = "".join(c.to_xml() for c in self._cells)
         bg = ' background="none"' if self.level == "L2" else ""
+        diagram_id = hashlib.sha256(
+            f"{self.level}\0{self.title}\0{cells_xml}".encode("utf-8")
+        ).hexdigest()[:12]
         return f"""<mxfile host="btp-builder" version="1.0">
-  <diagram name="BTP_Diagram" id="btp-{uuid.uuid4().hex[:12]}">
+  <diagram name="BTP_Diagram" id="btp-{diagram_id}">
     <mxGraphModel dx="2103" dy="1425" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0"{bg}>
       <root>
         <mxCell id="0" />
@@ -454,7 +459,25 @@ class BtpDiagram:
             for w in warnings:
                 print(f"WARN: {w}")
         out = Path(path)
-        out.write_text(xml, encoding="utf-8")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        temporary_path: Optional[Path] = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="w",
+                encoding="utf-8",
+                dir=out.parent,
+                prefix=f".{out.name}.",
+                suffix=".tmp",
+                delete=False,
+            ) as temporary:
+                temporary.write(xml)
+                temporary.flush()
+                os.fsync(temporary.fileno())
+                temporary_path = Path(temporary.name)
+            os.replace(temporary_path, out)
+        finally:
+            if temporary_path is not None and temporary_path.exists():
+                temporary_path.unlink()
         return out
 
 

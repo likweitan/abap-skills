@@ -9,6 +9,7 @@ Public Python API:
 CLI:
     python3 validate_diagram.py <file.drawio>
     python3 validate_diagram.py <file.drawio> --strict-palette --strict-waypoints
+    python3 validate_diagram.py <file.drawio> --quality showcase --json
 
 Checks:
     - Root cells <mxCell id="0"/> and <mxCell id="1" parent="0"/> present
@@ -31,6 +32,8 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
+import json
 import re
 import sys
 from pathlib import Path
@@ -52,6 +55,95 @@ HEX_RE = re.compile(r"#[0-9A-Fa-f]{6}\b")
 SVG_DATA_RE = re.compile(r"image=data:image/svg\+xml,([A-Za-z0-9+/=]+)")
 ROOT_SVG_RE = re.compile(r"<svg\b[^>]*>", re.DOTALL)
 WH_ATTR_RE = re.compile(r'\b(width|height)="([^"]*)"')
+
+CHECKS = {
+    "input": "XML parses",
+    "structure": "draw.io cell structure",
+    "canvas": "A4 landscape canvas",
+    "edge": "connector integrity",
+    "icon": "icon rendering quality",
+    "style": "SAP Fiori Horizon styling",
+}
+
+
+def _classify_diagnostic(message: str) -> tuple[str, dict[str, str], list[str]]:
+    cell_match = re.search(r"\b(?:cell|edge) ([^:]+):", message)
+    subject = {"cell": cell_match.group(1)} if cell_match else {}
+    cases = (
+        ("failed to parse XML", "input/xml-parse", ["repair the XML syntax and retry"]),
+        ("missing root cell", "structure/root-cell", ["add the required draw.io root cells 0 and 1"]),
+        ("duplicate cell id", "structure/duplicate-id", ["assign a unique id to every mxCell"]),
+        ("both vertex='1' and edge='1'", "structure/cell-kind", ["make the cell either a vertex or an edge"]),
+        ("page size is", "canvas/page-size", ["set pageWidth=1169 and pageHeight=827"]),
+        ("non-existent shape=mxgraph.sap", "style/unsupported-stencil", ["use an embedded SAP SVG icon from icon-index.json"]),
+        ("no source/target", "edge/endpoints-missing", ["connect the edge to source and target cells"]),
+        ("references non-existent cell", "edge/endpoint-invalid", ["use ids of existing source and target cells"]),
+        ("missing port pin", "edge/port-pins", ["add exitX, exitY, entryX, and entryY to the edge style"]),
+        ("manual waypoint", "edge/manual-waypoints", ["remove waypoints or document the obstacle-forced detour"]),
+        ("will render blurry", "icon/intrinsic-size", ["run upscale_svg_icons.py with the level's icon size"]),
+        ("off-palette color", "style/off-palette", ["replace the color with a token from the SAP BTP palette"]),
+    )
+    for needle, code, fixes in cases:
+        if needle in message:
+            return code, subject, fixes
+    return "structure/unknown", subject, ["inspect the reported subject and repair the local violation"]
+
+
+def _build_receipt(path: Path, errors: list[str], warnings: list[str], quality: str) -> dict[str, object]:
+    data = path.read_bytes()
+    diagnostics = []
+    for severity, messages in (("error", errors), ("warning", warnings)):
+        for message in messages:
+            code, subject, fixes = _classify_diagnostic(message)
+            diagnostics.append({
+                "code": code,
+                "severity": severity,
+                "message": message,
+                "subject": subject,
+                "supportedFixes": fixes,
+            })
+
+    error_groups = {
+        entry["code"].split("/", 1)[0]
+        for entry in diagnostics
+        if entry["severity"] == "error"
+    }
+    warning_groups = {
+        entry["code"].split("/", 1)[0]
+        for entry in diagnostics
+        if entry["severity"] == "warning"
+    }
+    checks = [
+        {
+            "id": check_id,
+            "label": label,
+            "ok": check_id not in error_groups,
+            "status": (
+                "fail" if check_id in error_groups
+                else "warn" if check_id in warning_groups
+                else "pass"
+            ),
+        }
+        for check_id, label in CHECKS.items()
+    ]
+    return {
+        "ok": not errors,
+        "type": "btp-drawio",
+        "quality": quality,
+        "input": str(path.resolve()),
+        "artifact": {
+            "sha256": hashlib.sha256(data).hexdigest(),
+            "bytes": len(data),
+        },
+        "validation": {
+            "checksPassed": sum(check["ok"] for check in checks),
+            "checkCount": len(checks),
+            "errors": len(errors),
+            "warnings": len(warnings),
+        },
+        "checks": checks,
+        "diagnostics": diagnostics,
+    }
 
 
 def _parse_style(style: str) -> dict[str, str]:
@@ -179,6 +271,9 @@ def main() -> int:
     parser.add_argument("file", help="Path to .drawio file")
     parser.add_argument("--strict-palette", action="store_true", help="Treat off-palette colors as errors")
     parser.add_argument("--strict-waypoints", action="store_true", help="Treat manual waypoints as errors")
+    parser.add_argument("--quality", choices=("standard", "showcase"), default="standard",
+                        help="standard allows warnings; showcase requires zero warnings")
+    parser.add_argument("--json", action="store_true", help="Emit a machine-readable validation receipt")
     args = parser.parse_args()
 
     path = Path(args.file)
@@ -187,6 +282,14 @@ def main() -> int:
         return 2
 
     errors, warnings = validate_path(path, strict_palette=args.strict_palette, strict_waypoints=args.strict_waypoints)
+
+    if args.quality == "showcase" and warnings:
+        errors.extend(warnings)
+        warnings = []
+
+    if args.json:
+        print(json.dumps(_build_receipt(path, errors, warnings, args.quality), indent=2))
+        return 0 if not errors else 1
 
     for w in warnings:
         print(f"WARN: {w}")

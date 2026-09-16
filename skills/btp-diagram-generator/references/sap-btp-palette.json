@@ -1,0 +1,32 @@
+{
+  "_comment": "SAP Fiori Horizon palette for BTP Solution Diagrams. Paste under Extras > Configuration in draw.io. Source: https://sap.github.io/btp-solution-diagrams/docs/solution_diagr_intro/intro/",
+  "customColorSchemes": [
+    [
+      { "fill": "#0070F2", "stroke": "none" },
+      { "fill": "#EBF8FF", "stroke": "none" },
+      { "fill": "#475E75", "stroke": "none" },
+      { "fill": "#F5F6F7", "stroke": "none" },
+      { "fill": "#1D2D3E", "stroke": "none" },
+      { "fill": "#556B82", "stroke": "none" },
+      { "fill": "#188918", "stroke": "none" },
+      { "fill": "#F5FAE5", "stroke": "none" },
+      { "fill": "#C35500", "stroke": "none" },
+      { "fill": "#FFF8D6", "stroke": "none" },
+      { "fill": "#D20A0A", "stroke": "none" },
+      { "fill": "#FFEAF4", "stroke": "none" },
+      { "fill": "#07838F", "stroke": "none" },
+      { "fill": "#DAFDF5", "stroke": "none" },
+      { "fill": "#5D36FF", "stroke": "none" },
+      { "fill": "#793802", "stroke": "none" },
+      { "fill": "#F1ECFF", "stroke": "none" },
+      { "fill": "#CC00DC", "stroke": "none" },
+      { "fill": "#FFF0FA", "stroke": "none" }
+    ]
+  ],
+  "presetColors": [
+    "0070F2", "EBF8FF", "475E75", "F5F6F7", "1D2D3E", "556B82",
+    "188918", "F5FAE5", "C35500", "FFF8D6", "D20A0A", "FFEAF4",
+    "07838F", "DAFDF5", "5D36FF", "793802", "F1ECFF", "CC00DC", "FFF0FA"
+  ],
+  "customFonts": ["Arial", "Arial Black"]
+}

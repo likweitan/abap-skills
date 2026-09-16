@@ -1,10 +1,10 @@
-"""Loader for reference/styles.json — named style strings + port-pin helper."""
+"""Loader for references/styles.json — named style strings + port-pin helper."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-_REF = Path(__file__).resolve().parents[2] / "reference"
+_REF = Path(__file__).resolve().parents[2] / "references"
 
 with open(_REF / "styles.json") as _f:
     _DATA = json.load(_f)

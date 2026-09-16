@@ -7,6 +7,8 @@ description: Help with RAP (RESTful ABAP Programming Model) development includin
 
 Guide for building transactional applications using the ABAP RESTful Application Programming Model (RAP) in ABAP Cloud.
 
+> **Clean core context**: RAP is the leading programming model for ABAP Cloud development, which is **clean core Level A**. A custom RAP-based Fiori app for the core SAP Cloud ERP scope is Level A; extending a RAP-based SAP Fiori app via released extension points is also Level A. By contrast, SEGW/BOPF/UI5-based apps and their extensions are Level B. Keep RAP handler code restricted to released APIs to stay at Level A — a single internal object call demotes the whole application to Level C. See the `abap-cloud` skill for level details.
+
 ## Workflow
 
 1. **Determine the user's goal**:
@@ -404,3 +406,28 @@ EML is the ABAP language for programmatically interacting with RAP BOs. Key oper
 - [SAP Help — RAP Development Guide](https://help.sap.com/docs/abap-cloud/abap-rap/abap-restful-application-programming-model)
 - [SAP Help — BDL Reference](https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENBDL.html)
 - [ABAP Flight Reference Scenario](https://github.com/SAP-samples/abap-platform-refscen-flight)
+
+## Clean Core Level Notes for RAP
+
+| Scenario                                                        | Level | Notes                                                        |
+| --------------------------------------------------------------- | ----- | ------------------------------------------------------------ |
+| Custom RAP-based Fiori app for the core scope                   | **A** | Target state for new applications                            |
+| Extension of a RAP-based SAP Fiori app via released extension points | **A** | Preferred extension approach                            |
+| RAP BO consuming only released CDS views and released APIs      | **A** | Keep handler/saver code restricted to released APIs          |
+| RAP BO consuming a classic API (`transactional-consistent`)     | **B** | Only classic APIs labelled `transactional-consistent` are safe inside RAP |
+| RAP BO consuming an internal object or direct table read        | **C** | Wrap the object and create a single ATC exemption            |
+| Custom SEGW / BOPF / UI5 app                                    | **B** | Prefer RAP; exceptions could be know-how or reuse            |
+| Extension of an SEGW / BOPF / UI5 Fiori app                     | **B** | Migrate to the delivered RAP app when available              |
+| `SE54`-based BC UI                                              | **B** | Prefer a RAP-based Business Configuration app                |
+
+**Key rule**: a classic API may only be used inside a RAP application if it carries the `transactional-consistent` label in the Cloudification Repository. Other classic APIs may break RAP's transactional model.
+
+## Related Skills
+
+- **cds-view-entities**: Use for data modeling that forms the foundation of RAP business objects
+- **abap-sql-amdp**: Use for implementing complex database operations in RAP
+- **authorization-iam**: Use for implementing RAP authorization checks
+- **odata**: Use for exposing RAP business objects as OData services
+- **rap-business-events**: Use for implementing event-driven patterns in RAP
+- **abap-cloud**: Use for clean core level classification and the wrapper pattern
+- **badi-enhancement**: Use for implementing released RAP BAdIs to extend standard RAP BOs

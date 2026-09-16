@@ -13,7 +13,7 @@ from pathlib import Path
 
 from .svg import patch_style_size
 
-_REF = Path(__file__).resolve().parents[2] / "reference"
+_REF = Path(__file__).resolve().parents[2] / "references"
 
 with open(_REF / "icon-index.json") as _f:
     _RAW = json.load(_f)

@@ -1,11 +1,13 @@
 ---
 name: released-abap-classes
-description: Find released ABAP classes for ABAP Cloud Development. Use when user asks about ABAP classes for specific functionality like email, UUID generation, time/date handling, JSON/XML processing, RAP, string processing, random numbers, regex, Base64, HTTP calls, unit testing, PDF rendering, parallel processing, application logs, or any other ABAP Cloud class lookup.
+description: Find released ABAP classes (clean core Level A) for ABAP Cloud Development. Use when user asks about ABAP classes for specific functionality like email, UUID generation, time/date handling, JSON/XML processing, RAP, string processing, random numbers, regex, Base64, HTTP calls, unit testing, PDF rendering, parallel processing, application logs, released API alternatives, Level A replacements, or any other ABAP Cloud class lookup.
 ---
 
 # Released ABAP Classes
 
-Reference for released ABAP classes available in ABAP for Cloud Development (SAP BTP ABAP Environment).
+Reference for released ABAP classes available in ABAP for Cloud Development (SAP BTP ABAP Environment and SAP Cloud ERP Private).
+
+> All classes listed here are **released APIs governed by a stability contract** — using them keeps an extension at **clean core Level A**. If a class you need is not released, see the `abap-cloud` skill for the wrapper pattern and level classification.
 
 ## Quick Reference by Category
 
@@ -112,6 +114,36 @@ DATA(user_name) = cl_abap_context_info=>get_user_formatted_name( ).
 DATA(user) = xco_cp=>sy->user( )->name.
 ```
 
+## Verifying Release State (Level A)
+
+```abap
+"Check if an object is released for ABAP Cloud
+SELECT SINGLE *
+  FROM i_apistateofrepositoryobject
+  WHERE ObjectType   = 'CLAS'
+    AND ObjectName   = 'CL_NUMBERRANGE_RUNTIME'
+    AND ReleaseState = 'RELEASED'
+  INTO @DATA(ls_state).
+```
+
+Other discovery options:
+
+| Method                           | Use                                                                      |
+| -------------------------------- | ------------------------------------------------------------------------ |
+| **ADT Released Object Search**   | Search with `api:` prefix (e.g., `api:cl_*`)                             |
+| **Project Explorer**             | Released Objects → Source Code Library folder                            |
+| **Released Objects Fiori app**   | `F5865` — search by classic name, view successor information             |
+| **SAP Business Accelerator Hub** | https://api.sap.com/ — released remote and local APIs                    |
+| **Cloudification Repository**    | https://sap.github.io/abap-atc-cr-cv-s4hc/ — level classification        |
+
+### If no released class exists
+
+| Situation                                        | Clean core level | Action                                              |
+| ------------------------------------------------ | ---------------- | --------------------------------------------------- |
+| A nominated **classic API** exists               | **B**            | Use it in classic ABAP; wrap for ABAP Cloud         |
+| Only an **internal** SAP object exists           | **C**            | Wrap it, create one ATC exemption, monitor changelog |
+| The object is classified **`noAPI`**             | **D**            | Do not use — find a released or classic alternative |
+
 ## Detailed Reference
 
 For comprehensive code examples and all available classes, read:
@@ -167,3 +199,10 @@ The reference file is organized into these sections (use grep patterns to search
 | PDF Rendering | `Output Management` |
 | CSV Export | `Writing Internal Table Content to CSV` |
 | Garbage Collection | `Triggering Garbage Collection` |
+
+## Related Skills
+
+- **abap-cloud**: Use for clean core level definitions and the wrapper pattern when no released class exists
+- **abap-cloud-migration**: Use for replacing non-released APIs during level remediation
+- **atc-cloudification**: Use for checking object classification and release state via ATC
+- **rap**: Use for RAP-specific released classes (`CL_ABAP_BEHAVIOR_HANDLER`, `CL_ABAP_BEHAVIOR_SAVER`)

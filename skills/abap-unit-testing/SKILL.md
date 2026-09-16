@@ -314,3 +314,9 @@ Use `TEST-SEAM` / `END-TEST-SEAM` in production code and `TEST-INJECTION` / `END
 - [SAP Help — CDS Test Double Framework](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/cds-test-double-framework)
 - [SAP Help — RAP BO Test Doubles](https://help.sap.com/docs/abap-cloud/abap-rap/test)
 - [Clean ABAP — Testing](https://github.com/SAP/styleguides/blob/main/clean-abap/CleanABAP.md#testing)
+
+## Related Skills
+
+- **cds-view-entities**: Use for testing CDS view entities with CDS test environments
+- **rap**: Use for testing RAP business objects with RAP test doubles
+- **clean-abap**: Use for ensuring test code follows Clean ABAP principles

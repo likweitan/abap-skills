@@ -7,6 +7,8 @@ description: Help with CDS (Core Data Services) view entity development includin
 
 Guide for building semantic data models using ABAP CDS (Core Data Services) view entities in ABAP Cloud.
 
+> **Clean core context**: selecting from a **released** SAP CDS view (`I_*`) is **Level A**. Direct **read** access to an SAP database table is **Level C** (ATC priority 2); direct **write** access is **Level D** (ATC priority 1). Where no released CDS view exists, build a wrapper CDS view on top of the non-released SAP view or table and release it for ABAP Cloud — the wrapper is Level B if the wrapped object is a classic API, otherwise Level C. Use **CDS extends** and **CDS metadata extensions** rather than modifying SAP CDS views. See the `abap-cloud` skill for level details.
+
 ## Workflow
 
 1. **Determine the user's goal**:
@@ -474,3 +476,36 @@ Every entity in a managed RAP BO should include admin fields:
 - [SAP Help — ABAP CDS Reference](https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/index.htm?file=abencds.htm)
 - [SAP Help — CDS Annotations](https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCDS_ANNOTATIONS.html)
 - [CDS Feature Matrix Blog](https://blogs.sap.com/2022/10/24/feature-matrix-data-modeling-with-abap-core-data-services/)
+
+## Clean Core Level Notes for CDS
+
+| Scenario                                                          | Level | Notes                                                         |
+| ----------------------------------------------------------------- | ----- | ------------------------------------------------------------- |
+| `SELECT` from a released SAP CDS view (`I_*`)                      | **A** | Target state                                                  |
+| Custom CDS view over your own tables                              | **A** | Allowed within the same software component                    |
+| `SELECT` from a classic (nominated) SAP CDS view                  | **B** | Acceptable in classic ABAP development                        |
+| Wrapper CDS view over a non-released SAP CDS view                 | **B/C** | B if the wrapped view is a classic API, otherwise C         |
+| Direct **read** access to an SAP database table                   | **C** | ATC priority 2 — use a released CDS view or classic API       |
+| Direct **write** access to an SAP database table                  | **D** | ATC priority 1 — use released or classic APIs                 |
+| `CDS extend` / metadata extension on an SAP CDS view              | **A/B** | Preferred over modification                                 |
+| Custom field via a **released** extension include                 | **A** | Preferred technique                                           |
+| Custom field via a **non-released** extension include             | **B** | Monitor for a released include                                |
+| Custom field via a classic append                                 | **C** | Monitor when an extension include becomes available           |
+
+### Wrapper CDS view guidance
+
+- If a suitable SAP CDS view exists but is not released, create a custom CDS view on top of it and release it for ABAP Cloud development
+- CDS views referenced by the SAP view (association targets, value help views) may need their own wrappers
+- If no suitable SAP CDS view exists at all, create the custom CDS view directly on the database table
+- Retire the wrapper once SAP releases an equivalent CDS view
+
+CDS views are classified in the Cloudification Repository under object type `STOB`.
+
+## Related Skills
+
+- **abap-sql-amdp**: Use for advanced ABAP SQL queries and AMDP procedures
+- **rap**: Use for building RAP business objects based on CDS data models
+- **authorization-iam**: Use for implementing CDS access control (DCL)
+- **odata**: Use for exposing CDS views as OData services
+- **abap-cloud**: Use for clean core level classification and wrapper CDS view patterns
+- **abap-cloud-migration**: Use for replacing direct table access with released CDS views

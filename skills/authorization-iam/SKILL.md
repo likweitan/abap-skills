@@ -17,15 +17,16 @@ Guide for implementing authorization checks and identity/access management in AB
    - Defining custom authorization objects
    - Understanding restriction types
 
-2. **Identify the platform**:
-   - ABAP Cloud (BTP or S/4HANA embedded) → IAM apps + business catalogs + `CL_ABAP_AUTHORIZATION`
-   - On-premise / Standard ABAP → PFCG roles + `AUTHORITY-CHECK`
+2. **Identify the platform and clean core level**:
+   - ABAP Cloud (SAP Cloud ERP or SAP BTP ABAP Environment) → IAM apps + business catalogs + `CL_ABAP_AUTHORIZATION` (**Level A**)
+   - Classic ABAP / SAP Cloud ERP Private → PFCG roles + `AUTHORITY-CHECK` (**Level B**)
+   - Wrapper scenarios → `SU22` data and variants for non-released authorization objects
 
 3. **Guide implementation** with the appropriate authorization model
 
 ## Authorization Models
 
-### ABAP Cloud (BTP / S/4HANA Cloud)
+### ABAP Cloud — Level A
 
 ```
 IAM App → Business Catalog → Business Role → Business User
@@ -33,13 +34,29 @@ IAM App → Business Catalog → Business Role → Business User
                             Restriction Type (field-level restrictions)
 ```
 
-### On-Premise (Standard ABAP)
+Uses `CL_ABAP_AUTHORIZATION` (a released API). Available on SAP Cloud ERP and SAP BTP ABAP Environment.
+
+### Classic ABAP — Level B
 
 ```
 Authorization Object → PFCG Role → User Assignment
        ↑
 Authorization Fields + Permitted Values
 ```
+
+Uses `AUTHORITY-CHECK`. Required on SAP Cloud ERP Private, where the IAM/COM Fiori apps are **not** available and the classic transactions must be used instead (`PFCG`, `SM59`, `SOAMANAGER`, `SU21`, `SU22`).
+
+> **SAP Cloud ERP Private note**: unlike SAP Cloud ERP (public), there is no strict content separation between SAP and customer regarding users, roles and communications.
+
+### Authorizations for wrappers
+
+When a wrapper exposes a classic API to ABAP Cloud code, the wrapped API often checks **non-released authorization objects**, which cannot be used in ABAP Cloud directly. Handling:
+
+- PFCG roles **can** mix released and non-released authorization objects
+- Provide `SU22` data for the wrapper when releasing it for cloud development, so the required non-released authorization objects are transparent
+- Create `SU22` variants for each designated usage of the wrapper, for use in role maintenance
+
+See the `abap-cloud` skill for the full wrapper pattern and its level classification.
 
 ## Authorization Checks in Code
 
@@ -330,3 +347,11 @@ When helping with authorization/IAM topics, structure responses as:
 - ABAP Authorization Cheat Sheet: https://github.com/SAP-samples/abap-cheat-sheets
 - CDS Access Control: https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/access-controls
 - IAM Guide: https://help.sap.com/docs/btp/sap-business-technology-platform/identity-and-access-management-iam
+
+## Related Skills
+
+- **abap-cloud**: Use for clean core levels, the wrapper pattern, and `S_ABPLNGVS` developer governance
+- **cds-view-entities**: Use for implementing CDS access control (DCL)
+- **rap**: Use for RAP instance and global authorization implementation
+- **btp-abap-environment**: Use for IAM app and business role setup
+- **abap-cloud-migration**: Use for migrating `AUTHORITY-CHECK` to `CL_ABAP_AUTHORIZATION`

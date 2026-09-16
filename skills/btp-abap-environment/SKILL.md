@@ -238,3 +238,10 @@ When helping with BTP ABAP Environment topics, structure responses as:
 - SAP BTP ABAP Environment: https://help.sap.com/docs/btp/sap-business-technology-platform/abap-environment
 - Communication Management: https://help.sap.com/docs/btp/sap-business-technology-platform/communication-management
 - Getting Started Tutorial: https://developers.sap.com/group.abap-env-get-started.html
+
+## Related Skills
+
+- **abap-cloud**: Use for ABAP Cloud development concepts and restrictions
+- **authorization-iam**: Use for setting up IAM apps and business roles
+- **rap**: Use for building RAP business objects in BTP ABAP Environment
+- **abapgit**: Use for version control in BTP ABAP Environment

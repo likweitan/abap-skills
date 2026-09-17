@@ -240,3 +240,9 @@ When helping with abapGit topics, structure responses as:
 - abapGit Documentation: https://docs.abapgit.org/
 - abapGit GitHub: https://github.com/abapGit/abapGit
 - abaplint: https://abaplint.org/
+
+## Related Skills
+
+- **abap**: Use for abaplint integration with abapGit repositories
+- **btp-abap-environment**: Use for abapGit setup in BTP ABAP Environment
+- **abap-cloud**: Use for ensuring abapGit repositories are ABAP Cloud compliant

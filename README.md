@@ -307,11 +307,11 @@ Write effective ABAP Unit tests — test class setup, assertions, test doubles, 
 
 ### ABAP Cloud / Clean Core
 
-Develop with the ABAP Cloud programming model — 3-tier extensibility model, ABAP for Cloud Development restrictions, wrapper patterns for unreleased APIs, released API discovery, and clean core principles.
+Develop with the ABAP Cloud programming model — clean core Levels A/B/C/D, ABAP for Cloud Development restrictions, wrapper patterns for unreleased APIs, released API discovery, and clean core principles.
 
 **Features:**
 
-- 3-tier extensibility model (Key User, Developer, Classic) with tier selection guidance
+- Clean core level concept (Level A released APIs, Level B classic APIs, Level C not-to-be-released, Level D avoid) with level selection guidance
 - ABAP for Cloud Development restrictions and prohibited language constructs
 - Wrapper pattern for exposing unreleased APIs via released interfaces
 - Common unreleased-to-released API replacement table
@@ -323,7 +323,7 @@ Develop with the ABAP Cloud programming model — 3-tier extensibility model, AB
 
 > "Create a wrapper class for an unreleased function module"
 
-> "Explain the 3-tier extensibility model and when to use each tier"
+> "Explain the clean core levels and when each applies"
 
 ### abapGit Workflows
 
@@ -467,7 +467,7 @@ Implement event-driven patterns using RAP business events and SAP Event Mesh —
 
 ### ABAP Cloud Migration Patterns
 
-Systematically migrate classic ABAP custom code to ABAP Cloud (Tier 1) compliance — ATC Cloud Readiness checks, unreleased API replacements, wrapper class generation, and step-by-step migration workflows.
+Systematically migrate classic ABAP custom code toward clean core Level A — ATC Cloud Readiness checks, unreleased API replacements, wrapper class generation, and step-by-step migration workflows.
 
 **Features:**
 

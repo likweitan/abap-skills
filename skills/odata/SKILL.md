@@ -224,3 +224,10 @@ When helping with OData topics, structure responses as:
 - SAP OData V4 Documentation: https://help.sap.com/docs/abap-cloud/abap-rap/odata-service
 - RAP Service Binding: https://help.sap.com/docs/abap-cloud/abap-rap/service-binding
 - OData Client Proxy: https://help.sap.com/docs/abap-cloud/abap-rap/odata-client-proxy
+
+## Related Skills
+
+- **rap**: Use for building RAP business objects that are exposed as OData services
+- **cds-view-entities**: Use for data modeling that underpins OData services
+- **authorization-iam**: Use for securing OData services via IAM apps
+- **btp-abap-environment**: Use for communication arrangement setup for OData consumption

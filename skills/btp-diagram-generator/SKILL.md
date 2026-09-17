@@ -64,7 +64,7 @@ Builder output is deterministic: the same authored diagram produces identical XM
 | `.btp_container(x,y,w,h, sub_label, env_label, with_logo)`  | `NodeRef` | Light-blue outer frame + SAP corner logo + Subaccount/Multi-Cloud labels.                                                                                   |
 | `.subaccount(parent, label, ...)`                           | `NodeRef` | White card inside the BTP container.                                                                                                                        |
 | `.inner_card(parent, label, ...)`                           | `NodeRef` | Generic white sub-card (e.g. CIS service group).                                                                                                            |
-| `.service(name, in_=, right_of=, left_of=, below=, above=)` | `NodeRef` | `name` is fuzzy-matched via [reference/icon-aliases.json](reference/icon-aliases.json) (e.g. `"task center"`, `"cpi"`, `"hana cloud"`).                     |
+| `.service(name, in_=, right_of=, left_of=, below=, above=)` | `NodeRef` | `name` is fuzzy-matched via [references/icon-aliases.json](references/icon-aliases.json) (e.g. `"task center"`, `"cpi"`, `"hana cloud"`).                     |
 | `.user(label, kind="sap")`                                  | `NodeRef` | kind ∈ `sap` / `non-sap` / `highlight`.                                                                                                                     |
 | `.app_client(label, ...)`                                   | `NodeRef` | Generic mobile/desktop tile.                                                                                                                                |
 | `.external(label, kind="sap"/"non-sap", ...)`               | `NodeRef` | Right-side external system tile.                                                                                                                            |
@@ -140,16 +140,16 @@ Before layout, create an explicit **component allowlist** from the request:
 
 > **There is no `mxgraph.sap.*` stencil family.** SAP BTP icons in draw.io are SVGs embedded as base64 inside `shape=image;image=data:image/svg+xml,<base64>;…` style strings, distributed via the [SAP draw.io shape library XML files](https://github.com/SAP/btp-solution-diagrams/tree/main/assets/shape-libraries-and-editable-presets/draw.io). Generating `shape=mxgraph.sap.foo` produces an empty square in the canvas — you have seen this fail.
 
-For every requested service, obtain its real `style` string by looking it up in [reference/icon-index.json](reference/icon-index.json):
+For every requested service, obtain its real `style` string by looking it up in [references/icon-index.json](references/icon-index.json):
 
-1. **Preferred:** Load [reference/icon-index.json](reference/icon-index.json) (~660 KB, 100 icons). It maps each icon title (e.g. `31068-sap-build-work-zone_sd`) to its `style` string and library cell `width`/`height`. Match by substring against the requested service name.
-2. **Source XML libraries** (if you need a non-default size or a metadata field the index doesn't carry) live in [reference/libraries/](reference/libraries/) — one size-M `mxlibrary` per icon set (foundational, integration suite, app-dev, AI, data-analytics, BTP-SaaS, all-in-one).
-3. **Style donors:** for compound patterns (subaccount cards, NETWORK boundaries, pill labels, legend cards), consult the curated [reference/examples/](reference/examples/) — 11 official editable diagrams (Task Center L0/L1/L2, Build Work Zone L2, Process Automation L2, Cloud Identity Services L1/L2, Private Link L2, SAP Start L2). Open any of them and copy the exact style string.
+1. **Preferred:** Load [references/icon-index.json](references/icon-index.json) (~660 KB, 100 icons). It maps each icon title (e.g. `31068-sap-build-work-zone_sd`) to its `style` string and library cell `width`/`height`. Match by substring against the requested service name.
+2. **Source XML libraries** (if you need a non-default size or a metadata field the index doesn't carry) live in [references/libraries/](references/libraries/) — one size-M `mxlibrary` per icon set (foundational, integration suite, app-dev, AI, data-analytics, BTP-SaaS, all-in-one).
+3. **Style donors:** for compound patterns (subaccount cards, NETWORK boundaries, pill labels, legend cards), consult the curated [references/examples/](references/examples/) — 11 official editable diagrams (Task Center L0/L1/L2, Build Work Zone L2, Process Automation L2, Cloud Identity Services L1/L2, Private Link L2, SAP Start L2). Open any of them and copy the exact style string.
 4. If a service is genuinely missing from the library, use the styled fallback tile (see §3 below) and **list it in the final response** so the user can replace it.
 
-Default icon geometry by audience level (matches the official examples — see [reference/example-patterns.md §5](reference/example-patterns.md)):
+Default icon geometry by audience level (matches the official examples — see [references/example-patterns.md §5](references/example-patterns.md)):
 
-> **SVG intrinsic size warning:** Every icon in the SAP shape library has `width="16" height="16"` on its root `<svg>` element, even in the size-M set. draw.io rasterizes at that intrinsic size then upscales, producing a blurry icon. After extracting a base64 SVG, patch the root `<svg width>` and `<svg height>` to match the target cell size (e.g. 48 for L1) before re-encoding. Keep `viewBox` unchanged. See [reference/example-patterns.md §11](reference/example-patterns.md) for the Python helper.
+> **SVG intrinsic size warning:** Every icon in the SAP shape library has `width="16" height="16"` on its root `<svg>` element, even in the size-M set. draw.io rasterizes at that intrinsic size then upscales, producing a blurry icon. After extracting a base64 SVG, patch the root `<svg width>` and `<svg height>` to match the target cell size (e.g. 48 for L1) before re-encoding. Keep `viewBox` unchanged. See [references/example-patterns.md §11](references/example-patterns.md) for the Python helper.
 
 | Level | Icon size | Label            |
 | ----- | --------- | ---------------- |
@@ -182,7 +182,7 @@ Font: `Arial` (or `Arial Black` for headings), size 12 for body labels, 14 for s
 
 ### 3. Apply the atomic structure
 
-Per the SAP atomic design system (Atoms → Molecules → Organisms). The exact style strings, sizes and HTML label patterns to copy live in [reference/example-patterns.md](reference/example-patterns.md) — match those rather than inventing variants.
+Per the SAP atomic design system (Atoms → Molecules → Organisms). The exact style strings, sizes and HTML label patterns to copy live in [references/example-patterns.md](references/example-patterns.md) — match those rather than inventing variants.
 
 - **Document title** (every diagram): a floating text cell above the BTP container, blue `#0070F2` bold Arial 16, format `"{Scenario} - SAP BTP Solution Diagram"`.
 - **Outer container** (Subaccount / Multi-Cloud): `rounded=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=32;absoluteArcSize=1;strokeWidth=1.5;`. Carries the SAP-logo image tile in the top-left and two stacked labels: bold `Subaccount` (Arial 16) + smaller `Multi-Cloud` (Arial 12).
@@ -201,7 +201,7 @@ Per the SAP atomic design system (Atoms → Molecules → Organisms). The exact 
   - Async / indirect: use `edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#475E75;strokeWidth=1.5;endArrow=blockThin;endFill=1;endSize=4;startArrow=none;startFill=0;startSize=4;jumpStyle=none;jumpSize=0;targetPerimeterSpacing=15;dashed=1;` (the official SAP indirect connector style — `entityRelationEdgeStyle` + `targetPerimeterSpacing=15`)
   - Optional: add `dashed=1;dashPattern=1 4;` (dotted) to the async style above
   - Network / firewall boundary line: thick grey vertical separator `strokeColor=#475E75;strokeWidth=3;jumpStyle=gap;` with a small uppercase `NETWORK` label (`#475E75`) beside it. **Reserve `strokeWidth=3` for firewalls/network barriers only** — do not use it for normal data flows.
-  - **Always pin exit/entry ports** to avoid diagonal auto-routing: add `exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;` (adjust X/Y for the direction). For vertical connectors use `exitY=1` / `entryY=0`. **Remove manual `<mxPoint>` waypoints** unless a deliberate detour is needed — leave `<Array as="points"/>` empty. See [reference/example-patterns.md §8](reference/example-patterns.md) for the full port-pinning reference.
+  - **Always pin exit/entry ports** to avoid diagonal auto-routing: add `exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;` (adjust X/Y for the direction). For vertical connectors use `exitY=1` / `entryY=0`. **Remove manual `<mxPoint>` waypoints** unless a deliberate detour is needed — leave `<Array as="points"/>` empty. See [references/example-patterns.md §8](references/example-patterns.md) for the full port-pinning reference.
 - **Edge labels** are _separate vertex pills_, not inline edge text — small rounded rectangles `arcSize=50`, ~16 px tall, color-matched to the connector (generic `#475E75`/`#F5F6F7`, auth `#188918`/`#F5FAE5`, authz/SCIM `#5D36FF`/`#F1ECFF`, trust `#CC00DC`/`#FFF0FA`).
 - **L0**: no legend, no protocol pills, neutral `endArrow=block` or `endArrow=none` connectors.
 - **L1**: directional `endArrow=blockThin` connectors, optionally a few colored auth/provisioning flows and pill labels.
@@ -293,16 +293,16 @@ When done, respond with:
 
 ## Bundled assets
 
-- [reference/icon-index.json](reference/icon-index.json) — flat `{title → {style, width, height}}` map of all 100 BTP service icons + 3 generic user icons (`generic:user-sap` / `-non-sap` / `-highlight`). **Primary lookup source for icon styles.** The Quick-Path builder reads this for you.
-- [reference/icon-aliases.json](reference/icon-aliases.json) — short-name → canonical-key map (132 aliases like `"task center"`, `"cpi"`, `"hana cloud"`, `"end user"`). Drives the fuzzy lookup in `BtpDiagram.service()`.
-- [reference/styles.json](reference/styles.json) — named SAP style strings (`container_btp`, `card_subaccount`, `tile_external_sap`, `arrow_dblhd`, `pill_auth`, …) + port-pin fragments + per-level icon sizes. Loaded by the builder; useful as a copy-paste reference when hand-authoring XML.
-- [reference/templates/](reference/templates/) — empty L0/L1/L2 mxfile skeletons, ready to fill in.
-- [reference/sap-logo.b64.txt](reference/sap-logo.b64.txt) — base64 of the SAP corner logo SVG, embedded by `btp_container(with_logo=True)`.
-- [reference/libraries/](reference/libraries/) — the 7 official SAP draw.io `mxlibrary` XML files (foundational, integration-suite, app-dev-automation, data-analytics, AI, BTP-SaaS, and the all-in-one size-M set). Use when you need raw library data the index doesn't expose.
-- [reference/svg/](reference/svg/) — 129 raw `.svg` source files for every BTP service icon. Use when you need to edit/recolor an icon, export to non-draw.io targets, or embed an icon outside a draw.io style string.
-- [reference/examples/](reference/examples/) — the 11 official editable example diagrams (Task Center L0/L1/L2, Build Work Zone L2, Process Automation L2, Cloud Identity Services L1/L2, Private Link L2, SAP Start L2). **Primary source for compound style patterns** (subaccount card, network boundary, pill labels, legend card).
-- [reference/sap-btp-palette.json](reference/sap-btp-palette.json) — the exact color tokens above, ready to paste into draw.io `Extras → Configuration` `customColorSchemes`.
-- [reference/example-patterns.md](reference/example-patterns.md) — ready-to-copy style strings, sizes, label HTML and connector/pill recipes extracted from the example diagrams. **Consult this whenever you need the exact style of a container, icon, edge or pill — do not improvise.**
+- [references/icon-index.json](references/icon-index.json) — flat `{title → {style, width, height}}` map of all 100 BTP service icons + 3 generic user icons (`generic:user-sap` / `-non-sap` / `-highlight`). **Primary lookup source for icon styles.** The Quick-Path builder reads this for you.
+- [references/icon-aliases.json](references/icon-aliases.json) — short-name → canonical-key map (132 aliases like `"task center"`, `"cpi"`, `"hana cloud"`, `"end user"`). Drives the fuzzy lookup in `BtpDiagram.service()`.
+- [references/styles.json](references/styles.json) — named SAP style strings (`container_btp`, `card_subaccount`, `tile_external_sap`, `arrow_dblhd`, `pill_auth`, …) + port-pin fragments + per-level icon sizes. Loaded by the builder; useful as a copy-paste reference when hand-authoring XML.
+- [references/templates/](references/templates/) — empty L0/L1/L2 mxfile skeletons, ready to fill in.
+- [references/sap-logo.b64.txt](references/sap-logo.b64.txt) — base64 of the SAP corner logo SVG, embedded by `btp_container(with_logo=True)`.
+- [references/libraries/](references/libraries/) — the 7 official SAP draw.io `mxlibrary` XML files (foundational, integration-suite, app-dev-automation, data-analytics, AI, BTP-SaaS, and the all-in-one size-M set). Use when you need raw library data the index doesn't expose.
+- [references/svg/](references/svg/) — 129 raw `.svg` source files for every BTP service icon. Use when you need to edit/recolor an icon, export to non-draw.io targets, or embed an icon outside a draw.io style string.
+- [references/examples/](references/examples/) — the 11 official editable example diagrams (Task Center L0/L1/L2, Build Work Zone L2, Process Automation L2, Cloud Identity Services L1/L2, Private Link L2, SAP Start L2). **Primary source for compound style patterns** (subaccount card, network boundary, pill labels, legend card).
+- [references/sap-btp-palette.json](references/sap-btp-palette.json) — the exact color tokens above, ready to paste into draw.io `Extras → Configuration` `customColorSchemes`.
+- [references/example-patterns.md](references/example-patterns.md) — ready-to-copy style strings, sizes, label HTML and connector/pill recipes extracted from the example diagrams. **Consult this whenever you need the exact style of a container, icon, edge or pill — do not improvise.**
 
 ## Bundled scripts
 

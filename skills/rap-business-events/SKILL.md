@@ -307,3 +307,9 @@ When helping with eventing topics, structure responses as:
 - RAP Business Events Cheat Sheet: https://github.com/SAP-samples/abap-cheat-sheets/blob/main/08_RAP_Business_Events.md
 - Enterprise Event Enablement: https://help.sap.com/docs/abap-cloud/abap-rap/enterprise-event-enablement
 - SAP Event Mesh: https://help.sap.com/docs/event-mesh
+
+## Related Skills
+
+- **rap**: Use for building RAP business objects that can raise events
+- **btp-abap-environment**: Use for setting up Event Mesh integration via communication arrangements
+- **authorization-iam**: Use for securing event handling and access control

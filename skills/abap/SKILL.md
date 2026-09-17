@@ -1,6 +1,6 @@
 ---
 name: abap
-description: Check and improve ABAP code quality using abaplint and Clean ABAP principles. Use this skill when users ask to check, lint, validate, review, or analyze ABAP code for syntax errors, clean code compliance, code quality, best practices, or adherence to Clean ABAP guidelines. Also use when users ask to set up abaplint, configure abaplint.json, or run abaplint on their ABAP project. Triggers include requests like "check this ABAP code", "lint my ABAP", "run abaplint", "configure abaplint", "is this clean ABAP", "review my ABAP", or "analyze ABAP code quality".
+description: Comprehensive ABAP code quality checking using abaplint (automated static analysis) and Clean ABAP principles (manual code review). Use when users ask to check, lint, validate, review, or analyze ABAP code for syntax errors, clean code compliance, code quality, best practices, or adherence to Clean ABAP guidelines. Also use for abaplint setup, configuration, and execution. Triggers include "check this ABAP code", "lint my ABAP", "run abaplint", "configure abaplint", "is this clean ABAP", "review my ABAP", "analyze ABAP code quality", "code quality check", or "ABAP best practices".
 ---
 
 # ABAP
@@ -140,9 +140,26 @@ Structure analysis results as:
 - [Things done well]
 ```
 
+## Clean Core Level Context
+
+Code quality findings can be mapped to SAP's clean core levels when the code is destined for or evaluated against ABAP Cloud:
+
+- **Level A** — released APIs only; Clean ABAP + abaplint clean
+- **Level B** — classic APIs; stable but requires classic ABAP language version
+- **Level C** — internal SAP objects; migrate to a successor
+- **Level D** — direct SAP table writes, `EXEC SQL`, released-for-internal-use APIs; eliminate
+
+Treat clean core findings separately from style findings: a well-formatted `SELECT` on an SAP table is still Level C. See the `abap-cloud` skill for level definitions and `atc-cloudification` for automated checks.
+
 ## References
 
 - **abaplint config & setup**: Read `references/abaplint.md` for installation, configuration options, and starter configs
 - **Complete Clean ABAP guide**: Read `references/CleanABAP.md` for full style guide with rationale and examples
 - **Quick patterns**: Read `references/quick-reference.md` for condensed good/bad code examples
 - **Review checklist**: Read `references/checklist.md` for systematic review checklist
+
+## Related Skills
+
+- **abap-cloud**: Use for clean core levels and ABAP Cloud compliance
+- **abap-unit-testing**: Use for writing unit tests that follow Clean ABAP principles
+- **abap-sql-amdp**: Use for modernizing ABAP SQL during code quality improvements

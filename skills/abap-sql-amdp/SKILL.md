@@ -7,6 +7,8 @@ description: Help with modern ABAP SQL features and AMDP (ABAP Managed Database 
 
 Guide for writing modern ABAP SQL statements and ABAP Managed Database Procedures (AMDP) in ABAP Cloud and Standard ABAP.
 
+> **Clean core context**: `SELECT` from a released CDS view is **Level A**. Direct **read** access to an SAP database table is **Level C** (ATC priority 2); direct **write** access is **Level D** (ATC priority 1). `EXEC SQL` (native SQL) is a **critical statement → Level D**. `SYCM_USAGE_OF_APIS` reports SQL statements on SAP database tables and views. See the `abap-cloud` skill for level details.
+
 ## Workflow
 
 1. **Determine the user's goal**:
@@ -306,3 +308,28 @@ When helping with ABAP SQL or AMDP topics, structure responses as:
 - ABAP SQL Cheat Sheet: https://github.com/SAP-samples/abap-cheat-sheets
 - AMDP Cheat Sheet: https://github.com/SAP-samples/abap-cheat-sheets/blob/main/12_AMDP.md
 - ABAP SQL Reference: https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/index.htm?file=abenabap_sql.htm
+
+## Clean Core Level Notes for SQL and AMDP
+
+| Scenario                                            | Level | Notes                                                    |
+| --------------------------------------------------- | ----- | -------------------------------------------------------- |
+| `SELECT` from a released CDS view (`I_*`)            | **A** | Target state                                             |
+| `SELECT` from your own custom tables                | **A** | Allowed within the same software component               |
+| `SELECT` from a classic (nominated) SAP CDS view    | **B** | Acceptable in classic ABAP development                   |
+| Direct **read** from an SAP database table          | **C** | ATC priority 2 — use a released CDS view instead         |
+| Direct **write** to an SAP database table           | **D** | ATC priority 1 — use released or classic APIs            |
+| `EXEC SQL` (native SQL)                             | **D** | Critical statement — use ABAP SQL or AMDP                |
+| Database hints                                      | **D** | Critical statement                                       |
+| AMDP over released CDS views                        | **A** | Keep `USING` restricted to released entities             |
+| AMDP over SAP tables                                | **C/D** | Read → C, write → D                                    |
+| CDS table function via AMDP over released entities  | **A** | Valid Level A pushdown technique                         |
+
+**Performance remediation**: when adapting legacy code, use SQL Monitor to detect optimization candidates, then apply code pushdown with CDS, AMDP and ABAP SQL rather than reaching for native SQL or database hints.
+
+## Related Skills
+
+- **cds-view-entities**: Use for CDS data modeling that works with ABAP SQL
+- **abap-cloud**: Use for clean core levels and SQL-related restrictions
+- **rap**: Use for understanding RAP data models that use CDS views
+- **abap-cloud-migration**: Use for replacing direct table access and `EXEC SQL` during remediation
+- **atc-cloudification**: Use for configuring `SYCM_USAGE_OF_APIS` and `CI_CRITICAL_STATEMENTS`

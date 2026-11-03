@@ -200,37 +200,12 @@ Use this checklist for systematic ABAP code review.
 - [ ] No unnecessary test doubles
 - [ ] Tests don't access private members
 
-## Priority Assessment
+## Assessing Findings
 
-### Critical Issues (Must Fix)
-- Magic numbers without constants
-- Deep nesting (>3 levels)
-- Methods with >5 parameters
-- Multiple output parameters
-- Empty IF branches
-- Static classes without good reason
-- Return codes instead of exceptions
-- DEFAULT KEY usage
-- Silent exception catching
-- Commented-out code in production
+Treat checklist items as prompts for review, not automatic violations. Apply the project's conventions and the target ABAP release; a preference such as string-literal style or method length is not, by itself, a defect.
 
-### Major Issues (Should Fix)
-- Hungarian notation
-- Non-descriptive names
-- Long methods (>20 lines)
-- Up-front declarations where inline is clearer
-- APPEND TO instead of INSERT INTO TABLE
-- Old-style READ TABLE
-- EXPORTING instead of RETURNING
-- Methods doing multiple things
-- No interfaces for public methods
-- Non-FINAL classes not designed for inheritance
+- **Critical** — clear risk of incorrect results, data loss, security exposure, or production failure requiring immediate attention.
+- **Major** — a confirmed defect or substantial performance, reliability, or maintainability problem.
+- **Minor** — a localized, low-impact improvement or style inconsistency.
 
-### Minor Issues (Nice to Have)
-- Single quotes instead of backticks for strings
-- Unnecessary me-> references
-- Concatenation instead of string templates
-- RECEIVING keyword usage
-- Multiple blank lines
-- Minor formatting inconsistencies
-- Could use more functional constructs
+For each reported issue, cite the affected line, statement, or method; describe the concrete impact; and suggest a minimal fix. Mark uncertain release/API compatibility as context-dependent until the target is known. Keep abaplint's severity and rule ID distinct from manual review severity.

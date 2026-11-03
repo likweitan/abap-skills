@@ -1,0 +1,40 @@
+{
+  "skill_name": "abap",
+  "evals": [
+    {
+      "id": 1,
+      "name": "review-with-known-cloud-context",
+      "prompt": "We develop this package with ABAP for Cloud Development on SAP S/4HANA. Review the pasted class for code quality and point out any API compatibility risks. Keep Clean ABAP feedback separate from clean core classification.",
+      "expected_output": "Uses the provided ABAP Cloud context, separates style/code-quality findings from API or clean-core concerns, and does not infer a clean-core level from lint cleanliness.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "avoid-release-dependent-assumptions",
+      "prompt": "Can you review this ABAP snippet? I don't know which release it runs on, and I'm particularly unsure whether its newer syntax is supported.",
+      "expected_output": "Requests or identifies the missing target release/language version before declaring syntax invalid; marks compatibility-dependent conclusions as uncertain while still offering context-independent review.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "safe-abaplint-setup",
+      "prompt": "Please lint this repo with abaplint. I don't see an abaplint config and I'm not sure whether the CLI is installed.",
+      "expected_output": "Checks for a project-local or already-installed CLI first, does not silently download/install or globally install it, and asks before adding a dependency or config.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "route-clean-core-classification",
+      "prompt": "What clean core level is this extension if it reads an SAP table directly? Also, is its naming Clean ABAP?",
+      "expected_output": "Keeps API/extension clean-core classification separate from Clean ABAP style review, routes level classification to the abap-cloud skill, and does not treat the naming review as evidence of a clean-core level.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "impact-based-review-severity",
+      "prompt": "Review this method. It uses single quotes instead of backticks and has a 24-line method, but otherwise the behavior seems correct. Please prioritize the findings.",
+      "expected_output": "Does not label style preferences critical; explains that severity depends on concrete impact and recommends only proportionate, actionable changes.",
+      "files": []
+    }
+  ]
+}

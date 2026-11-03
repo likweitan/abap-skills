@@ -62,6 +62,8 @@ Use an existing neighboring skill as a structural example, but tailor the workfl
 - Prefer authoritative SAP documentation and primary sources for technical claims.
 - Update nearby references and README catalog text when behavior or scope changes.
 - Avoid unrelated formatting or wording changes in the same pull request.
+- For behavior changes, add or update representative prompts in `skills/<name>/evals/evals.json`. Include both an in-scope case and a likely boundary/overlap case when another skill handles adjacent requests.
+- Use these prompts as regression checks: verify that the skill asks for missing context when it affects correctness, follows its stated workflow, and gives the expected kind of result. Keep expectations observable rather than prescribing exact prose.
 
 ## Validation
 
@@ -71,7 +73,7 @@ Run the validator before submitting a pull request:
 uv run python scripts/validate_skills.py
 ```
 
-It checks that each skill has valid frontmatter, that its name matches its directory, and that local Markdown links resolve. GitHub Actions runs the same command for changes under `skills/` and to the validation tooling.
+It checks that each skill has valid frontmatter, that its name matches its directory, that local Markdown links resolve, and that any `evals/evals.json` files use the supported regression-prompt format. GitHub Actions runs the same command for changes under `skills/` and to the validation tooling.
 
 Also review rendered Markdown and run any tests supplied by scripts or tooling you changed.
 

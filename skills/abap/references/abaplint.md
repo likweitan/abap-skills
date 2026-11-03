@@ -7,8 +7,10 @@ abaplint is a standalone ABAP code linter that works outside of SAP systems. It 
 Requires [Node.js](https://nodejs.org) v16+.
 
 ```bash
-npm install @abaplint/cli -g
+npm install --save-dev @abaplint/cli
 ```
+
+Prefer a project-local installation so the team can use a consistent version. Ask before adding the dependency or changing project files. Use a global installation only when the user explicitly requests it.
 
 ## Usage
 
@@ -26,7 +28,7 @@ abaplint -d > abaplint.json
 
 ## Configuration
 
-Place `abaplint.json` in the repository root. The config has three main sections: `global`, `dependencies`, `syntax`, and `rules`.
+Place `abaplint.json` in the repository root. Confirm the target platform and ABAP release before choosing `syntax.version`; do not change an existing config's target without approval. The config has three main sections: `global`, `dependencies`, `syntax`, and `rules`.
 
 ### Global Settings
 

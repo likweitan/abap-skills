@@ -10,27 +10,45 @@ Check and improve ABAP code quality using two complementary approaches:
 - **abaplint**: Automated static analysis via CLI, checking syntax, types, and configurable rules
 - **Clean ABAP**: Manual review against Clean ABAP style guide principles
 
+Keep code quality and SAP clean core compliance separate. Clean ABAP and abaplint assess code quality; they do not establish which SAP APIs or extension points an application uses. For clean core levels, released API status, or ABAP Cloud compliance, use the `abap-cloud` skill and relevant ATC checks.
+
 ## Workflow
 
-1. **Determine check type** based on user request:
+1. **Establish the code context** before assessing syntax or API compatibility:
+   - Identify the target ABAP platform/release and language version (for example, Standard ABAP or ABAP for Cloud Development) when provided.
+   - For abaplint, inspect the existing `abaplint.json` and its configured syntax version; do not silently change it.
+   - If the context is missing and a finding depends on it, ask a focused question or label the finding as context-dependent. Do not call syntax or an API invalid based on an unstated target.
+   - A style-only review can proceed without release details; note assumptions only where they affect the finding.
+
+2. **Determine check type** based on user request:
    - If the user asks to lint, run abaplint, or check syntax: use **abaplint**
    - If the user asks for clean code review, best practices, or code quality: use **Clean ABAP review**
    - If unclear or the user asks for a full check: use **both**
 
-2. **For abaplint checks**:
-   - Verify `abaplint` is installed (`npx @abaplint/cli --version` or `abaplint --version`)
-   - If not installed, install with: `npm install @abaplint/cli -g`
+3. **For abaplint checks**:
+   - Look for a project-local `node_modules/.bin/abaplint` first, then an already available `abaplint` command.
+   - If neither is installed, explain that and ask before installing or changing project files. Prefer a project-local dev dependency (`npm install --save-dev @abaplint/cli`) when the user approves; install globally only when specifically requested.
    - Check if `abaplint.json` exists in the project root
-   - If no config exists, help the user create one (see starter configs in `references/abaplint.md`)
-   - Run `abaplint` in the project root directory
-   - Parse and present findings to the user
+   - If no config exists, explain the tradeoffs and offer a starter config (see `references/abaplint.md`); do not create or alter config without user approval.
+   - Run the project-local binary or already-installed command from the project root. Do not use a command that silently downloads or installs a tool.
+   - Report the configured syntax version and preserve abaplint's own severity and rule identifiers in results.
 
-3. **For Clean ABAP reviews**:
+4. **For Clean ABAP reviews**:
    - Read the ABAP code provided by the user
-   - Check against Clean ABAP categories: Names, Language, Constants, Variables, Tables, Strings, Booleans, Conditions, Ifs, Classes, Methods, Error Handling, Comments, Formatting, Testing
-   - Identify violations with specific line references
-   - Provide actionable recommendations with code examples
-   - Prioritize issues by impact (critical, major, minor)
+   - Use the Clean ABAP categories below as review lenses, not unconditional rules. Consider the target release, local conventions, readability, and tradeoffs; report a recommendation only when it materially improves this code.
+   - Tie each finding to a line, statement, or method and explain the observable impact. If line numbers are unavailable, quote a short identifying snippet.
+   - Give a minimal, actionable fix; do not rewrite unrelated code.
+   - Separate confirmed defects from context-dependent risks and style preferences.
+
+## Finding severity
+
+Use severity to communicate impact, not how strongly a style rule is worded:
+
+- **Critical** — clear risk of incorrect results, data loss, security exposure, or production failure that needs immediate attention.
+- **Major** — a confirmed defect or substantial performance, reliability, or maintainability problem that should be addressed.
+- **Minor** — a localized, low-impact improvement or style inconsistency.
+
+Do not label a preference (such as method length, naming style, or string-literal style) critical. If impact or release compatibility cannot be established, say what context is missing instead of overstating severity. Keep abaplint's reported severity separate from this manual review scale; do not silently translate one into the other.
 
 ## abaplint Quick Start
 
@@ -115,8 +133,13 @@ Structure analysis results as:
 ```
 # ABAP Check Results
 
+## Context
+- Platform/release: [provided value or not specified]
+- Language version: [provided value or not specified]
+- abaplint syntax version: [configured value or not run]
+
 ## abaplint Findings
-[abaplint output, grouped by severity]
+[Preserve each finding's abaplint severity and rule identifier]
 
 ## Clean ABAP Review
 
@@ -124,32 +147,17 @@ Structure analysis results as:
 - Total Issues: [count]
 - Critical: [count] | Major: [count] | Minor: [count]
 
-### Critical Issues
-#### [Category] - [Issue Title]
-**Location:** Line [X] / Method [name]
-**Problem:** [description]
-**Recommendation:** [how to fix]
-
-### Major Issues
-[Same format]
-
-### Minor Issues
-[Same format]
+### Findings
+For each finding, include:
+- **Severity and category:** [impact-based severity] / [Clean ABAP category]
+- **Location:** [line, statement, or method]
+- **Evidence:** [short quote or observed pattern]
+- **Impact:** [concrete consequence; state when context-dependent]
+- **Recommendation:** [minimal actionable fix]
 
 ### Positive Observations
 - [Things done well]
 ```
-
-## Clean Core Level Context
-
-Code quality findings can be mapped to SAP's clean core levels when the code is destined for or evaluated against ABAP Cloud:
-
-- **Level A** — released APIs only; Clean ABAP + abaplint clean
-- **Level B** — classic APIs; stable but requires classic ABAP language version
-- **Level C** — internal SAP objects; migrate to a successor
-- **Level D** — direct SAP table writes, `EXEC SQL`, released-for-internal-use APIs; eliminate
-
-Treat clean core findings separately from style findings: a well-formatted `SELECT` on an SAP table is still Level C. See the `abap-cloud` skill for level definitions and `atc-cloudification` for automated checks.
 
 ## References
 

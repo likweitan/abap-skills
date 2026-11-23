@@ -1,0 +1,19 @@
+{
+  "skill_name": "released-abap-classes",
+  "evals": [
+    {
+      "id": 1,
+      "name": "find-released-uuid-api",
+      "prompt": "In ABAP for Cloud Development, what released class can I use to generate a UUID, and can you show a short example?",
+      "expected_output": "Identifies CL_SYSTEM_UUID as a released option and provides a concise UUID-generation example without suggesting an unreleased API.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-wrapper-for-unreleased-api",
+      "prompt": "The class I need is not released for ABAP Cloud. Explain the wrapper approach and how that affects clean core classification; don't search for a different released class.",
+      "expected_output": "Recognizes that the primary question is the ABAP Cloud wrapper pattern and clean-core classification and routes to the abap-cloud skill instead of inventing a released status or listing unrelated classes.",
+      "files": []
+    }
+  ]
+}

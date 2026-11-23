@@ -1,0 +1,19 @@
+{
+  "skill_name": "rap-business-events",
+  "evals": [
+    {
+      "id": 1,
+      "name": "publish-rap-event-to-event-mesh",
+      "prompt": "When a RAP order is accepted, downstream systems should be notified asynchronously through Event Mesh. Show the key event definition, raising, and binding concepts.",
+      "expected_output": "Covers declaring a business event in the behavior definition, raising it from suitable RAP handler/saver logic, and binding it for enterprise event delivery; distinguishes producer setup from external subscription.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-ordinary-rap-validation",
+      "prompt": "Add a RAP validation that rejects a travel with an empty description. There is no event or external messaging requirement.",
+      "expected_output": "Recognizes an ordinary RAP validation request and routes to the rap skill rather than adding unnecessary eventing or Event Mesh concepts.",
+      "files": []
+    }
+  ]
+}

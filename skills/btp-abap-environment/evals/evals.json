@@ -1,0 +1,19 @@
+{
+  "skill_name": "btp-abap-environment",
+  "evals": [
+    {
+      "id": 1,
+      "name": "onboard-adt-to-btp-abap",
+      "prompt": "Our subaccount already has Cloud Foundry enabled and the ABAP Environment entitlement. Give a practical setup sequence for provisioning a development instance and connecting ADT.",
+      "expected_output": "Covers creating the ABAP Environment service instance and service key, then creating an ABAP Cloud Project in ADT and authenticating; does not confuse the setup with general BTP architecture design.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-btp-architecture-diagram",
+      "prompt": "Create a draw.io architecture diagram of our BTP landscape showing Integration Suite, HANA Cloud, and an external S/4HANA system with the integration flows.",
+      "expected_output": "Recognizes that the requested deliverable is a BTP architecture diagram and routes to the btp-diagram-generator skill rather than providing only ABAP Environment provisioning steps.",
+      "files": []
+    }
+  ]
+}

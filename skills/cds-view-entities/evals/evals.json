@@ -1,0 +1,19 @@
+{
+  "skill_name": "cds-view-entities",
+  "evals": [
+    {
+      "id": 1,
+      "name": "model-rap-cds-root-and-child",
+      "prompt": "Model a sales order and its line items for a RAP app using CDS view entities. I need a root, a child association, and amount/currency semantics.",
+      "expected_output": "Uses view-entity syntax, models the root-child relationship with a composition/association appropriate to RAP, and includes suitable amount and currency semantics without using legacy define view syntax.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-standalone-sql-query",
+      "prompt": "Write an ABAP SQL query with GROUP BY and a window function to calculate per-customer ranking. I don't need a CDS entity.",
+      "expected_output": "Recognizes this as an ABAP SQL request and routes to the abap-sql-amdp skill rather than designing a CDS data model.",
+      "files": []
+    }
+  ]
+}

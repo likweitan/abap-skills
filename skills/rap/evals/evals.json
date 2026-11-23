@@ -1,0 +1,19 @@
+{
+  "skill_name": "rap",
+  "evals": [
+    {
+      "id": 1,
+      "name": "design-managed-draft-rap-bo",
+      "prompt": "I'm building a new transactional travel app in ABAP Cloud. Outline a managed draft RAP BO with a validation and a service endpoint, including the main repository layers.",
+      "expected_output": "Describes the CDS data model, managed draft behavior definition and implementation, validation, projection/service definition/service binding layers, and keeps the design within released APIs for Level A.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-event-publishing-design",
+      "prompt": "When a RAP travel is accepted, I need to publish a business event to SAP Event Mesh. Focus on the event declaration, raising it, and event binding.",
+      "expected_output": "Recognizes that the core request is RAP business event publishing and routes to rap-business-events rather than treating it as ordinary RAP CRUD design.",
+      "files": []
+    }
+  ]
+}

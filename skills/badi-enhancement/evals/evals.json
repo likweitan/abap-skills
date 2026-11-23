@@ -1,0 +1,19 @@
+{
+  "skill_name": "badi-enhancement",
+  "evals": [
+    {
+      "id": 1,
+      "name": "replace-implicit-enhancement",
+      "prompt": "A legacy implementation changes SAP standard behavior through an implicit enhancement. What should we investigate as a safer replacement, and how should we classify the current technique?",
+      "expected_output": "Recommends looking for an appropriate BAdI, distinguishes released from non-released BAdIs, classifies an implicit enhancement as Level D, and avoids recommending continued use of the implicit enhancement.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-general-level-concept",
+      "prompt": "Explain the clean core Levels A through D and what each level means for upgrade stability. I am not asking about enhancement techniques.",
+      "expected_output": "Recognizes a general clean-core level question and routes to the abap-cloud skill rather than providing a narrowly enhancement-focused answer.",
+      "files": []
+    }
+  ]
+}

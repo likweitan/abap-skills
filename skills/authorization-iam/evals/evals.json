@@ -1,0 +1,19 @@
+{
+  "skill_name": "authorization-iam",
+  "evals": [
+    {
+      "id": 1,
+      "name": "select-authorization-model-from-platform",
+      "prompt": "I am building an ABAP Cloud app on SAP BTP and need to restrict access to records by business role and region. Which authorization model and code-level check should I use?",
+      "expected_output": "Uses the ABAP Cloud IAM/business-catalog/business-role model and discusses released CL_ABAP_AUTHORIZATION and/or CDS access control as appropriate, rather than defaulting to classic PFCG-only guidance.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "ask-platform-before-prescribing-auth",
+      "prompt": "How should I implement an authorization check in my ABAP application? I haven't said which SAP platform or language version it uses.",
+      "expected_output": "Identifies that the platform context affects the recommendation and asks a focused question or clearly distinguishes ABAP Cloud IAM from classic AUTHORITY-CHECK/PFCG instead of assuming one.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "skill_name": "abap-cloud",
+  "evals": [
+    {
+      "id": 1,
+      "name": "classify-extension-by-lowest-level",
+      "prompt": "My extension uses only released APIs except for one direct read from an SAP database table. What clean core level applies, and what would move it toward Level A?",
+      "expected_output": "Applies the lowest-level rule and classifies the extension as Level C due to direct SAP table read; recommends replacing it with a released API such as an appropriate released CDS view to move toward Level A.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-atc-migration-project",
+      "prompt": "Plan a multi-step migration of our legacy custom code using ATC findings, prioritizing Level D and Level C remediation and deciding whether to retire or renovate the code.",
+      "expected_output": "Recognizes that this is a code migration/remediation workflow and routes to abap-cloud-migration rather than stopping at a conceptual explanation of clean core levels.",
+      "files": []
+    }
+  ]
+}

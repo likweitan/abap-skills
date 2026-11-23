@@ -1,0 +1,19 @@
+{
+  "skill_name": "sap-fiori-url-generator",
+  "evals": [
+    {
+      "id": 1,
+      "name": "look-up-and-build-launchpad-url",
+      "prompt": "Generate a Fiori Launchpad URL for the Create Maintenance Request app. Use base URL https://sap.example.com, client 100, and German language.",
+      "expected_output": "Looks up the app in the bundled AppList.json, uses its Semantic Object - Action value, and constructs the URL with the supplied base URL, sap-client, and sap-language parameters.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "require-fiori-client-parameter",
+      "prompt": "Give me the Fiori Launchpad URL for Manage Products on https://sap.example.com. I don't know the SAP client number.",
+      "expected_output": "Looks up the app if possible but does not fabricate a completed URL; explains that sap-client is required and asks the user to provide it.",
+      "files": []
+    }
+  ]
+}

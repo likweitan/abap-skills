@@ -1,0 +1,19 @@
+{
+  "skill_name": "atc-cloudification",
+  "evals": [
+    {
+      "id": 1,
+      "name": "configure-cloudification-content-by-product",
+      "prompt": "I need to configure ATC Usage of APIs for SAP Cloud ERP Private and want the latest release content. Which Cloudification Repository JSON should I use, and what do the clean core priorities mean?",
+      "expected_output": "Selects the SAP Cloud ERP Private latest-release JSON, distinguishes it from the SAP Cloud ERP public-cloud URL, and maps priority 1/2/3 to Levels D/C/B while noting no finding corresponds to Level A.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-remediation-roadmap",
+      "prompt": "We have dozens of Level D and Level C findings. Help me choose a code transformation strategy and sequence a migration project, rather than configure ATC.",
+      "expected_output": "Recognizes that the primary request is a migration/remediation roadmap and routes to the abap-cloud-migration skill, rather than focusing only on ATC configuration.",
+      "files": []
+    }
+  ]
+}

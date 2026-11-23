@@ -1,0 +1,19 @@
+{
+  "skill_name": "abap-sql-amdp",
+  "evals": [
+    {
+      "id": 1,
+      "name": "prefer-abap-sql-for-analytics",
+      "prompt": "Write an ABAP SQL query that returns each carrier's flights ranked by price and a running total by flight date. Prefer a solution that does not require a separate database procedure.",
+      "expected_output": "Provides an ABAP SQL solution using supported window-function patterns, and explains that AMDP is unnecessary when ABAP SQL can meet the requirement.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-style-review-away-from-sql",
+      "prompt": "Can you review this ABAP method for naming, method length, and string literal style? I am not asking you to change its database query.",
+      "expected_output": "Recognizes this as a Clean ABAP/code-quality review rather than an ABAP SQL task and routes to the abap skill without inventing SQL changes.",
+      "files": []
+    }
+  ]
+}

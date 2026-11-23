@@ -1,0 +1,19 @@
+{
+  "skill_name": "abapgit",
+  "evals": [
+    {
+      "id": 1,
+      "name": "choose-abapgit-workflow-by-environment",
+      "prompt": "We have an on-premise SAP system and want to clone an existing Git repository into a development package with abapGit. Walk me through the key steps and what to verify before importing.",
+      "expected_output": "Gives an on-premise abapGit clone workflow, covers repository URL, target package and branch, and recommends reviewing incoming objects before activation.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "distinguish-gcts-from-abapgit",
+      "prompt": "Our team uses gCTS and SAP transports. Explain how that differs from abapGit; don't give me clone steps.",
+      "expected_output": "Explains the distinction between gCTS and abapGit and their place in ABAP Git workflows without treating the request as an abapGit clone task.",
+      "files": []
+    }
+  ]
+}

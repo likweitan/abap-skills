@@ -1,0 +1,19 @@
+{
+  "skill_name": "odata",
+  "evals": [
+    {
+      "id": 1,
+      "name": "expose-rap-projection-as-odata-v4",
+      "prompt": "I have a RAP business object and want to expose its projection for a new Fiori Elements app. Give me the OData V4 service-definition and service-binding steps.",
+      "expected_output": "Recommends exposing projection CDS views from a service definition, creating an OData V4 UI service binding, activating and publishing it, and using preview to verify the service.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "distinguish-external-service-consumption",
+      "prompt": "My ABAP Cloud class needs to call a partner's external OData API through a communication arrangement. Explain the consumption approach, not how to expose my RAP BO.",
+      "expected_output": "Recognizes external OData consumption, describes the ABAP Cloud HTTP/client-proxy and communication-arrangement path as appropriate, and does not give only RAP service exposure steps.",
+      "files": []
+    }
+  ]
+}

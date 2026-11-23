@@ -1,0 +1,19 @@
+{
+  "skill_name": "abap-cloud-migration",
+  "evals": [
+    {
+      "id": 1,
+      "name": "prioritize-clean-core-remediation",
+      "prompt": "Our ATC clean core run found direct writes to SAP tables, reads from SAP tables, and calls to classic APIs. Help me plan the remediation order and what to validate before transport.",
+      "expected_output": "Maps direct writes to Level D and direct reads to Level C, prioritizes Level D before Level C and Level B, suggests appropriate API replacements or wrappers, and recommends rerunning ATC and testing functionality.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-level-classification-question",
+      "prompt": "A custom extension reads one SAP table. What clean core level is it, and why?",
+      "expected_output": "Answers that direct read access is Level C and explains the classification without launching an unrelated migration plan; directs broader clean-core level concepts to the abap-cloud skill if needed.",
+      "files": []
+    }
+  ]
+}

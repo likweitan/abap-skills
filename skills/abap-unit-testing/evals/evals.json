@@ -1,0 +1,19 @@
+{
+  "skill_name": "abap-unit-testing",
+  "evals": [
+    {
+      "id": 1,
+      "name": "isolate-sql-dependent-unit-test",
+      "prompt": "I need an ABAP Unit test for a class method that reads a database table. Show how to keep the test independent of persistent system data and structure it clearly.",
+      "expected_output": "Recommends an OSQL test environment or suitable test double, describes isolated test setup and cleanup, and follows Arrange-Act-Assert.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "route-production-code-review",
+      "prompt": "Review this production ABAP method for Clean ABAP naming and readability. Don't write tests; I only want code-quality findings.",
+      "expected_output": "Recognizes that the request is a Clean ABAP review rather than test design and routes to the abap skill without adding test scaffolding.",
+      "files": []
+    }
+  ]
+}

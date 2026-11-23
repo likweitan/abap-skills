@@ -1,0 +1,19 @@
+{
+  "skill_name": "btp-diagram-generator",
+  "evals": [
+    {
+      "id": 1,
+      "name": "generate-validated-btp-drawio",
+      "prompt": "Create an L1 BTP solution diagram with a subaccount containing Integration Suite and HANA Cloud. Show an end user, an external S/4HANA system, and the main integration flows. Save a native draw.io file.",
+      "expected_output": "Uses the btp_builder quick path where feasible, creates a native .drawio artifact, validates it before saving, and makes any assumptions about flow direction explicit.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "decline-non-btp-diagram-scope",
+      "prompt": "Draw a generic UML sequence diagram for a browser login flow. It has no SAP BTP services and should stay as Mermaid.",
+      "expected_output": "Recognizes that the request is explicitly outside the BTP diagram skill's scope and does not create a BTP solution diagram or draw.io artifact.",
+      "files": []
+    }
+  ]
+}
